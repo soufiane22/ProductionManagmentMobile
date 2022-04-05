@@ -53,9 +53,13 @@ import java.util.Map;
 
 import ma.premo.productionmanagment.R;
 
+import ma.premo.productionmanagment.Utils.JsonConvert;
 import ma.premo.productionmanagment.databinding.FragmentNotificationHoursBinding;
+import ma.premo.productionmanagment.models.Line;
 import ma.premo.productionmanagment.models.NotificationHAdapter;
 import ma.premo.productionmanagment.models.Notification_Hours;
+import ma.premo.productionmanagment.models.Of;
+import ma.premo.productionmanagment.models.Produit;
 import retrofit2.Call;
 import ma.premo.productionmanagment.network.GetDataService;
 import retrofit2.Callback;
@@ -64,22 +68,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public  class  NotificationHFragment extends Fragment {
-    private DatePickerDialog datePickerDialog;
-    private Button DateButton;
-    private Button saveButton ;
+public  class  NotificationHFragment extends Fragment  implements NotificationHAdapter.ItemClickListener{
+
     private NotificationHViewModel notificationViewModel;
     private @NonNull  FragmentNotificationHoursBinding binding;
-    private Spinner lineSpinner;
-    private Spinner shiftSpinner;
-    private Spinner ofSpinner;
-    private TextView nbr_operators;
-    private TextView hTotal;
-    private TextView hExtra;
-    private TextView hDevolution;
-    private TextView hStopped;
-    private TextView hNewProject;
-    private TextView texterror , remark;
+
     private RecyclerView recyclerView;
     private RequestQueue Queue;
     private AlertDialog.Builder builder;
@@ -90,7 +83,7 @@ public  class  NotificationHFragment extends Fragment {
     private ProgressDialog pDialog;
     private  FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
-    private final String url ="http://192.168.137.131:8090/notification_heures/" ;
+    private final String url ="http://192.168.137.48:8090/notification_heures/" ;
 
 
     List<Notification_Hours> notificationsList ;
@@ -117,7 +110,6 @@ public  class  NotificationHFragment extends Fragment {
 
  */
 
-
         addNotifaicationLayout = view.findViewById(R.id.add_notification1);
         builder = new AlertDialog.Builder(getContext());
         Queue = Volley.newRequestQueue(getContext());
@@ -131,14 +123,16 @@ public  class  NotificationHFragment extends Fragment {
         addButon.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-
+               add_notification fragment = new  add_notification();
               //relativeLayout.setVisibility(View.GONE);
               //addNotifaicationLayout.setVisibility(View.VISIBLE);
-
+              Bundle bundle = new Bundle();
+              bundle.putString("mode","add");
+              fragment.setArguments(bundle);
               FragmentTransaction transaction = getFragmentManager().beginTransaction();
               transaction.setReorderingAllowed(true);
               //transaction.remove(new NotificationHFragment());
-              fragmentTransaction.replace( R.id.nav_host_fragment_content_main,new  add_notification(),null);
+              fragmentTransaction.replace( R.id.nav_host_fragment_content_main,fragment,null).addToBackStack(null);
               fragmentTransaction.commit();
             }
            });
@@ -160,41 +154,56 @@ public  class  NotificationHFragment extends Fragment {
 
     private void getAllNotifications() {
         String urlGetN = url +"getAll/";
-
+        pDialog.show();
         JsonObjectRequest jsonObjectRequest  = new JsonObjectRequest(com.android.volley.Request.Method.GET, urlGetN,
                 null, new com.android.volley.Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    Log.e("Network", "Response " + response);
+                   // Log.e("Network", "Response " + response);
                     JSONArray data = response.getJSONArray("data1");
                     notificationsList = new ArrayList<>();
                     for(int i=0 ; i< data.length() ; i++){
-                        JSONObject objet = data.getJSONObject(i);
-                        Gson g = new Gson();
-                        Notification_Hours notif = new Notification_Hours();
-                         notif = g.fromJson(String.valueOf(objet), Notification_Hours.class);
-                         notificationsList.add(notif);
+                        try {
+                            JSONObject objet = data.getJSONObject(i);
+                            Gson g = new Gson();
+                            Notification_Hours notif = new Notification_Hours();
+                            Of of = new Of();
+                            Line line = new Line();
+                            Produit product = new Produit();
+                            notif = g.fromJson(String.valueOf(objet), Notification_Hours.class);
 
-                        int h_devolution = objet.getInt("h_devolution");
-                        String chefEquipe = objet.getString("chefEquipe");
-                        String of = objet.getString("of");
-                        String id = objet.getString("id");
-                        String Sperson = String.valueOf(h_devolution)+", "+id+", "+chefEquipe+", "+of+"\n\n";
-                        //System.out.println("******NOTIFICATION*******");
-                         //System.out.println(notif.toString());
+                            JSONObject jsonObject = objet.getJSONObject("of");
+                            of = g.fromJson(String.valueOf(jsonObject), Of.class);
+                            notif.setOF(of);
+
+                            JSONObject jsonObjectLine = objet.getJSONObject("ligne");
+                            line = g.fromJson(String.valueOf(jsonObjectLine), Line.class);
+                            notif.setLine(line);
+
+                            JSONObject jsonObjectProduct = objet.getJSONObject("produit");
+                            product = g.fromJson(String.valueOf(jsonObjectProduct), Produit.class);
+                            notif.setProduit(product);
+                            notificationsList.add(notif);
+                            //System.out.println("******NOTIFICATION*******");
+                            //System.out.println(notif.toString()+"\n");
+                            pDialog.dismiss();
+                            //Toast.makeText(getContext(),"success",Toast.LENGTH_SHORT).show();
+
+                        } catch (JSONException jsonException) {
+                            jsonException.printStackTrace();
+                            pDialog.dismiss();
 
                     }
-                    setRecycleview();
-
-
-
-
+                }
+                setRecycleview();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Toast.makeText(getContext(),"server error",Toast.LENGTH_SHORT).show();
                 }
                 pDialog.dismiss();
+
 
             }
         }, new com.android.volley.Response.ErrorListener() {
@@ -205,6 +214,8 @@ public  class  NotificationHFragment extends Fragment {
                 System.out.println("*******error connection******");
                 error.printStackTrace();
                 Log.e("NetworkError", "Response " + error.networkResponse);
+                pDialog.dismiss();
+                //Toast.makeText(getContext(),"server error",Toast.LENGTH_SHORT).show();
 
 
             }
@@ -216,23 +227,26 @@ public  class  NotificationHFragment extends Fragment {
 
     private void setRecycleview() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        notificationHAdapter = new NotificationHAdapter(getContext(),notificationsList);
+        notificationHAdapter = new NotificationHAdapter(getContext(),notificationsList , this);
         recyclerView.setAdapter(notificationHAdapter);
     }
-
-
-
-
-
-
-
-
-
-
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onItemClick(Notification_Hours notif) {
+        add_notification fragment = new add_notification();
+        Bundle bundle = new Bundle();
+        String notifJsonString = JsonConvert.getGsonParser().toJson(notif);
+        bundle.putSerializable("objet",notifJsonString);
+        bundle.putString("mode","update");
+        fragment.setArguments(bundle);
+        fragmentTransaction.replace( R.id.nav_host_fragment_content_main,fragment,null).addToBackStack(null);
+        fragmentTransaction.commit();
+
     }
 }

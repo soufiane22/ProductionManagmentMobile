@@ -37,7 +37,7 @@
 
             <TextView
                 android:id="@+id/textView2"
-                android:layout_width="wrap_content"
+                android:layout_width="155dp"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
                 android:layout_weight="0"
@@ -51,7 +51,6 @@
                 android:layout_width="146dp"
                 android:layout_height="48dp"
                 android:layout_gravity="fill_vertical"
-                android:layout_marginStart="130dp"
                 android:layout_weight="0"
                 android:text="@string/_15_13_21"
                 android:textColor="@color/black"
@@ -59,7 +58,7 @@
 
             <View
                 android:id="@+id/divider"
-                android:layout_width="75dp"
+                android:layout_width="85dp"
                 android:layout_height="42dp"
                 android:layout_weight="0" />
 
@@ -91,36 +90,34 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="OF"
-                android:textColor="@color/black"
-                android:textSize="16dp" />
-
-            <Spinner
-                android:id="@+id/OFSpinner"
-                android:layout_width="146dp"
-                android:layout_height="43dp"
-                android:layout_marginStart="145dp" />
-
-            <View
-                android:id="@+id/divider1"
-                android:layout_width="70dp"
-                android:layout_height="42dp"
-                android:layout_weight="0" />
-
-            <TextView
                 android:id="@+id/textView3"
-                android:layout_width="150dp"
+                android:layout_width="155dp"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp"
                 android:text="Line"
                 android:textColor="@color/black"
                 android:textSize="16dp" />
 
             <Spinner
                 android:id="@+id/Linespinner"
+                android:layout_width="149dp"
+                android:layout_height="39dp" />
+
+            <View
+                android:id="@+id/divider1"
+                android:layout_width="85dp"
+                android:layout_height="42dp"
+                android:layout_weight="0" />
+
+            <TextView
+                android:id="@+id/textViewProduct"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Product"
+                android:textColor="@color/black"
+                android:textSize="16dp" />
+
+            <Spinner
+                android:id="@+id/Productspinner"
                 android:layout_width="149dp"
                 android:layout_height="39dp" />
 
@@ -131,6 +128,25 @@
             android:layout_height="80dp"
             android:layout_marginStart="10dp"
             android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="155dp"
+                android:layout_height="wrap_content"
+                android:text="OF"
+                android:textColor="@color/black"
+                android:textSize="16dp" />
+
+            <Spinner
+                android:id="@+id/OFSpinner"
+                android:layout_width="146dp"
+                android:layout_height="43dp" />
+
+            <View
+                android:id="@+id/divider5"
+                android:layout_width="85dp"
+                android:layout_height="42dp"
+                android:layout_weight="0" />
 
             <TextView
                 android:id="@+id/textView7"
@@ -146,28 +162,51 @@
                 android:layout_height="43dp"
                 android:ems="10"
                 android:inputType="number" />
+        </LinearLayout>
 
-            <View
-                android:id="@+id/divider2"
-                android:layout_width="72dp"
-                android:layout_height="42dp"
-                android:layout_weight="0" />
+        <LinearLayout
+            android:layout_width="730dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="10dp"
+            android:orientation="horizontal">
+
 
             <TextView
                 android:id="@+id/textView9"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-
                 android:text="Total hours"
                 android:textColor="@color/black"
                 android:textSize="16dp" />
 
             <EditText
                 android:id="@+id/hTotal"
-                android:layout_width="144dp"
+                android:layout_width="150dp"
                 android:layout_height="43dp"
                 android:ems="10"
                 android:inputType="number" />
+
+            <View
+                android:id="@+id/dividerT"
+                android:layout_width="85dp"
+                android:layout_height="42dp"
+                android:layout_weight="0" />
+
+            <TextView
+                android:id="@+id/textViewHN"
+                android:layout_width="165dp"
+                android:layout_height="39dp"
+                android:text="Normal hours"
+                android:textColor="@color/black"
+                android:textSize="16dp" />
+
+            <EditText
+                android:id="@+id/hNormal"
+                android:layout_width="150dp"
+                android:layout_height="43dp"
+                android:ems="10"
+                android:inputType="number"
+                android:textStyle="normal" />
 
 
         </LinearLayout>
@@ -180,48 +219,24 @@
 
             <TextView
                 android:id="@+id/textView10"
-                android:layout_width="165dp"
+                android:layout_width="155dp"
                 android:layout_height="wrap_content"
-                android:text="Overtime"
+                android:text="Extra hours"
                 android:textColor="@color/black"
                 android:textSize="16dp" />
 
             <EditText
                 android:id="@+id/hExtra"
-                android:layout_width="144dp"
+                android:layout_width="145dp"
                 android:layout_height="43dp"
                 android:ems="10"
                 android:inputType="number" />
 
             <View
                 android:id="@+id/divider3"
-                android:layout_width="72dp"
+                android:layout_width="85dp"
                 android:layout_height="42dp"
                 android:layout_weight="0" />
-
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:text="Devolutional hours"
-                android:textColor="@color/black"
-                android:textSize="16dp" />
-
-            <EditText
-                android:id="@+id/hDevolution"
-                android:layout_width="144dp"
-                android:layout_height="43dp"
-                android:ems="10"
-                android:inputType="number" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="730dp"
-            android:layout_height="80dp"
-            android:layout_marginStart="10dp"
-            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/textView12"
@@ -235,19 +250,43 @@
                 android:id="@+id/hStopped"
                 android:layout_width="144dp"
                 android:layout_height="43dp"
-                android:layout_marginStart="8dp"
+                android:inputType="number" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="730dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="10dp"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="155dp"
+                android:layout_height="wrap_content"
+                android:text="Devolutional hours"
+                android:textColor="@color/black"
+                android:textSize="16dp" />
+
+            <EditText
+                android:id="@+id/hDevolution"
+                android:layout_width="144dp"
+                android:layout_height="43dp"
+                android:ems="10"
                 android:inputType="number" />
 
 
             <View
                 android:id="@+id/divider4"
-                android:layout_width="65dp"
+                android:layout_width="85dp"
                 android:layout_height="42dp"
                 android:layout_weight="0" />
 
             <TextView
                 android:id="@+id/textView13"
-                android:layout_width="150dp"
+                android:layout_width="165dp"
                 android:layout_height="wrap_content"
                 android:text="New Project"
                 android:textColor="@color/black"
@@ -281,7 +320,7 @@
                 android:id="@+id/Remark"
                 android:layout_width="500dp"
                 android:layout_height="49dp"
-                android:hint="Remarque" />
+                android:hint="Remark" />
 
         </LinearLayout>
 

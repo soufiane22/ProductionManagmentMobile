@@ -31,7 +31,7 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#f1f1f1">
+                android:background="#fb0303">
 
                 <TextView
                     android:id="@+id/Date"
@@ -40,7 +40,8 @@
                     android:gravity="center"
                     android:text="Dtae"
                     android:textSize="15dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"/>
 
                 <TextView
                     android:id="@+id/Shift"
@@ -49,16 +50,18 @@
                     android:gravity="center"
                     android:text="Shift"
                     android:textSize="15dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"/>
 
                 <TextView
                     android:id="@+id/Line"
                     android:layout_column="1"
-                    android:layout_weight="0"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:text="Line"
                     android:textSize="15dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"/>
 
                 <TextView
                     android:id="@+id/Of"
@@ -67,62 +70,38 @@
                     android:gravity="center"
                     android:text="OF"
                     android:textSize="15dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/NbrOperator"
-
-                    android:layout_column="1"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="Nbr Operators"
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"/>
 
                 <TextView
                     android:id="@+id/Htotal"
                     android:layout_column="1"
-                    android:layout_weight="0"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:text="Total hours"
                     android:textSize="15dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"/>
 
                 <TextView
                     android:id="@+id/Hextrat"
                     android:layout_column="1"
-                    android:layout_weight="0"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:text="Overtime"
                     android:textSize="15dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/Hdevolution"
-                    android:layout_column="1"
-                    android:layout_weight="0"
-                    android:gravity="center"
-                    android:text="Devolution hours"
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"/>
 
                 <TextView
                     android:id="@+id/Hstopped"
                     android:layout_column="1"
-                    android:layout_weight="0"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:text="Stopped hours"
                     android:textSize="15dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/HnewProject"
-                    android:layout_column="1"
-                    android:layout_weight="0"
-                    android:gravity="center"
-                    android:text="New project"
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"/>
 
             </TableRow>
 

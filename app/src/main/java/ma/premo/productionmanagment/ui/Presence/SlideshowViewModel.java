@@ -1,4 +1,4 @@
-package ma.premo.productionmanagment.ui.slideshow;
+package ma.premo.productionmanagment.ui.Presence;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;

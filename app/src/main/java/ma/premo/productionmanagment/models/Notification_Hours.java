@@ -11,10 +11,14 @@ public class Notification_Hours {
     private String id;
     @SerializedName("of")
     @Expose
-    private String OF;
+    private Of OF;
     @SerializedName("ligne")
     @Expose
-    private String ligne;
+    private Line ligne;
+    @SerializedName("produit")
+    @Expose
+    private Produit produit;
+
     @SerializedName("chefEquipe")
     @Expose
     private String chefEquipe;
@@ -51,6 +55,18 @@ public class Notification_Hours {
     @Expose
     private int h_arrete;
 
+    @SerializedName("h_normal")
+    @Expose
+    private int h_normal;
+
+    public int getH_normal() {
+        return h_normal;
+    }
+
+    public void setH_normal(int h_normal) {
+        this.h_normal = h_normal;
+    }
+
     public String getId() {
         return id;
     }
@@ -59,11 +75,11 @@ public class Notification_Hours {
         this.id = id;
     }
 
-    public void setOF(String OF) {
+    public void setOF(Of OF) {
         this.OF = OF;
     }
 
-    public void setLigne(String ligne) {
+    public void setLine(Line line) {
         this.ligne = ligne;
     }
 
@@ -103,11 +119,11 @@ public class Notification_Hours {
         this.h_arrete = h_arrete;
     }
 
-    public String getOF() {
+    public Of getOF() {
         return OF;
     }
 
-    public String getLigne() {
+    public Line getLigne() {
         return ligne;
     }
 
@@ -146,32 +162,48 @@ public class Notification_Hours {
         return h_arrete;
     }
 
+    public Produit getProduit() {
+        return produit;
+    }
 
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setProduit(Produit produit) {
+        this.produit = produit;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
     @Override
     public String toString() {
         return "Notification_Hours{" +
                 "id='" + id + '\'' +
-                ", OF='" + OF + '\'' +
-                ", ligne='" + ligne + '\'' +
+                ", OF=" + OF +
+                ", ligne=" + ligne +
+                ", produit=" + produit +
                 ", chefEquipe='" + chefEquipe + '\'' +
                 ", shift='" + shift + '\'' +
-                ", date=" + date +
+                ", date='" + date + '\'' +
+                ", remark='" + remark + '\'' +
                 ", nbr_operateurs=" + nbr_operateurs +
                 ", total_h=" + total_h +
                 ", h_sup=" + h_sup +
                 ", h_devolution=" + h_devolution +
                 ", h_nouvau_projet=" + h_nouvau_projet +
                 ", h_arrete=" + h_arrete +
+                ", h_normal=" + h_normal +
                 '}';
     }
 
-
-
-    public Notification_Hours(String OF, String ligne, String chefEquipe, String shift, String date, int nbr_operateurs, int total_h, int h_sup,
-                              int h_devolution, int h_nouvau_projet, int h_arrete) {
+    public Notification_Hours(Of OF, Line ligne, Produit p, String chefEquipe, String shift, String date, int nbr_operateurs, int total_h, int h_sup,
+                              int h_devolution, int h_nouvau_projet, int h_arrete , int hNormal) {
         this.OF = OF;
         this.ligne = ligne;
+        this.produit= p;
         this.chefEquipe = chefEquipe;
         this.shift = shift;
         this.date = date;
@@ -181,6 +213,7 @@ public class Notification_Hours {
         this.h_devolution = h_devolution;
         this.h_nouvau_projet = h_nouvau_projet;
         this.h_arrete = h_arrete;
+        this.h_normal = hNormal;
     }
     public  Notification_Hours(){};
 

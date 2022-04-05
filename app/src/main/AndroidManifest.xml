@@ -12,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProductionManagment"
         android:usesCleartextTraffic="true">
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/border_set" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

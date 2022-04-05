@@ -3,20 +3,30 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/dell/AndroidStudioProjects/ProductionManagment/app/src/main/res/drawable-v21/ic_menu_camera.xml" value="0.25703125" />
+        <entry key="..\:/Users/dell/AndroidStudioProjects/ProductionManagment/app/src/main/res/drawable-v21/ic_menu_gallery.xml" value="0.1390625" />
+        <entry key="..\:/Users/dell/AndroidStudioProjects/ProductionManagment/app/src/main/res/drawable-v21/ic_menu_slideshow.xml" value="0.1390625" />
+        <entry key="..\:/Users/dell/AndroidStudioProjects/ProductionManagment/app/src/main/res/drawable/side_nav_bar.xml" value="0.25703125" />
         <entry key="..\:/Users/dell/AndroidStudioProjects/ProductionManagment/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/dell/AndroidStudioProjects/ProductionManagment/app/src/main/res/layout/add_notification.xml" value="0.5" />
         <entry key="..\:/Users/dell/AndroidStudioProjects/ProductionManagment/app/src/main/res/layout/add_notification1.xml" value="0.36363636363636365" />
+        <entry key="..\:/Users/dell/AndroidStudioProjects/ProductionManagment/app/src/main/res/layout/add_presence_fragment.xml" value="0.220873786407767" />
         <entry key="..\:/Users/dell/AndroidStudioProjects/ProductionManagment/app/src/main/res/layout/app_bar_main.xml" value="0.1" />
         <entry key="..\:/Users/dell/AndroidStudioProjects/ProductionManagment/app/src/main/res/layout/conent_notification.xml" value="0.4568764568764569" />
         <entry key="..\:/Users/dell/AndroidStudioProjects/ProductionManagment/app/src/main/res/layout/content_main.xml" value="0.20075757575757575" />
+        <entry key="..\:/Users/dell/AndroidStudioProjects/ProductionManagment/app/src/main/res/layout/fragment_add_presence.xml" value="0.16808252427184467" />
         <entry key="..\:/Users/dell/AndroidStudioProjects/ProductionManagment/app/src/main/res/layout/fragment_gallery.xml" value="0.33" />
         <entry key="..\:/Users/dell/AndroidStudioProjects/ProductionManagment/app/src/main/res/layout/fragment_home.xml" value="0.2" />
-        <entry key="..\:/Users/dell/AndroidStudioProjects/ProductionManagment/app/src/main/res/layout/fragment_notification_hours.xml" value="0.3825" />
+        <entry key="..\:/Users/dell/AndroidStudioProjects/ProductionManagment/app/src/main/res/layout/fragment_notification_hours.xml" value="0.5608011444921316" />
+        <entry key="..\:/Users/dell/AndroidStudioProjects/ProductionManagment/app/src/main/res/layout/fragment_presence.xml" value="0.25" />
         <entry key="..\:/Users/dell/AndroidStudioProjects/ProductionManagment/app/src/main/res/layout/fragment_slideshow.xml" value="1.0" />
         <entry key="..\:/Users/dell/AndroidStudioProjects/ProductionManagment/app/src/main/res/layout/list_item_notification.xml" value="0.5" />
         <entry key="..\:/Users/dell/AndroidStudioProjects/ProductionManagment/app/src/main/res/layout/nav_header_main.xml" value="0.75" />
+        <entry key="..\:/Users/dell/AndroidStudioProjects/ProductionManagment/app/src/main/res/layout2/Presence/layout/fragment_add_presence.xml" value="0.2657766990291262" />
+        <entry key="..\:/Users/dell/AndroidStudioProjects/ProductionManagment/app/src/main/res/layout2/Presence/xml/add_presence_fragment.xml" value="0.220873786407767" />
         <entry key="..\:/Users/dell/AndroidStudioProjects/ProductionManagment/app/src/main/res/menu/activity_main_drawer.xml" value="0.67" />
         <entry key="..\:/Users/dell/AndroidStudioProjects/ProductionManagment/app/src/main/res/menu/main.xml" value="0.30625" />
+        <entry key="..\:/Users/dell/AndroidStudioProjects/ProductionManagment/app/src/main/res/xml/border_set.xml" value="0.24757281553398058" />
       </map>
     </option>
   </component>
