@@ -2,14 +2,9 @@ package ma.premo.productionmanagment.models;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +13,6 @@ import android.widget.TextView;
 import java.util.List;
 
 import ma.premo.productionmanagment.R;
-import ma.premo.productionmanagment.ui.Notification_Hours.add_notification;
 
 public class NotificationHAdapter extends RecyclerView.Adapter<NotificationHAdapter.ViewHolder>   implements  View.OnClickListener{
 
@@ -32,7 +26,6 @@ public class NotificationHAdapter extends RecyclerView.Adapter<NotificationHAdap
         this.context = context;
         this.notificationList = list;
         this.clickListener = clickListener;
-
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

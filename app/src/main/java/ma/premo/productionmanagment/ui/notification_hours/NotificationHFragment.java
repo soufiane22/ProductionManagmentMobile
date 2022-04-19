@@ -1,9 +1,7 @@
-package ma.premo.productionmanagment.ui.Notification_Hours;
+package ma.premo.productionmanagment.ui.notification_hours;
 
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -13,14 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -29,8 +21,6 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.widget.Toast;
 
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -41,18 +31,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import ma.premo.productionmanagment.R;
 
+import ma.premo.productionmanagment.Utils.API;
 import ma.premo.productionmanagment.Utils.JsonConvert;
 import ma.premo.productionmanagment.databinding.FragmentNotificationHoursBinding;
 import ma.premo.productionmanagment.models.Line;
@@ -60,18 +44,12 @@ import ma.premo.productionmanagment.models.NotificationHAdapter;
 import ma.premo.productionmanagment.models.Notification_Hours;
 import ma.premo.productionmanagment.models.Of;
 import ma.premo.productionmanagment.models.Produit;
-import retrofit2.Call;
-import ma.premo.productionmanagment.network.GetDataService;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public  class  NotificationHFragment extends Fragment  implements NotificationHAdapter.ItemClickListener{
 
     private NotificationHViewModel notificationViewModel;
-    private @NonNull  FragmentNotificationHoursBinding binding;
+    private FragmentNotificationHoursBinding binding;
 
     private RecyclerView recyclerView;
     private RequestQueue Queue;
@@ -79,11 +57,10 @@ public  class  NotificationHFragment extends Fragment  implements NotificationHA
     private NotificationHAdapter notificationHAdapter;
     private Button addButon;
     private RelativeLayout relativeLayout;
-    private RelativeLayout addNotifaicationLayout;
     private ProgressDialog pDialog;
     private  FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
-    private final String url ="http://192.168.137.48:8090/notification_heures/" ;
+    private final String url = API.urlBackend+"notification_heures/" ;
 
 
     List<Notification_Hours> notificationsList ;
@@ -96,6 +73,7 @@ public  class  NotificationHFragment extends Fragment  implements NotificationHA
         binding = FragmentNotificationHoursBinding.inflate(inflater, container, false);
         View view =  inflater.inflate(R.layout.fragment_notification_hours, container, false);
         View root = binding.getRoot();
+
 
 /*
         binding.AddButton.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +88,6 @@ public  class  NotificationHFragment extends Fragment  implements NotificationHA
 
  */
 
-        addNotifaicationLayout = view.findViewById(R.id.add_notification1);
         builder = new AlertDialog.Builder(getContext());
         Queue = Volley.newRequestQueue(getContext());
         relativeLayout = view.findViewById(R.id.fragment_notification);
@@ -171,6 +148,7 @@ public  class  NotificationHFragment extends Fragment  implements NotificationHA
                             Of of = new Of();
                             Line line = new Line();
                             Produit product = new Produit();
+
                             notif = g.fromJson(String.valueOf(objet), Notification_Hours.class);
 
                             JSONObject jsonObject = objet.getJSONObject("of");
@@ -215,7 +193,8 @@ public  class  NotificationHFragment extends Fragment  implements NotificationHA
                 error.printStackTrace();
                 Log.e("NetworkError", "Response " + error.networkResponse);
                 pDialog.dismiss();
-                //Toast.makeText(getContext(),"server error",Toast.LENGTH_SHORT).show();
+                //TODO
+                Toast.makeText(getContext(),"server error",Toast.LENGTH_SHORT).show();
 
 
             }

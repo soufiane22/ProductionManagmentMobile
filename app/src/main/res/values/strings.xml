@@ -23,6 +23,17 @@
         <item>Morning</item>
         <item>Evening</item>
     </string-array>
+
+    <string-array name="state">
+        <item>Present</item>
+        <item>Retard</item>
+        <item>Absent</item>
+        <item>Furlough</item><!-- congé-->
+        <item>Sick</item><!-- malade-->
+        <item>Transfer</item>
+        <item> other</item>
+    </string-array>
+
     <string-array name="OF">
         <item>OF 1</item>
         <item>OF 2</item>

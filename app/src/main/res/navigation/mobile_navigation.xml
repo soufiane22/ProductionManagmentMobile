@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/notification_fragment"
-        android:name="ma.premo.productionmanagment.ui.Notification_Hours.NotificationHFragment"
+        android:name="ma.premo.productionmanagment.ui.notification_hours.NotificationHFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_notification_hours" >
         <action
@@ -23,12 +23,12 @@
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="ma.premo.productionmanagment.ui.Presence.PresenceFragment"
+        android:name="ma.premo.productionmanagment.ui.presenceFolder.PresenceFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_presence" />
     <fragment
         android:id="@+id/add_notification"
-        android:name="ma.premo.productionmanagment.ui.Notification_Hours.add_notification"
+        android:name="ma.premo.productionmanagment.ui.notification_hours.add_notification"
         android:label="add_notification1"
         tools:layout="@layout/add_notification1" />
 

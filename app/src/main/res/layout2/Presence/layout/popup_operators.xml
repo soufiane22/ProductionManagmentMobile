@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!--
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:text="Add Operator"
+                android:textColor="@color/black"
+                android:textSize="20sp">
+            </TextView>
+
+        </LinearLayout>
+        -->
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <SearchView
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:layout_margin="5dp"
+                android:queryHint="Search"
+                android:layout_gravity="center_horizontal"/>
+        </LinearLayout>
+
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalView"
+        android:layout_height="600dp"
+        android:scrollbars="horizontal"
+        android:layout_width="match_parent"
+        android:fillViewport="true"
+        android:layout_marginTop="5dp">
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:layout_marginTop="3dp"
+             android:orientation="vertical"
+             >
+
+             <android.support.v7.widget.RecyclerView
+            android:id="@+id/userRecyclerView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+                 android:padding="5dp"
+                 android:background="@color/gray"
+                 />
+                 </LinearLayout>
+
+
+</HorizontalScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
+            <Button
+                style="@style/styleButton"
+                android:id="@+id/CancelButton"
+                android:background="@color/orange"
+                android:text="Cancel"
+                android:layout_marginLeft="10dp"
+                />
+            <Button
+                style="@style/styleButton"
+                android:id="@+id/AddUserButton"
+                android:layout_gravity="right"
+                android:text="Add"
+                android:layout_marginLeft="490dp"
+                />
+            ></LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+
+</RelativeLayout>

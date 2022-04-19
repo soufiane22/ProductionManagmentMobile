@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.Notification_Hours.add_notification"
+    tools:context=".ui.notification_hours.add_notification"
     android:id="@+id/add_notification1"
  >
 

@@ -61,54 +61,7 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    private void jsonparse() {
-        String url = "http://192.168.137.145:8090/notification_heures/getAll";
 
-        JsonObjectRequest jsonObjectRequest  = new JsonObjectRequest(com.android.volley.Request.Method.GET, url,
-                null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    Log.e("Network", "Response " + response);
-                    JSONArray data = response.getJSONArray("data1");
-                    System.out.println("*******connection******");
-
-                    text.setText(String.valueOf(data));
-
-                    for(int i=0 ; i< data.length() ; i++){
-                        JSONObject person = data.getJSONObject(i);
-                        int h_devolution = person.getInt("h_devolution");
-                        String chefEquipe = person.getString("chefEquipe");
-                        String of = person.getString("of");
-                        String id = person.getString("id");
-                        String Sperson = String.valueOf(h_devolution)+", "+id+", "+chefEquipe+", "+of+"\n\n";
-                        System.out.println(Sperson);
-                        text.append(Sperson);
-
-                    }
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println("*******error connection******");
-                error.printStackTrace();
-                Log.e("NetworkError", "Response " + error.networkResponse);
-
-
-            }
-        });
-
-        Queue.add(jsonObjectRequest);
-
-    }
 
     @Override
     public void onDestroyView() {

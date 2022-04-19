@@ -1,12 +1,10 @@
-package ma.premo.productionmanagment.ui.Notification_Hours;
+package ma.premo.productionmanagment.ui.notification_hours;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
@@ -43,8 +41,8 @@ import java.util.List;
 import java.util.Map;
 
 import ma.premo.productionmanagment.R;
+import ma.premo.productionmanagment.Utils.API;
 import ma.premo.productionmanagment.Utils.JsonConvert;
-import ma.premo.productionmanagment.databinding.FragmentNotificationHoursBinding;
 import ma.premo.productionmanagment.models.Line;
 import ma.premo.productionmanagment.models.NotificationHAdapter;
 import ma.premo.productionmanagment.models.Notification_Hours;
@@ -77,7 +75,7 @@ public class add_notification extends Fragment {
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
     private Map<String, String> mParams;
-    private final String url ="http://192.168.137.48:8090/" ;
+    private final String url = API.urlBackend;
 
     private List<Notification_Hours> notificationsList ;
     private ArrayList OfListSpinner;
@@ -353,6 +351,7 @@ public class add_notification extends Fragment {
                     setSpinner( lineListSpinner, lineSpinner );
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    pDialog.dismiss();
                 }
             }
         }, new Response.ErrorListener() {
@@ -361,6 +360,7 @@ public class add_notification extends Fragment {
                 System.out.println("*******error connection******");
                 error.printStackTrace();
                 Log.e("NetworkError", "Response " + error.networkResponse);
+                pDialog.dismiss();
 
             }
         }
@@ -453,7 +453,6 @@ public class add_notification extends Fragment {
     }
 
     public void save_notification(){
-        System.out.println("*********saving notification***********");
         pDialog.show();
         String urlSaveN = url+"notification_heures/save/"+lineSelected.getId()+"/"+produiSelected.getId()+"/"+ofSelected.getId();
         Notification_Hours notif = new Notification_Hours();

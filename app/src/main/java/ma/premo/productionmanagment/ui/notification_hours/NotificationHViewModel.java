@@ -1,10 +1,8 @@
-package ma.premo.productionmanagment.ui.Notification_Hours;
+package ma.premo.productionmanagment.ui.notification_hours;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
-
-import ma.premo.productionmanagment.R;
 
 public class NotificationHViewModel extends ViewModel {
 
