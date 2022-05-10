@@ -22,6 +22,9 @@ public class Presence {
     @SerializedName("chefEquipe")
     private String chefEquipe;
 
+    @SerializedName("groupe")
+    private String groupe;
+
     @SerializedName("operateur")
     private User operateur;
 
@@ -114,6 +117,14 @@ public class Presence {
         return ingenieur;
     }
 
+    public void setGroupe(String groupe) {
+        this.groupe = groupe;
+    }
+
+    public String getGroupe() {
+        return groupe;
+    }
+
     @Override
     public String toString() {
         return "Presence{" +
@@ -122,10 +133,11 @@ public class Presence {
                 ", shift='" + shift + '\'' +
                 ", etat='" + etat + '\'' +
                 ", nbrHeurs=" + nbrHeurs +
-                ", line=" + line +
-                ", chefEquipe=" + chefEquipe +
+                ", line='" + line + '\'' +
+                ", chefEquipe='" + chefEquipe + '\'' +
+                ", groupe='" + groupe + '\'' +
                 ", operateur=" + operateur.toString() +
-                ", ingenieur=" + ingenieur +
+                ", ingenieur='" + ingenieur.toString() + '\'' +
                 '}';
     }
 }

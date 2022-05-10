@@ -8,6 +8,8 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.AlertDialogLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
@@ -38,9 +41,12 @@ import org.json.simple.parser.ParseException;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
+import ma.premo.productionmanagment.MainActivity;
 import ma.premo.productionmanagment.R;
 import ma.premo.productionmanagment.Utils.API;
 import ma.premo.productionmanagment.Utils.JsonConvert;
@@ -60,32 +66,39 @@ private ProgressDialog pDialog;
 private List<User> listUsers = new ArrayList<>();
 private PresenceAdapter adapter;
 private UserAdapter userAdapter;
-private String nameLader;
 private DatePickerDialog datePickerDialog;
 private Groupe groupe = new Groupe();
 private RequestQueue Queue;
 private AlertDialog.Builder dialogBuilder;
 private AlertDialog dialog;
-private List<User> allUsers = new ArrayList<>();
 private SearchView searchView;
 private List<User> allUsersList = new ArrayList<>();
 private List<User> listLeaders = new ArrayList<>();
 private  RecyclerView allUserRecyclerView;
 private ArrayList<String> listLineSpinner = new ArrayList<>();
+private String idLeader ;
+private FragmentManager fragmentManager;
+private FragmentTransaction fragmentTransaction;
+private  String access_token ;
+public User leader;
 
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        addPresenceViewModel = new ViewModelProvider(this,new ViewModelProvider.AndroidViewModelFactory(getActivity().getApplication())).get(AddPresenceViewModel.class);;
+        addPresenceViewModel = new ViewModelProvider(this,new ViewModelProvider.AndroidViewModelFactory(getActivity().getApplication())).get(AddPresenceViewModel.class);
         binding = FragmentAddPresenceBinding.inflate(inflater, container, false);
         binding.setViewModel(addPresenceViewModel);
         binding.setLifecycleOwner(this);
+
+        access_token =  ((MainActivity)getActivity()).access_token;
+        leader =  ((MainActivity)getActivity()).user;
         pDialog = new ProgressDialog(getContext());
         pDialog.setMessage("Loading...PLease wait");
         Queue = Volley.newRequestQueue(getContext());
         initDatePicker();
-
+        fragmentManager = getFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
 
         binding.Datebutton.setText(getTodayDates());
         binding.Datebutton.setOnClickListener(new View.OnClickListener() {
@@ -101,14 +114,16 @@ private ArrayList<String> listLineSpinner = new ArrayList<>();
 
 
         userRecyclerView= view.findViewById(R.id.userRecyclerView);
-       // addPresenceViewModel.getLeaders();
+        String function = "Chef%20Equipe";
+       addPresenceViewModel.getUsersByFunction(access_token , function);
+       addPresenceViewModel.getAllUsers(access_token);
 
         userRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         addPresenceViewModel.groupeMutableLiveData.observe(this, new Observer<Groupe>() {
             @Override
             public void onChanged(@Nullable Groupe groupeM) {
              if(groupeM == null){
-                 Toast.makeText(getContext(), "Server error", Toast.LENGTH_SHORT).show();
+                 Toast.makeText(getContext(), "No data available", Toast.LENGTH_SHORT).show();
                  pDialog.dismiss();
              }else{
                  groupe = groupeM;
@@ -126,7 +141,7 @@ private ArrayList<String> listLineSpinner = new ArrayList<>();
 
             }
         });
-        addPresenceViewModel.leadersMutableLiveData.observe(this, new Observer<List<User>>() {
+        addPresenceViewModel.usersMutableLiveData.observe(this, new Observer<List<User>>() {
             @Override
             public void onChanged(@Nullable List<User> users) {
                 listLeaders = users;
@@ -138,8 +153,9 @@ private ArrayList<String> listLineSpinner = new ArrayList<>();
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 User user = (User) parent.getSelectedItem();
-                System.out.println("user selected "+user.getId());
-                addPresenceViewModel.getGroup(user.getId());
+               // System.out.println("user selected "+user.getId());
+                idLeader = user.getId();
+                addPresenceViewModel.getGroup(user.getId(), access_token);
             }
 
             @Override
@@ -150,13 +166,22 @@ private ArrayList<String> listLineSpinner = new ArrayList<>();
 
 
 
-        userRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+      //  userRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         binding.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
                     savePresence();
+                    PresenceFragment presenceFragment = new PresenceFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("mode","add");
+
+                    presenceFragment.setArguments(bundle);
+                    //fragmentTransaction.setReorderingAllowed(true);
+                    fragmentTransaction.replace( R.id.nav_host_fragment_content_main,presenceFragment,null).addToBackStack(null);
+                    fragmentTransaction.commit();
+
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -168,8 +193,11 @@ private ArrayList<String> listLineSpinner = new ArrayList<>();
             @Override
             public void onClick(View v) {
                 createNewDialog(inflater , container);
+
             }
         });
+
+
         refresh();
 
 
@@ -189,16 +217,20 @@ private ArrayList<String> listLineSpinner = new ArrayList<>();
 
     public void setLeaderSpinner(){
 
-        ArrayList<String> listLeadersNams = new ArrayList<>();
-
-      //System.out.println("2-----list leaders"+listLeaders.toString());
-
-        for(User user : listLeaders){
-          String fullname = user.getNom()+" "+user.getPrenom();
-          listLeadersNams.add(fullname);
-        }
         ArrayAdapter adapterLeaders = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_dropdown_item, listLeaders);
         binding.LeaderSpinner.setAdapter(adapterLeaders);
+
+        for(int i = 0; i < binding.LeaderSpinner.getCount(); i++)
+        {
+
+            if (leader.toString().equals(binding.LeaderSpinner.getItemAtPosition(i).toString()) )
+            {
+                System.out.println("leader found");
+                binding.LeaderSpinner.setSelection(i); //(false is optional)
+                break;
+            }
+        }
+
 
     }
 
@@ -254,13 +286,13 @@ private ArrayList<String> listLineSpinner = new ArrayList<>();
            presence.setEtat(state);
            presence.setOperateur(user);
            presence.setDate(binding.Datebutton.getText().toString());
-           presence.setChefEquipe(getLeader());
+           presence.setChefEquipe(idLeader);
+           presence.setGroupe(groupe.getDesignation());
            presence.setIngenieur(groupe.getIngenieur().getNom().toString());
            Spinner lineSpiner = view.findViewById(R.id.lineSpinner);
            presence.setLine(lineSpiner.getSelectedItem().toString());
            Spinner shiftSpinner = view.findViewById(R.id.shifSpinner);
            presence.setShift(shiftSpinner.getSelectedItem().toString());
-           Log.d("presence",presence.toString());
            String presenceStringJson = JsonConvert.getGsonParser().toJson(presence);
 
            try {
@@ -290,7 +322,15 @@ private ArrayList<String> listLineSpinner = new ArrayList<>();
                Toast.makeText(getContext(),"error",Toast.LENGTH_LONG).show();
                Log.e("error",error.toString());
 
-       });
+       }){
+           @Override
+           public Map<String, String> getHeaders() throws AuthFailureError {
+               Map<String, String> params = new HashMap<String, String>();
+               params.put("Authorization", access_token);
+               //params.put("Accept-Language", "fr");
+               return params;
+           };
+       };
 
        Queue.add(jsonArrayRequest);
 

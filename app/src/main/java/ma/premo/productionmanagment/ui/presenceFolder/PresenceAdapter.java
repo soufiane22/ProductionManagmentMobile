@@ -50,7 +50,6 @@ public class PresenceAdapter extends RecyclerView.Adapter<PresenceAdapter.ViewHo
           View view = LayoutInflater.from(context).inflate(R.layout.presence_item,viewGroup,false);
           return new ViewHolder(view,viewType);
 
-
     }
 
 
@@ -63,7 +62,6 @@ public class PresenceAdapter extends RecyclerView.Adapter<PresenceAdapter.ViewHo
         Spinner stateSpinner , lineSpinner , shiftSpinner;
         public ViewHolder(@NonNull View itemView, int view_type) {
             super(itemView);
-
                 matricule = itemView.findViewById(R.id.Matricule);
                 nom = itemView.findViewById(R.id.Nom);
                 prenom = itemView.findViewById(R.id.Prenom);

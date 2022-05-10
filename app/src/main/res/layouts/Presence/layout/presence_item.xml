@@ -17,7 +17,7 @@
                 <TextView
                     style="@style/table_row_item"
                     android:id="@+id/Matricule"
-                    android:layout_width="54dp"
+                    android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:layout_column="0"
                     android:text="matricule"
@@ -36,7 +36,7 @@
                 <TextView
                     style="@style/table_row_item"
                     android:id="@+id/Prenom"
-                    android:layout_width="70dp"
+                    android:layout_width="74dp"
                     android:layout_height="wrap_content"
                     android:layout_column="2"
                     android:text="firstname"
@@ -46,7 +46,7 @@
                 <TextView
                     style="@style/table_row_item"
                     android:id="@+id/Fonction"
-                    android:layout_width="95dp"
+                    android:layout_width="97dp"
                     android:layout_height="wrap_content"
                     android:layout_column="3"
                     android:text="function"

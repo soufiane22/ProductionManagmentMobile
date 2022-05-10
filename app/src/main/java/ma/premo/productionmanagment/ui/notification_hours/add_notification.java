@@ -22,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -40,6 +41,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import ma.premo.productionmanagment.MainActivity;
 import ma.premo.productionmanagment.R;
 import ma.premo.productionmanagment.Utils.API;
 import ma.premo.productionmanagment.Utils.JsonConvert;
@@ -48,6 +50,7 @@ import ma.premo.productionmanagment.models.NotificationHAdapter;
 import ma.premo.productionmanagment.models.Notification_Hours;
 import ma.premo.productionmanagment.models.Of;
 import ma.premo.productionmanagment.models.Produit;
+import ma.premo.productionmanagment.models.User;
 
 
 public class add_notification extends Fragment {
@@ -55,7 +58,7 @@ public class add_notification extends Fragment {
     private Button DateButton;
     private Button saveButton ;
     private NotificationHViewModel notificationViewModel;
-   private Spinner productSpinner ;
+    private Spinner productSpinner ;
     private Spinner lineSpinner;
     private Spinner shiftSpinner;
     private Spinner ofSpinner;
@@ -89,13 +92,15 @@ public class add_notification extends Fragment {
     private Produit produiSelected;
     private Notification_Hours notifItem;
     private String mode;
-
+    private String access_token;
+    private  User leader;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.add_notification1, container, false);
-
+         access_token =  ((MainActivity)getActivity()).access_token;
+         leader =  ((MainActivity)getActivity()).user;
         fragmentManager = getFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
       //  binding = FragmentNotificationHoursBinding.inflate(inflater, container, false);
@@ -175,7 +180,7 @@ public class add_notification extends Fragment {
 
         Bundle args = getArguments();
         mode  = args.getString("mode");
-        Log.e("mode====>",mode);
+        //Log.e("mode====>",mode);
 
         if(mode.equals("update")){
             String notifJsonString = args.getString("objet");
@@ -314,14 +319,22 @@ public class add_notification extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("*******error connection******");
                 error.printStackTrace();
                 Log.e("NetworkError", "Response " + error.networkResponse);
+                Toast.makeText(getContext(), "Server error", Toast.LENGTH_SHORT).show();
                 pDialog.dismiss();
 
             }
         }
-        );
+        ){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", access_token);
+                //params.put("Accept-Language", "fr");
+                return params;
+            };
+        };
         Queue.add(jsonObjectRequest);
     }
 
@@ -365,7 +378,15 @@ public class add_notification extends Fragment {
             }
         }
 
-        );
+        ){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", access_token);
+                //params.put("Accept-Language", "fr");
+                return params;
+            };
+        };
         Queue.add(jsonObjectRequest);
     }
 
@@ -417,7 +438,15 @@ public class add_notification extends Fragment {
 
             }
         }
-        );
+        ){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", access_token);
+                //params.put("Accept-Language", "fr");
+                return params;
+            };
+        };
         Queue.add(jsonObjectRequest);
 
     }
@@ -458,6 +487,7 @@ public class add_notification extends Fragment {
         Notification_Hours notif = new Notification_Hours();
         notif.setDate(DateButton.getText().toString());
         notif.setShift(getShift());
+        notif.setIdLeader(leader.getId());
        // notif.setLigne(getElementSelected());
         notif.setOF(ofSelected);
         notif.setNbr_operateurs(Integer. parseInt(nbr_operators.getText().toString()));
@@ -472,6 +502,7 @@ public class add_notification extends Fragment {
        //notification.put("of",String.valueOf(notif.getOF()));
         notification.put("date",String.valueOf(notif.getDate()));
         notification.put("shift",notif.getShift());
+        notification.put("idLeader",notif.getIdLeader());
         //notification.put("ligne",notif.getLigne());
         notification.put("nbr_operateurs",String.valueOf(notif.getNbr_operateurs()));
         notification.put("total_h",String.valueOf(notif.getTotal_h()));
@@ -505,10 +536,18 @@ public class add_notification extends Fragment {
                    @ Override
                    public Map<String, String> getParams() {
                        System.out.println("idOf=======>"+ofSelected.getId());
-                    return mParams;
+                        return mParams;
                      };
 
-                 } ;
+                  @Override
+                  public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("Authorization", access_token);
+                   //params.put("Accept-Language", "fr");
+                   return params;
+            };
+
+                    };
 
         Queue.add(jsonRequest);
 
@@ -522,6 +561,7 @@ public class add_notification extends Fragment {
         String urlSaveN = url+"notification_heures/update/"+notifItem.getId()+"/"+lineSelected.getId()+"/"+produiSelected.getId()+"/"+ofSelected.getId();
         Notification_Hours notif = new Notification_Hours();
         notif.setDate(DateButton.getText().toString());
+        notif.setIdLeader(leader.getId());
         notif.setShift(getShift());
         notif.setNbr_operateurs(Integer. parseInt(nbr_operators.getText().toString()));
         notif.setTotal_h(Integer. parseInt(hTotal.getText().toString()));
@@ -557,7 +597,17 @@ public class add_notification extends Fragment {
                     Toast.makeText(getContext(),"server error",Toast.LENGTH_LONG).show();
                     Log.w("error in response", "Error: " + error.getMessage());
 
-                });
+                }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", access_token);
+                //params.put("Accept-Language", "fr");
+                return params;
+            }
+
+
+        };
 
         Queue.add(jsonRequest);
     }
@@ -630,7 +680,6 @@ public class add_notification extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 productRef  = parent.getItemAtPosition(position).toString();
-                Toast.makeText(parent.getContext(),productRef,Toast.LENGTH_SHORT).show();
                 for(Produit p:productList){
 
                     if(p.getReference().equals(productRef)){
@@ -665,7 +714,7 @@ public class add_notification extends Fragment {
                         ofSelected = c;
                     }
                 }
-                Toast.makeText(parent.getContext(),ofRefe,Toast.LENGTH_SHORT).show();
+
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {

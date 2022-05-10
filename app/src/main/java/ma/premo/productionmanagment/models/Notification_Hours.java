@@ -19,9 +19,10 @@ public class Notification_Hours {
     @Expose
     private Produit produit;
 
-    @SerializedName("chefEquipe")
+    @SerializedName("idLeader")
     @Expose
-    private String chefEquipe;
+    private String idLeader;
+
     @SerializedName("shift")
     @Expose
     private String shift;
@@ -83,8 +84,8 @@ public class Notification_Hours {
         this.ligne = ligne;
     }
 
-    public void setChefEquipe(String chefEquipe) {
-        this.chefEquipe = chefEquipe;
+    public void setIdLeader(String idLeader) {
+        this.idLeader = idLeader;
     }
 
     public void setShift(String shift) {
@@ -127,8 +128,8 @@ public class Notification_Hours {
         return ligne;
     }
 
-    public String getChefEquipe() {
-        return chefEquipe;
+    public String getIdLeader() {
+        return idLeader;
     }
 
     public String getShift() {
@@ -185,7 +186,7 @@ public class Notification_Hours {
                 ", OF=" + OF +
                 ", ligne=" + ligne +
                 ", produit=" + produit +
-                ", chefEquipe='" + chefEquipe + '\'' +
+                ", chefEquipe='" + idLeader + '\'' +
                 ", shift='" + shift + '\'' +
                 ", date='" + date + '\'' +
                 ", remark='" + remark + '\'' +
@@ -204,7 +205,7 @@ public class Notification_Hours {
         this.OF = OF;
         this.ligne = ligne;
         this.produit= p;
-        this.chefEquipe = chefEquipe;
+        this.idLeader = chefEquipe;
         this.shift = shift;
         this.date = date;
         this.nbr_operateurs = nbr_operateurs;

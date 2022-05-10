@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="ma.premo.productionmanagment.ui.presenceFolder.PresenceViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.presenceFolder.PresenceFragment">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/AddButton"
+                android:layout_width="80dp"
+                android:layout_height="30dp"
+                android:layout_gravity="top|right"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="#0074cc"
+                android:text="add"
+                android:textColor="#ffff"
+                android:textStyle="bold">
+
+            </Button>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/Cardview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:padding="10dp"
+                app:cardCornerRadius="5dp"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/IGroupe"
+                            android:layout_width="160dp"
+                            android:layout_height="60dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:text="@{String.valueOf(viewModel.declarationPresenceMutableLiveData.group)}"
+                            android:textColor="@color/orange"
+                            android:textSize="30dp"
+                            android:textStyle="bold"></TextView>
+
+                        <TextView
+                            android:id="@+id/IDate"
+                            android:layout_width="150dp"
+                            android:layout_height="60dp"
+                            android:layout_marginStart="440dp"
+                            android:layout_marginTop="10dp"
+                            android:text="@{String.valueOf(viewModel.declarationPresenceMutableLiveData.date)}"
+                            android:textColor="@color/black"
+                            android:textSize="30dp"
+                            android:textStyle="bold"></TextView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:text="Leader"
+                            android:textColor="@color/black"
+                            android:textSize="20dp">
+
+                        </TextView>
+
+                        <TextView
+                            android:id="@+id/ILeader"
+                            android:layout_width="180dp"
+                            android:layout_height="wrap_content"
+                            android:text="@{String.valueOf(viewModel.declarationPresenceMutableLiveData.leader)}"
+                            android:textColor="@color/black"
+                            android:textSize="20dp"
+                            android:textStyle="bold">
+
+                        </TextView>
+
+                        <View
+                            android:layout_width="80dp"
+                            android:layout_height="30dp">
+
+                        </View>
+
+                        <TextView
+                            android:layout_width="230dp"
+                            android:layout_height="wrap_content"
+                            android:text="Sum of Operators"
+                            android:textColor="@color/black"
+                            android:textSize="20dp"></TextView>
+
+                        <TextView
+                            android:id="@+id/ISumOperators"
+                            android:layout_width="60dp"
+                            android:layout_height="match_parent"
+                            android:text="@{String.valueOf(viewModel.declarationPresenceMutableLiveData.sumOperators)}"
+                            android:textColor="@color/orange"
+                            android:textSize="20dp"
+                            android:textStyle="bold">
+
+                        </TextView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:text="Engineer"
+                            android:textColor="@color/black"
+                            android:textSize="20dp"></TextView>
+
+                        <TextView
+                            android:id="@+id/IEngineer"
+                            android:layout_width="180dp"
+                            android:layout_height="wrap_content"
+                            android:text="@{String.valueOf(viewModel.declarationPresenceMutableLiveData.engineer)}"
+                            android:textColor="@color/black"
+                            android:textSize="20dp"
+                            android:textStyle="bold"></TextView>
+
+                        <View
+                            android:layout_width="80dp"
+                            android:layout_height="30dp"></View>
+
+                        <TextView
+                            android:layout_width="230dp"
+                            android:layout_height="wrap_content"
+                            android:text="Total Hours"
+                            android:textColor="@color/black"
+                            android:textSize="20dp"></TextView>
+
+                        <TextView
+                            android:id="@+id/ITotalHours"
+                            android:layout_width="60dp"
+                            android:layout_height="match_parent"
+                            android:text="@{String.valueOf(viewModel.declarationPresenceMutableLiveData.totalHours)}"
+                            android:textColor="@color/orange"
+                            android:textSize="20dp"
+                            android:textStyle="bold">
+
+                        </TextView>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:id="@+id/Nodata"
+                android:layout_width="400dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal"
+                android:text="No data available"
+                android:textSize="40dp"
+                android:textColor="@color/orange"
+                android:visibility="gone">
+            </TextView>
+            <!--
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/PresencesRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="vertical"
+                android:padding="5dp"
+                android:layout_marginTop="50dp"/>
+                -->
+        </LinearLayout>
+    </RelativeLayout>
+
+</layout>
+

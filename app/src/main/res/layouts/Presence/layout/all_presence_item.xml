@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/IGroupe"
+                android:layout_width="160dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:text="GROUPE B"
+                android:textColor="@color/orange"
+                android:textSize="30dp"
+                android:textStyle="bold"></TextView>
+
+            <TextView
+                android:id="@+id/IDate"
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="440dp"
+                android:text="19-04-2022"
+                android:textColor="@color/black"
+                android:textSize="30dp"
+                android:textStyle="bold">
+            </TextView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="20dp">
+
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Leader"
+                android:textSize="20dp"
+                android:textColor="@color/black"
+             >
+
+            </TextView>
+            <TextView
+                android:id="@+id/ILeader"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:text="Leader"
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                android:textStyle="bold">
+
+            </TextView>
+            <View
+                android:layout_width="80dp"
+                android:layout_height="30dp">
+
+            </View>
+         <TextView
+             android:layout_width="230dp"
+             android:layout_height="wrap_content"
+             android:text="Sum of Operators"
+             android:textSize="20dp"
+             android:textColor="@color/black">
+         </TextView>
+
+            <TextView
+                android:id="@+id/ISumOperators"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:text="20"
+                android:textColor="@color/orange"
+                android:textSize="20dp"
+                android:textStyle="bold"></TextView>
+
+        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="20dp">
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Engineer"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            >
+        </TextView>
+        <TextView
+            android:id="@+id/IEngineer"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:text="Engineer"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            >
+        </TextView>
+        <View
+            android:layout_width="80dp"
+            android:layout_height="30dp">
+        </View>
+        <TextView
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:text="Total Hours"
+            android:textSize="20dp"
+            android:textColor="@color/black">
+        </TextView>
+
+        <TextView
+            android:id="@+id/ITotalHours"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:text="67"
+            android:textColor="@color/orange"
+            android:textSize="20dp"
+            android:textStyle="bold">
+
+        </TextView>
+
+    </LinearLayout>
+
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
