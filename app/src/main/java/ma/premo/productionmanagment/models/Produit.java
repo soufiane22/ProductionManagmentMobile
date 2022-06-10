@@ -58,13 +58,19 @@ public class Produit {
         this.reference = reference;
     }
 
-    @Override
-    public String toString() {
+
+    public String toString2() {
         return "Produit{" +
                 "id='" + id + '\'' +
                 ", idLigne='" + idLigne + '\'' +
                 ", designation='" + designation + '\'' +
                 ", reference='" + reference + '\'' +
                 '}';
+    }
+
+    @Override
+    public String toString() {
+        return this.getDesignation();
+
     }
 }

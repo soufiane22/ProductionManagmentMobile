@@ -3,7 +3,7 @@ package ma.premo.productionmanagment.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class User {
+public class User implements Comparable<User> {
 
     @SerializedName("id")
     private String id;
@@ -15,6 +15,10 @@ public class User {
     private String tele;
     @SerializedName("fonction")
     private String fonction;
+
+    @SerializedName("username")
+    private String username;
+
     @SerializedName("password")
     private String password;
     @SerializedName("email")
@@ -23,6 +27,8 @@ public class User {
     private int matricule;
     @SerializedName("line")
     private String line;
+
+
 
     private Boolean selected =false ;
 
@@ -116,9 +122,13 @@ public class User {
         this.selected = selected;
     }
 
-    /*
-    @Override
-    public String toString() {
+
+    public String getUsername() {
+        return username;
+    }
+
+
+    public String toString2() {
         return "User{" +
                 "id='" + id + '\'' +
                 ", nom='" + nom + '\'' +
@@ -133,7 +143,7 @@ public class User {
                 '}';
     }
 
-     */
+
 
     @Override
     public String toString() {
@@ -141,4 +151,8 @@ public class User {
     }
 
 
+    @Override
+    public int compareTo(User user ) {
+        return this.getLine().compareTo(user.line);
+    }
 }

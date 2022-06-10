@@ -76,7 +76,7 @@ public class NotificationHAdapter extends RecyclerView.Adapter<NotificationHAdap
             viewHolder.date.setText(notif.getDate());
             viewHolder.line.setText(String.valueOf(notif.getLigne().getDesignation()));
             viewHolder.shift.setText(String.valueOf(notif.getShift()));
-            viewHolder.of.setText(String.valueOf(notif.getOF().getReference()));
+            viewHolder.of.setText(String.valueOf(notif.getOF()));
             viewHolder.Htotal.setText(String.valueOf(notif.getTotal_h()));
             viewHolder.Hextra.setText(String.valueOf(notif.getH_sup()));
             viewHolder.Hstopped.setText(String.valueOf(notif.getH_arrete()));

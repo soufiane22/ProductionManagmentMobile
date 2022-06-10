@@ -1,17 +1,18 @@
 package ma.premo.productionmanagment.models;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Notification_Hours {
+public class Notification_Hours implements Serializable {
     @SerializedName("id")
     @Expose
     private String id;
     @SerializedName("of")
     @Expose
-    private Of OF;
+    private int OF;
     @SerializedName("ligne")
     @Expose
     private Line ligne;
@@ -19,9 +20,14 @@ public class Notification_Hours {
     @Expose
     private Produit produit;
 
-    @SerializedName("chefEquipe")
+    @SerializedName("idLeader")
     @Expose
-    private String chefEquipe;
+    private String idLeader;
+
+    @SerializedName("leaderName")
+    @Expose
+    private String leaderName;
+
     @SerializedName("shift")
     @Expose
     private String shift;
@@ -59,6 +65,62 @@ public class Notification_Hours {
     @Expose
     private int h_normal;
 
+    @SerializedName("status")
+    @Expose
+    private String status;
+
+    @SerializedName("totalOutput")
+    @Expose
+    private int totalOutput;
+
+    @SerializedName("totalScrap")
+    @Expose
+    private int totalScrap;
+
+    @SerializedName("createdAt")
+    @Expose
+    private Date createdAt;
+
+    public int getTotalOutput() {
+        return totalOutput;
+    }
+
+    public int getTotalScrap() {
+        return totalScrap;
+    }
+
+    public void setTotalOutput(int totalOutput) {
+        this.totalOutput = totalOutput;
+    }
+
+    public void setTotalScrap(int totalScrap) {
+        this.totalScrap = totalScrap;
+    }
+
+    public String getLeaderName() {
+        return leaderName;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setLeaderName(String leaderName) {
+        this.leaderName = leaderName;
+    }
+
     public int getH_normal() {
         return h_normal;
     }
@@ -75,16 +137,16 @@ public class Notification_Hours {
         this.id = id;
     }
 
-    public void setOF(Of OF) {
+    public void setOF(int OF) {
         this.OF = OF;
     }
 
     public void setLine(Line line) {
-        this.ligne = ligne;
+        this.ligne = line;
     }
 
-    public void setChefEquipe(String chefEquipe) {
-        this.chefEquipe = chefEquipe;
+    public void setIdLeader(String idLeader) {
+        this.idLeader = idLeader;
     }
 
     public void setShift(String shift) {
@@ -119,7 +181,7 @@ public class Notification_Hours {
         this.h_arrete = h_arrete;
     }
 
-    public Of getOF() {
+    public int getOF() {
         return OF;
     }
 
@@ -127,8 +189,8 @@ public class Notification_Hours {
         return ligne;
     }
 
-    public String getChefEquipe() {
-        return chefEquipe;
+    public String getIdLeader() {
+        return idLeader;
     }
 
     public String getShift() {
@@ -178,33 +240,13 @@ public class Notification_Hours {
         this.remark = remark;
     }
 
-    @Override
-    public String toString() {
-        return "Notification_Hours{" +
-                "id='" + id + '\'' +
-                ", OF=" + OF +
-                ", ligne=" + ligne +
-                ", produit=" + produit +
-                ", chefEquipe='" + chefEquipe + '\'' +
-                ", shift='" + shift + '\'' +
-                ", date='" + date + '\'' +
-                ", remark='" + remark + '\'' +
-                ", nbr_operateurs=" + nbr_operateurs +
-                ", total_h=" + total_h +
-                ", h_sup=" + h_sup +
-                ", h_devolution=" + h_devolution +
-                ", h_nouvau_projet=" + h_nouvau_projet +
-                ", h_arrete=" + h_arrete +
-                ", h_normal=" + h_normal +
-                '}';
-    }
 
-    public Notification_Hours(Of OF, Line ligne, Produit p, String chefEquipe, String shift, String date, int nbr_operateurs, int total_h, int h_sup,
+    public Notification_Hours(int OF, Line ligne, Produit p, String chefEquipe, String shift, String date, int nbr_operateurs, int total_h, int h_sup,
                               int h_devolution, int h_nouvau_projet, int h_arrete , int hNormal) {
         this.OF = OF;
         this.ligne = ligne;
         this.produit= p;
-        this.chefEquipe = chefEquipe;
+        this.idLeader = chefEquipe;
         this.shift = shift;
         this.date = date;
         this.nbr_operateurs = nbr_operateurs;
@@ -217,5 +259,27 @@ public class Notification_Hours {
     }
     public  Notification_Hours(){};
 
-
+    @Override
+    public String toString() {
+        return "Notification_Hours{" +
+                "id='" + id + '\'' +
+                ", OF=" + OF +
+                ", ligne=" + ligne +
+                ", produit=" + produit +
+                ", idLeader='" + idLeader + '\'' +
+                ", leaderName='" + leaderName + '\'' +
+                ", shift='" + shift + '\'' +
+                ", date='" + date + '\'' +
+                ", remark='" + remark + '\'' +
+                ", nbr_operateurs=" + nbr_operateurs +
+                ", total_h=" + total_h +
+                ", h_sup=" + h_sup +
+                ", h_devolution=" + h_devolution +
+                ", h_nouvau_projet=" + h_nouvau_projet +
+                ", h_arrete=" + h_arrete +
+                ", h_normal=" + h_normal +
+                ", status='" + status + '\'' +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 }

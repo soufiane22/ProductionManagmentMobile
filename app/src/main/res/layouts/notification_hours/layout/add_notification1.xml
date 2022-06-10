@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="groupeview"
+            type="ma.premo.productionmanagment.ui.presenceFolder.AddPresenceViewModel"/>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.notification_hours.AddNotificationHours"
+        android:id="@+id/add_notification1">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginBottom="30dp"
+                android:text="Add Hours Notification"
+                android:textColor="@color/black"
+                android:textSize="20sp">
+
+            </TextView>
+
+            <LinearLayout
+                android:layout_width="730dp"
+                android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="155dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:layout_weight="0"
+                    android:text="Date"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+
+                <Button
+                    android:id="@+id/Datebutton"
+                    style="?android:spinnerStyle"
+                    android:layout_width="146dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="fill_vertical"
+                    android:layout_weight="0"
+                    android:text="@string/_15_13_21"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+
+                <View
+                    android:id="@+id/divider"
+                    android:layout_width="85dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="0" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="150dp"
+                    android:layout_height="22dp"
+                    android:layout_marginVertical="10dp"
+                    android:text="Shift"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/ShiftGroup"
+                    android:layout_width="150dp"
+                    android:layout_height="22dp"
+                    android:layout_marginVertical="10dp"
+                    android:text="@={groupeview.groupeMutableLiveData.shift}"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    />
+<!--
+                <Spinner
+                    android:id="@+id/Shiftspinner"
+                    android:layout_width="151dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="left"
+
+                    android:layout_marginTop="92dp"
+                    android:layout_marginEnd="20dp" />
+
+ -->
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="730dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="155dp"
+                    android:layout_height="wrap_content"
+                    android:text="Line"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+
+                <Spinner
+                    android:id="@+id/Linespinner"
+                    android:layout_width="149dp"
+                    android:layout_height="39dp" />
+
+                <View
+                    android:id="@+id/divider1"
+                    android:layout_width="85dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="0" />
+
+                <TextView
+                    android:id="@+id/textViewProduct"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="Product"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+
+                <Spinner
+                    android:id="@+id/Productspinner"
+                    android:layout_width="149dp"
+                    android:layout_height="39dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="730dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="155dp"
+                    android:layout_height="wrap_content"
+                    android:text="OF"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+
+                <!--
+                <Spinner
+                    android:id="@+id/OFSpinner"
+                    android:layout_width="146dp"
+                    android:layout_height="43dp" />
+
+ -->
+                <EditText
+                    android:id="@+id/OF"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number">
+                </EditText>
+
+                <View
+                    android:id="@+id/divider5"
+                    android:layout_width="85dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="0" />
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="165dp"
+                    android:layout_height="39dp"
+                    android:text="Number of operators"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+
+                <EditText
+                    android:id="@+id/nbrOperators"
+                    android:layout_width="144dp"
+                    android:layout_height="43dp"
+                    android:ems="10"
+                    android:inputType="number" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="730dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="10dp"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="Total hours"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+
+                <EditText
+                    android:id="@+id/hTotal"
+                    android:layout_width="150dp"
+                    android:layout_height="43dp"
+                    android:ems="10"
+                    android:inputType="number" />
+
+                <View
+                    android:id="@+id/dividerT"
+                    android:layout_width="85dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="0" />
+
+                <TextView
+                    android:id="@+id/textViewHN"
+                    android:layout_width="165dp"
+                    android:layout_height="39dp"
+                    android:text="Normal hours"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+
+                <EditText
+                    android:id="@+id/hNormal"
+                    android:layout_width="150dp"
+                    android:layout_height="43dp"
+                    android:ems="10"
+                    android:inputType="number"
+                    android:textStyle="normal" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="730dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="155dp"
+                    android:layout_height="wrap_content"
+                    android:text="Extra hours"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+
+                <EditText
+                    android:id="@+id/hExtra"
+                    android:layout_width="145dp"
+                    android:layout_height="43dp"
+                    android:ems="10"
+                    android:inputType="number" />
+
+                <View
+                    android:id="@+id/divider3"
+                    android:layout_width="85dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="0" />
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="165dp"
+                    android:layout_height="wrap_content"
+                    android:text="Stopped hours"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+
+                <EditText
+                    android:id="@+id/hStopped"
+                    android:layout_width="144dp"
+                    android:layout_height="43dp"
+                    android:inputType="number" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="730dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="10dp"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="155dp"
+                    android:layout_height="wrap_content"
+                    android:text="Devolutional hours"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+
+                <EditText
+                    android:id="@+id/hDevolution"
+                    android:layout_width="144dp"
+                    android:layout_height="43dp"
+                    android:ems="10"
+                    android:inputType="number" />
+
+
+                <View
+                    android:id="@+id/divider4"
+                    android:layout_width="85dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="0" />
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="165dp"
+                    android:layout_height="wrap_content"
+                    android:text="New Project"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+
+                <EditText
+                    android:id="@+id/hNewProject"
+                    android:layout_width="144dp"
+                    android:layout_height="43dp"
+                    android:ems="10"
+                    android:inputType="number" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="730dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="10dp"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="155dp"
+                    android:layout_height="wrap_content"
+                    android:text="Total output"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+
+                <EditText
+                    android:id="@+id/TotalOutput"
+                    android:layout_width="144dp"
+                    android:layout_height="43dp"
+                    android:ems="10"
+                    android:inputType="number" />
+
+
+                <View
+                    android:id="@+id/divider16"
+                    android:layout_width="85dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="0" />
+
+                <TextView
+                    android:id="@+id/textView17"
+                    android:layout_width="165dp"
+                    android:layout_height="wrap_content"
+                    android:text="Total Scarp"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+
+                <EditText
+                    android:id="@+id/TotalScrap"
+                    android:layout_width="144dp"
+                    android:layout_height="43dp"
+                    android:ems="10"
+                    android:inputType="number" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="730dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/texterror"
+                    android:layout_width="165dp"
+                    android:layout_height="wrap_content"
+                    android:text="Remark"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/Remark"
+                    android:layout_width="500dp"
+                    android:layout_height="49dp"
+                    android:hint="Remark" />
+
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="94dp"
+                android:layout_height="49dp"
+                android:layout_gravity="right"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="10dp"
+                android:background="#0074cc"
+                android:text="Save"
+                android:textColor="#ffff"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</layout>

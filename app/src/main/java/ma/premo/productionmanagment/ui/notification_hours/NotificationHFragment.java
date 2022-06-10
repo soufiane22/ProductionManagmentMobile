@@ -21,9 +21,10 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.widget.Toast;
 
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
@@ -32,8 +33,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import ma.premo.productionmanagment.MainActivity;
 import ma.premo.productionmanagment.R;
 
 import ma.premo.productionmanagment.Utils.API;
@@ -44,6 +49,7 @@ import ma.premo.productionmanagment.models.NotificationHAdapter;
 import ma.premo.productionmanagment.models.Notification_Hours;
 import ma.premo.productionmanagment.models.Of;
 import ma.premo.productionmanagment.models.Produit;
+import ma.premo.productionmanagment.models.User;
 
 
 public  class  NotificationHFragment extends Fragment  implements NotificationHAdapter.ItemClickListener{
@@ -61,7 +67,8 @@ public  class  NotificationHFragment extends Fragment  implements NotificationHA
     private  FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
     private final String url = API.urlBackend+"notification_heures/" ;
-
+    private String access_token;
+    private User  leader = new User();
 
     List<Notification_Hours> notificationsList ;
 
@@ -69,7 +76,8 @@ public  class  NotificationHFragment extends Fragment  implements NotificationHA
         notificationViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(NotificationHViewModel.class);
          fragmentManager = getFragmentManager();
          fragmentTransaction = fragmentManager.beginTransaction();
-
+        access_token =  ((MainActivity)getActivity()).access_token;
+         leader =  ((MainActivity)getActivity()).user;
         binding = FragmentNotificationHoursBinding.inflate(inflater, container, false);
         View view =  inflater.inflate(R.layout.fragment_notification_hours, container, false);
         View root = binding.getRoot();
@@ -95,12 +103,15 @@ public  class  NotificationHFragment extends Fragment  implements NotificationHA
         recyclerView= view.findViewById(R.id.recycler_view);
         pDialog = new ProgressDialog(getContext());
         pDialog.setMessage("Loading...PLease wait");
-        getAllNotifications();
+        if(leader != null){
+            getAllNotifications();
+        }
+
 
         addButon.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-               add_notification fragment = new  add_notification();
+               AddNotificationHours fragment = new AddNotificationHours();
               //relativeLayout.setVisibility(View.GONE);
               //addNotifaicationLayout.setVisibility(View.VISIBLE);
               Bundle bundle = new Bundle();
@@ -128,58 +139,44 @@ public  class  NotificationHFragment extends Fragment  implements NotificationHA
         return view;
     }
 
-
     private void getAllNotifications() {
-        String urlGetN = url +"getAll/";
+        String urlGetN = url +"gettodaylist/"+leader.getId()+"/"+getTodayDates();
         pDialog.show();
-        JsonObjectRequest jsonObjectRequest  = new JsonObjectRequest(com.android.volley.Request.Method.GET, urlGetN,
-                null, new com.android.volley.Response.Listener<JSONObject>() {
+        JsonArrayRequest  jsonObjectRequest  = new JsonArrayRequest(com.android.volley.Request.Method.GET, urlGetN,
+                null, new com.android.volley.Response.Listener<JSONArray>() {
             @Override
-            public void onResponse(JSONObject response) {
-                try {
-                   // Log.e("Network", "Response " + response);
-                    JSONArray data = response.getJSONArray("data1");
+            public void onResponse(JSONArray response) {
+
+                   Log.e("today notifs", "Response " + response);
+                    JSONArray data = response;
                     notificationsList = new ArrayList<>();
-                    for(int i=0 ; i< data.length() ; i++){
-                        try {
-                            JSONObject objet = data.getJSONObject(i);
-                            Gson g = new Gson();
-                            Notification_Hours notif = new Notification_Hours();
-                            Of of = new Of();
-                            Line line = new Line();
-                            Produit product = new Produit();
+                    if(data.length()==0) {
+                        Toast.makeText(getContext(), "No data available", Toast.LENGTH_SHORT).show();
+                    }else{
+                        for(int i=0 ; i< data.length() ; i++){
 
-                            notif = g.fromJson(String.valueOf(objet), Notification_Hours.class);
+                            JSONObject objet = null;
+                            try {
+                                objet = data.getJSONObject(i);
+                                Gson g = new Gson();
+                                Notification_Hours notif = new Notification_Hours();
 
-                            JSONObject jsonObject = objet.getJSONObject("of");
-                            of = g.fromJson(String.valueOf(jsonObject), Of.class);
-                            notif.setOF(of);
+                                notif = g.fromJson(String.valueOf(objet), Notification_Hours.class);
 
-                            JSONObject jsonObjectLine = objet.getJSONObject("ligne");
-                            line = g.fromJson(String.valueOf(jsonObjectLine), Line.class);
-                            notif.setLine(line);
+                                notificationsList.add(notif);
 
-                            JSONObject jsonObjectProduct = objet.getJSONObject("produit");
-                            product = g.fromJson(String.valueOf(jsonObjectProduct), Produit.class);
-                            notif.setProduit(product);
-                            notificationsList.add(notif);
-                            //System.out.println("******NOTIFICATION*******");
-                            //System.out.println(notif.toString()+"\n");
-                            pDialog.dismiss();
-                            //Toast.makeText(getContext(),"success",Toast.LENGTH_SHORT).show();
+                                pDialog.dismiss();
 
-                        } catch (JSONException jsonException) {
-                            jsonException.printStackTrace();
-                            pDialog.dismiss();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                pDialog.dismiss();
+                            }
 
+                        }
                     }
-                }
+
                 setRecycleview();
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getContext(),"server error",Toast.LENGTH_SHORT).show();
-                }
                 pDialog.dismiss();
 
 
@@ -198,12 +195,36 @@ public  class  NotificationHFragment extends Fragment  implements NotificationHA
 
 
             }
-        });
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", access_token);
+                //params.put("Accept-Language", "fr");
+                return params;
+            };
+
+
+        };
 
         Queue.add(jsonObjectRequest);
 
     }
 
+    private String getTodayDates() {
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        month = month+1;
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        System.out.println("date=====>"+day+month+year);
+        return makeDateString(day,month ,year);
+    };
+
+
+    private String makeDateString(int day, int month, int year) {
+        return year+"-"+month+"-"+day;
+    };
     private void setRecycleview() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         notificationHAdapter = new NotificationHAdapter(getContext(),notificationsList , this);
@@ -218,7 +239,7 @@ public  class  NotificationHFragment extends Fragment  implements NotificationHA
 
     @Override
     public void onItemClick(Notification_Hours notif) {
-        add_notification fragment = new add_notification();
+        AddNotificationHours fragment = new AddNotificationHours();
         Bundle bundle = new Bundle();
         String notifJsonString = JsonConvert.getGsonParser().toJson(notif);
         bundle.putSerializable("objet",notifJsonString);

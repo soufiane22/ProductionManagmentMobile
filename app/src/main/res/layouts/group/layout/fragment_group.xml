@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="groupviewmodel"
+            type="ma.premo.productionmanagment.ui.presenceFolder.AddPresenceViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.group.GroupFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:orientation="vertical"
+            android:padding="3dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Edit Groupe"
+                    android:textColor="@color/black"
+                    android:textSize="24dp">
+
+                </TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/groupe"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:text="@{String.valueOf(groupviewmodel.groupeMutableLiveData.designation)}"
+                    android:textColor="@color/orange"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/divider1"
+                    android:layout_width="85dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0" />
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Shift"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"></TextView>
+
+                <Spinner
+                    android:id="@+id/ShiftSpinner"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"></Spinner>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textview"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Leader"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"></TextView>
+
+                <TextView
+                    android:id="@+id/Leader"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="leader"
+                    android:textColor="@color/orange"
+                    android:textSize="18dp"
+                    android:textStyle="bold"></TextView>
+
+                <View
+                    android:id="@+id/divider"
+                    android:layout_width="85dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0" />
+
+                <TextView
+                    android:id="@+id/textview1"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Engineer"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"></TextView>
+
+                <Spinner
+                    android:id="@+id/EngineerSpinner"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content">
+
+                </Spinner>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@color/orange"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:padding="2dp"
+                    android:text="List of Persons"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    android:textStyle="bold">
+
+                </TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp">
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"
+                    android:background="@color/red"
+                    android:minHeight="400dp"
+                    android:shrinkColumns="0"
+                    android:stretchColumns="0,1,2,3,4,5,6,7">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/red"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:id="@+id/MatriculeH"
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:layout_gravity="center"
+                            android:text="Registration number"
+                            android:textColor="#ffffff"
+                            android:textSize="15dp"
+                            android:textStyle="bold"></TextView>
+
+                        <TextView
+                            android:id="@+id/LastName"
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_gravity="center"
+                            android:text="Last name"
+                            android:textColor="#ffffff"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+
+                            ></TextView>
+
+                        <TextView
+                            android:id="@+id/FirstName"
+                            android:layout_width="55dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="2"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="First name"
+                            android:textColor="#ffffff"
+                            android:textSize="18dp"
+                            android:textStyle="bold">
+
+                        </TextView>
+
+                        <TextView
+                            android:id="@+id/Function"
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="3"
+                            android:layout_gravity="center"
+                            android:text="Function"
+                            android:textColor="#ffffff"
+                            android:textSize="18dp"
+                            android:textStyle="bold"></TextView>
+
+                        <TextView
+                            android:id="@+id/Phone"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="3"
+                            android:layout_gravity="center"
+                            android:text="Phone"
+                            android:textColor="#ffffff"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            android:layout_marginStart="5dp">
+
+                        </TextView>
+
+                        <TextView
+                            android:id="@+id/Line"
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="3"
+                            android:layout_gravity="center"
+                            android:text="Line"
+                            android:textColor="#ffffff"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            android:layout_marginStart="10dp">
+
+                        </TextView>
+
+
+                        <TextView
+                            android:id="@+id/Action"
+                            android:layout_width="75dp"
+                            android:layout_height="wrap_content"
+                            android:layout_column="3"
+                            android:layout_gravity="center"
+                            android:text="Action"
+                            android:textColor="#ffffff"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            android:layout_marginRight="5dp">
+
+                        </TextView>
+
+
+                    </TableRow>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/personsRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:minHeight="200dp" />
+                    <!--     android:layout_height="590dp" -->
+
+
+                </TableLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/RefreshButton"
+                    style="@style/styleButton"
+                    android:layout_width="70dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/ic_baseline_refresh_24"
+                    android:background="@drawable/radius_button"
+                    ></ImageButton>
+
+                <ImageButton
+                    android:id="@+id/AddButton"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="640dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/btn_backround"
+                    android:src="@drawable/ic_add_24">
+
+                </ImageButton>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@color/orange"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:padding="2dp"
+                    android:text="List of Lines"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    android:textStyle="bold">
+
+                </TextView>
+
+            </LinearLayout>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="5dp">
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/lineRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </android.support.v7.widget.RecyclerView>
+
+            </android.support.v7.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:orientation="vertical">
+
+
+                <ImageButton
+                    android:id="@+id/AddButton1"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="660dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/btn_backround"
+                    android:src="@drawable/ic_add_24">
+
+                </ImageButton>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/Updatebutton"
+                    android:layout_width="80dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="right"
+                    android:layout_margin="10dp"
+                    android:background="#0074cc"
+                    android:text="save"
+                    android:textColor="#ffff"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+
+    </RelativeLayout>
+</layout>

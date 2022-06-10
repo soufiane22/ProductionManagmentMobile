@@ -4,7 +4,7 @@ package ma.premo.productionmanagment.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Line {
+public class Line implements Comparable<Line> {
 
 
     @SerializedName("id")
@@ -54,5 +54,10 @@ public class Line {
                 ", designation='" + designation + '\'' +
                 ", center=" + center +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Line line) {
+        return this.designation.compareTo(line.designation);
     }
 }

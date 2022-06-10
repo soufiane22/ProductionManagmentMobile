@@ -8,7 +8,8 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.AlertDialogLayout;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.AdapterView;
@@ -25,9 +26,14 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.navigation.NavController;
+
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.simple.JSONArray;
@@ -38,16 +44,23 @@ import org.json.simple.parser.ParseException;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
+import java.util.Map;
 
+import ma.premo.productionmanagment.MainActivity;
 import ma.premo.productionmanagment.R;
 import ma.premo.productionmanagment.Utils.API;
 import ma.premo.productionmanagment.Utils.JsonConvert;
 import ma.premo.productionmanagment.databinding.FragmentAddPresenceBinding;
 import ma.premo.productionmanagment.models.Groupe;
+import ma.premo.productionmanagment.models.Notification_Hours;
 import ma.premo.productionmanagment.models.Presence;
+import ma.premo.productionmanagment.models.PresenceGroup;
 import ma.premo.productionmanagment.models.User;
+import ma.premo.productionmanagment.ui.controllers.ApplicationControler;
 
 
 public class AddPresenceFragment extends Fragment implements UserAdapter.Userselected {
@@ -60,34 +73,55 @@ private ProgressDialog pDialog;
 private List<User> listUsers = new ArrayList<>();
 private PresenceAdapter adapter;
 private UserAdapter userAdapter;
-private String nameLader;
 private DatePickerDialog datePickerDialog;
 private Groupe groupe = new Groupe();
 private RequestQueue Queue;
 private AlertDialog.Builder dialogBuilder;
 private AlertDialog dialog;
-private List<User> allUsers = new ArrayList<>();
 private SearchView searchView;
 private List<User> allUsersList = new ArrayList<>();
 private List<User> listLeaders = new ArrayList<>();
 private  RecyclerView allUserRecyclerView;
 private ArrayList<String> listLineSpinner = new ArrayList<>();
+private String idLeader ;
+private FragmentManager fragmentManager;
+private FragmentTransaction fragmentTransaction;
+private  String access_token ;
+public User leader;
+private PresenceGroup presenceGroup;
+private NavController navController;
+private String mode;
+private PresenceGroup presenceGroupToupadte ;
 
 
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        addPresenceViewModel = new ViewModelProvider(this,new ViewModelProvider.AndroidViewModelFactory(getActivity().getApplication())).get(AddPresenceViewModel.class);;
+        addPresenceViewModel = new ViewModelProvider(this,new ViewModelProvider.AndroidViewModelFactory(getActivity().getApplication())).get(AddPresenceViewModel.class);
         binding = FragmentAddPresenceBinding.inflate(inflater, container, false);
         binding.setViewModel(addPresenceViewModel);
         binding.setLifecycleOwner(this);
+        access_token =  ((MainActivity)getActivity()).access_token;
+        leader =  ((MainActivity)getActivity()).user;
+        if(leader != null){
+           idLeader = leader.getId();
+        }
+        navController =  ((MainActivity)getActivity()).navController;
+
         pDialog = new ProgressDialog(getContext());
         pDialog.setMessage("Loading...PLease wait");
         Queue = Volley.newRequestQueue(getContext());
         initDatePicker();
+        fragmentManager = getFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
 
-
-        binding.Datebutton.setText(getTodayDates());
         binding.Datebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,27 +131,76 @@ private ArrayList<String> listLineSpinner = new ArrayList<>();
 
         pDialog.show();
         View view  = binding.getRoot();
-
-
+        presenceGroup = new PresenceGroup();
+        presenceGroupToupadte = new PresenceGroup();
 
         userRecyclerView= view.findViewById(R.id.userRecyclerView);
-       // addPresenceViewModel.getLeaders();
-
         userRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        String function = "Chef%20Equipe";
+        addPresenceViewModel.getUsersByFunction(access_token , function);
+        addPresenceViewModel.getAllUsers(access_token);
+
+        /******** mode update ********/
+
+
+        Bundle args = getArguments();
+
+        mode = args.getString("mode");
+        System.out.println("mode =====>"+mode);
+        if(mode.equals("update")){
+            binding.LinearAddUsers.setVisibility(View.GONE);
+            presenceGroupToupadte = new PresenceGroup();
+            String presenceString = "";
+            presenceString = args.getString("presenceJsonString");
+            presenceGroupToupadte = JsonConvert.getGsonParser().fromJson(presenceString, PresenceGroup.class);
+            binding.Datebutton.setText(presenceGroupToupadte.getDate());
+            if(!leader.getId().equals(presenceGroupToupadte.getLeaderId())){
+                mode="view";
+            }
+
+
+        }else{
+            binding.Datebutton.setText(getTodayDates());
+
+        }
+
+        /*********************************/
+
+        addPresenceViewModel.usersMutableLiveData.observe(this, new Observer<List<User>>() {
+            @Override
+            public void onChanged(@Nullable List<User> users) {
+                listLeaders = users;
+                if(listLeaders != null && leader != null){
+                    if(mode.equals("add")){
+                        setLeaderSpinner(leader);
+                    }else{
+                        setLeaderSpinner(getLeader(presenceGroupToupadte.getLeaderId()));
+                    }
+                }else {
+                    Toast.makeText(getContext(),"Server error",Toast.LENGTH_SHORT);
+                }
+
+
+            }
+        });
+
+
+
         addPresenceViewModel.groupeMutableLiveData.observe(this, new Observer<Groupe>() {
             @Override
             public void onChanged(@Nullable Groupe groupeM) {
-             if(groupeM == null){
-                 Toast.makeText(getContext(), "Server error", Toast.LENGTH_SHORT).show();
+             if(groupeM == null || leader == null){
+                 Toast.makeText(getContext(), "No data available", Toast.LENGTH_SHORT).show();
                  pDialog.dismiss();
              }else{
                  groupe = groupeM;
                  listUsers = (List<User>) groupe.getListOperateurs();
-                 //   listLineSpinner = new ArrayList(groupe.getListLine());
-                 listLineSpinner =  (ArrayList<String>) groupe.getListLine();
-
-                // binding.Leader.setText(getLeader());
-                 adapter = new PresenceAdapter(getContext(),listUsers,listLineSpinner);
+                 Comparator<User> compareByFirstName = (User o1, User o2) -> o1.getPrenom().compareTo( o2.getPrenom() );
+                 Collections.sort(listUsers);
+                // List<String> sortedList = slist.stream().sorted().collect(Collectors.toList());
+                 Collections.sort(presenceGroupToupadte.getListPresence());
+                 adapter = new PresenceAdapter(getContext(),listUsers,presenceGroupToupadte.getListPresence(),mode);
                  userRecyclerView.setAdapter(adapter);
                  pDialog.dismiss();
 
@@ -126,20 +209,15 @@ private ArrayList<String> listLineSpinner = new ArrayList<>();
 
             }
         });
-        addPresenceViewModel.leadersMutableLiveData.observe(this, new Observer<List<User>>() {
-            @Override
-            public void onChanged(@Nullable List<User> users) {
-                listLeaders = users;
-                setLeaderSpinner();
-            }
-        });
+
 
         binding.LeaderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 User user = (User) parent.getSelectedItem();
-                System.out.println("user selected "+user.getId());
-                addPresenceViewModel.getGroup(user.getId());
+               // System.out.println("user selected "+user.getId());
+                idLeader = user.getId();
+                addPresenceViewModel.getGroup(user.getId(), access_token);
             }
 
             @Override
@@ -150,13 +228,21 @@ private ArrayList<String> listLineSpinner = new ArrayList<>();
 
 
 
-        userRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+      //  userRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         binding.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                    savePresence();
+                    if(mode.equals("add")){
+                        savePresence();
+                    }else
+                        if(mode.equals("update")){
+                        updatePresence();
+                       }
+
+
+
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -168,8 +254,11 @@ private ArrayList<String> listLineSpinner = new ArrayList<>();
             @Override
             public void onClick(View v) {
                 createNewDialog(inflater , container);
+
             }
         });
+
+
         refresh();
 
 
@@ -177,28 +266,117 @@ private ArrayList<String> listLineSpinner = new ArrayList<>();
         return view;
     }
 
-  public String getLeader(){
-      String name = "";
-        for(User u : listUsers){
-            if(u.getFonction().equals("chef equipe")){
-                 name = u.getNom()+" "+ u.getPrenom();
+
+
+
+
+
+    private void updatePresence() {
+        String url = API.urlBackend+"presencegroup/update/"+presenceGroupToupadte.getId();
+        pDialog.show();
+        presenceGroup.setDate(binding.Datebutton.getText().toString());
+        int totalHours = 0;
+        int totalOpartors = 0;
+        for (int i = 0; i < presenceGroupToupadte.getListPresence().size(); i++) {
+            Presence presence = new Presence();
+            presence= presenceGroupToupadte.getListPresence().get(i);
+            View view = userRecyclerView.getChildAt(i);
+            EditText nbrHours = view.findViewById(R.id.NbrHours);
+            String hours = nbrHours.getText().toString();
+            if (hours.equals("")) {
+                hours ="0";
             }
+            presence.setNbrHeurs(Integer.parseInt(hours));
+            if(presence.getFunctionPerson().equals("Operateur"))
+                totalHours += Integer.parseInt(hours);
+
+            Spinner stateSpinner = view.findViewById(R.id.stateSpinner);
+            String state = stateSpinner.getSelectedItem().toString();
+            if(presence.getFunctionPerson().equals("Operateur") && (state.equals("Present") || state.equals("Retard")))
+                totalOpartors++;
+
+            presence.setEtat(state);
+            presence.setCreatedAt(null);
+
+           // System.out.println("presence item "+presence.toString());
         }
-        return name;
+        presenceGroupToupadte.setTotalOperators(totalOpartors);
+        presenceGroupToupadte.setSumHours(totalHours);
+        presenceGroupToupadte.setDate(binding.Datebutton.getText().toString());
+        presenceGroupToupadte.setCreatedAt(null);
+
+        System.out.println("****** group presense to update "+presenceGroupToupadte.toString());
+        String presenceStringJson = JsonConvert.getGsonParser().toJson(presenceGroupToupadte);
+       // System.out.println("presenceStringJson"+presenceStringJson);
+        org.json.JSONObject presencejson = new org.json.JSONObject();
+        try {
+            JSONParser parser = new JSONParser();
+            org.json.simple.JSONObject json = (JSONObject) parser.parse(presenceStringJson);
+            presencejson = (org.json.JSONObject) new org.json.JSONObject(json);
+        }catch (Exception e){
+            System.out.println(e);
+        }
+      //  Log.d("presencejson",presencejson.toString());
+        JsonObjectRequest jsonArrayRequest  = new JsonObjectRequest(Request.Method.PUT, url, presencejson,
+                new Response.Listener<org.json.JSONObject>() {
+                    @Override
+                    public void onResponse(org.json.JSONObject response) {
+                        pDialog.dismiss();
+                        Toast.makeText(getContext(),"Presence updated with success",Toast.LENGTH_LONG).show();
+                       // Log.e("response",response.toString());
+
+                        fragmentTransaction.setReorderingAllowed(false);
+                        fragmentTransaction.replace( R.id.nav_host_fragment_content_main,new PresenceFragment(),null).addToBackStack(null);
+                        //fragmentManager.popBackStackImmediate();
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                    }
+                },
+                new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    pDialog.dismiss();
+                    Toast.makeText(getContext(),"error",Toast.LENGTH_LONG).show();
+                    Log.e("error",error.toString());
+                 }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", access_token);
+                return params;
+            };
+        };
+
+        Queue.add(jsonArrayRequest);
     }
 
-    public void setLeaderSpinner(){
-
-        ArrayList<String> listLeadersNams = new ArrayList<>();
-
-      //System.out.println("2-----list leaders"+listLeaders.toString());
-
-        for(User user : listLeaders){
-          String fullname = user.getNom()+" "+user.getPrenom();
-          listLeadersNams.add(fullname);
+  public User getLeader(String id){
+      User leader = new User();
+        for(User u : listLeaders){
+            if(u.getId().equals(id)){
+                leader = u;
+            }
         }
+        return leader;
+    }
+
+    public void setLeaderSpinner(User leader){
+
         ArrayAdapter adapterLeaders = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_dropdown_item, listLeaders);
         binding.LeaderSpinner.setAdapter(adapterLeaders);
+
+        for(int i = 0; i < binding.LeaderSpinner.getCount(); i++)
+        {
+
+            if (leader.toString().equals(binding.LeaderSpinner.getItemAtPosition(i).toString()) )
+            {
+                System.out.println("leader found");
+                binding.LeaderSpinner.setSelection(i); //(false is optional)
+                break;
+            }
+        }
+
 
     }
 
@@ -212,7 +390,7 @@ private ArrayList<String> listLineSpinner = new ArrayList<>();
         return makeDateString(day,month ,year);
     }
     private String makeDateString(int day, int month, int year) {
-        return day+"-"+month+"-"+year;
+        return year+"-"+month+"-"+day;
     };
 
     private void initDatePicker(){
@@ -234,55 +412,87 @@ private ArrayList<String> listLineSpinner = new ArrayList<>();
     }
 
    private void savePresence() throws ParseException {
-        String url = API.urlBackend+"presence/saveAll";
+        String url = API.urlBackend+"presencegroup/save";
        pDialog.show();
+       presenceGroup.setGroup(groupe.getDesignation());
+       presenceGroup.setLeaderId(idLeader);
+       User leaderSelected = (User) binding.LeaderSpinner.getSelectedItem();
+       presenceGroup.setLeaderName(leaderSelected.getNom()+" "+leaderSelected.getPrenom());
+       presenceGroup.setShift(groupe.getShift());
+       presenceGroup.setEngineer(groupe.getIngenieur().getNom());
+       presenceGroup.setDate(binding.Datebutton.getText().toString());
 
-       org.json.simple.JSONArray listJson = new JSONArray();
-       org.json.JSONArray listJSON = new org.json.JSONArray();
+       int totalHours = 0;
+       int totalOpartors = 0;
        for (int i = 0; i < listUsers.size(); i++) {
            Presence presence = new Presence();
            User user = listUsers.get(i);
            View view = userRecyclerView.getChildAt(i);
            EditText nbrHours = view.findViewById(R.id.NbrHours);
            String hours = nbrHours.getText().toString();
+
            if (hours.equals("")) {
              hours ="0";
            }
-           presence.setNbrHeurs(Integer.parseInt(hours));
            Spinner stateSpinner = view.findViewById(R.id.stateSpinner);
            String state = stateSpinner.getSelectedItem().toString();
+
+           if(user.getFonction().equals("Operateur"))
+              totalHours += Integer.parseInt(hours);
+
+           System.out.println("stateSpinner "+stateSpinner);
+
+           if(user.getFonction().equals("Operateur") && (state.equals("Present") || state.equals("Retard")))
+               totalOpartors++;
+
+           presence.setNbrHeurs(Integer.parseInt(hours));
+
            presence.setEtat(state);
-           presence.setOperateur(user);
-           presence.setDate(binding.Datebutton.getText().toString());
-           presence.setChefEquipe(getLeader());
-           presence.setIngenieur(groupe.getIngenieur().getNom().toString());
-           Spinner lineSpiner = view.findViewById(R.id.lineSpinner);
-           presence.setLine(lineSpiner.getSelectedItem().toString());
-           Spinner shiftSpinner = view.findViewById(R.id.shifSpinner);
-           presence.setShift(shiftSpinner.getSelectedItem().toString());
-           Log.d("presence",presence.toString());
-           String presenceStringJson = JsonConvert.getGsonParser().toJson(presence);
-
-           try {
-               JSONParser parser = new JSONParser();
-               org.json.simple.JSONObject json = (JSONObject) parser.parse(presenceStringJson);
-               //System.out.println("json====>"+json.toString());
-               //listJson.add(json);
-               org.json.JSONObject json1 = (org.json.JSONObject) new org.json.JSONObject(json);
-               listJSON.put(json1);
+           presence.setNomPerson(user.getNom());
+           presence.setPrenomPerson(user.getPrenom());
+           presence.setIdPerson(user.getId());
+           presence.setMatriculePerson(user.getMatricule());
+           presence.setFunctionPerson(user.getFonction());
+           presence.setLine(user.getLine());
+           presenceGroup.addPresence(presence);
 
 
-           }catch (Exception e){
-               System.out.println(e);
-           }
        }
-      // Log.d("listJSON",listJSON.toString());
-       JsonArrayRequest  jsonArrayRequest  = new JsonArrayRequest(Request.Method.POST, url, listJSON,
+       presenceGroup.setSumHours(totalHours);
+       presenceGroup.setTotalOperators(totalOpartors);
+       String presenceStringJson = JsonConvert.getGsonParser().toJson(presenceGroup);
+       org.json.JSONObject presencejson = new org.json.JSONObject();
+       try {
+           JSONParser parser = new JSONParser();
+           org.json.simple.JSONObject json = (JSONObject) parser.parse(presenceStringJson);
+           //System.out.println("json====>"+json.toString());
+           //listJson.add(json);
+            presencejson = (org.json.JSONObject) new org.json.JSONObject(json);
+
+
+       }catch (Exception e){
+           System.out.println(e);
+       }
+
+        Log.d("presencejson",presencejson.toString());
+       JsonObjectRequest jsonArrayRequest  = new JsonObjectRequest(Request.Method.POST, url, presencejson,
                response ->  {
                pDialog.dismiss();
+            //   presenceFragment.presenceViewModel.getPresenses(leader.getId(),access_token);
+
                Toast.makeText(getContext(), "save with success", Toast.LENGTH_SHORT).show();
+               System.out.println("1--- presence saved ");
+                   //presenceControler.getPresenses(leader.getId(),access_token);
+                   PresenceFragment presenceFragment = new PresenceFragment();
+                   Bundle bundle = new Bundle();
+                   bundle.putString("mode","add");
+                   presenceFragment.setArguments(bundle);
+                   //navController.navigate(R.id.presence_fragment);
 
-
+                   fragmentManager.popBackStackImmediate();
+                   fragmentTransaction.setReorderingAllowed(false);
+                   fragmentTransaction.replace( R.id.nav_host_fragment_content_main,presenceFragment,null).addToBackStack(null);
+                   fragmentTransaction.commit();
 
        }, error ->{
 
@@ -290,7 +500,15 @@ private ArrayList<String> listLineSpinner = new ArrayList<>();
                Toast.makeText(getContext(),"error",Toast.LENGTH_LONG).show();
                Log.e("error",error.toString());
 
-       });
+       }){
+           @Override
+           public Map<String, String> getHeaders() throws AuthFailureError {
+               Map<String, String> params = new HashMap<String, String>();
+               params.put("Authorization", access_token);
+               //params.put("Accept-Language", "fr");
+               return params;
+           };
+       };
 
        Queue.add(jsonArrayRequest);
 
@@ -405,12 +623,7 @@ private ArrayList<String> listLineSpinner = new ArrayList<>();
 
 
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
 
-        super.onCreate(savedInstanceState);
-
-    }
 
 
 }

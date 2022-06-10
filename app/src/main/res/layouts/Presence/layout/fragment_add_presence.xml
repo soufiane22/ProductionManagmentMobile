@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="ma.premo.productionmanagment.ui.presenceFolder.AddPresenceViewModel">
+
+        </variable>
+        <variable
+            name="presence"
+            type="ma.premo.productionmanagment.models.Presence" />
+
+
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.presenceFolder.AddPresenceFragment"
+        android:orientation="vertical"
+        >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp">
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Add Declaration Presence"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"></TextView>
+
+            </LinearLayout>
+
+
+
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp">
+                        <TextView
+                            android:layout_width="155dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:text="Leader">
+                        </TextView>
+                        <Spinner
+                            android:id="@+id/LeaderSpinner"
+                            android:layout_width="185dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp">
+
+                        </Spinner>
+
+
+                        <View
+                            android:id="@+id/divider"
+                            android:layout_width="85dp"
+                            android:layout_height="42dp"
+                            android:layout_weight="0" />
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="180dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="10dp"
+                            android:layout_weight="0"
+                            android:text="Date"
+                            android:textColor="@color/black"
+                            android:textSize="16dp"
+                            />
+
+                        <Button
+                            android:id="@+id/Datebutton"
+                            style="?android:spinnerStyle"
+                            android:layout_width="150dp"
+                            android:layout_height="48dp"
+                            android:layout_gravity="fill_vertical"
+                            android:layout_weight="0"
+                            android:text="@string/_15_13_21"
+                            android:textColor="@color/black"
+                            android:textSize="16dp" />
+
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+
+                        >
+
+
+
+                        <TextView
+                            android:layout_width="160dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:text="Engineer">
+                        </TextView>
+                        <TextView
+                            android:id="@+id/Engineer"
+                            android:layout_width="180dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="@color/orange"
+                            android:text="@={viewModel.groupeMutableLiveData.ingenieur.nom}"
+                            android:textStyle="bold"
+                            android:textSize="18dp">
+                        </TextView>
+                        <View
+                            android:id="@+id/divider1"
+                            android:layout_width="85dp"
+                            android:layout_height="42dp"
+                            android:layout_weight="0" />
+
+                        <TextView
+                            android:layout_width="160dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:text="Group">
+                        </TextView>
+                        <TextView
+                            android:id="@+id/Group"
+                            android:layout_width="180dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="@color/orange"
+                            android:text="@={viewModel.groupeMutableLiveData.designation}"
+                            android:textStyle="bold"
+                            android:textSize="18dp">
+                        </TextView>
+
+
+                    </LinearLayout>
+
+
+            <HorizontalScrollView
+                android:id="@+id/horizontalView"
+                android:layout_height="wrap_content"
+                android:scrollbars="horizontal"
+                android:layout_width="match_parent"
+                android:fillViewport="true"
+                android:layout_marginTop="10dip">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="700dp"
+                android:stretchColumns="0,1,2,3,4,5,6,7"
+                android:shrinkColumns="0"
+                android:background="@color/red"
+                android:minHeight="400dp"
+                >
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/red">
+
+                    <TextView
+                        android:id="@+id/MatriculeH"
+                        android:layout_column="0"
+                        android:layout_height="wrap_content"
+                        android:layout_width="50dp"
+                        android:text="Registration number"
+                        android:textStyle="bold"
+                        android:textSize="15dp"
+                        android:textColor="#ffffff"
+                        android:layout_gravity="center"
+                        ></TextView>
+
+                    <TextView
+                        android:id="@+id/LastName"
+                        android:layout_column="1"
+                        android:layout_height="wrap_content"
+                        android:layout_width="70dp"
+                        android:text="Last name"
+                        android:textColor="#ffffff"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        android:layout_gravity="center"
+
+                        ></TextView>
+
+                    <TextView
+                        android:id="@+id/FirstName"
+                        android:layout_column="2"
+                        android:layout_height="wrap_content"
+                        android:layout_width="55dp"
+                        android:text="First name"
+                        android:textColor="#ffffff"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        android:layout_gravity="center">
+
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/Function"
+                        android:layout_column="3"
+                        android:layout_height="wrap_content"
+                        android:layout_width="65dp"
+                        android:text="Function"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        android:textSize="18dp"
+                        android:textColor="#ffffff"
+                        ></TextView>
+                    <TextView
+                        android:id="@+id/Line"
+                        android:layout_column="4"
+                        android:layout_height="wrap_content"
+                        android:layout_width="90dp"
+                        android:text="Line"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        android:textSize="18dp"
+                        android:textColor="#ffffff"
+                        ></TextView>
+
+
+                    <TextView
+                        android:id="@+id/State"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_column="5"
+                        android:layout_gravity="center"
+                        android:text="State"
+                        android:textColor="#ffffff"
+                        android:textSize="18dp"
+                        android:textStyle="bold"></TextView>
+                    <TextView
+                        android:layout_column="6"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:text="Hours"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        android:textSize="18dp"
+                        android:textColor="#ffffff"
+                        ></TextView>
+
+
+                </TableRow>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/userRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:minHeight="200dp" />
+                <!--     android:layout_height="590dp" -->
+
+
+            </TableLayout>
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+
+        <LinearLayout
+            android:id="@+id/LinearAddUsers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/RefreshButton"
+                style="@style/styleButton"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:background="@color/orange"
+                android:src="@drawable/ic_baseline_refresh_24"
+
+
+                ></ImageButton>
+
+            <ImageButton
+                android:id="@+id/AddButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="right"
+                android:layout_marginLeft="640dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/btn_backround"
+                android:src="@drawable/ic_action_name"></ImageButton>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="50dp">
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_gravity="right"
+                android:text="save"
+                android:background="#0074cc"
+                android:textColor="#ffff"
+                android:textStyle="bold"
+                android:layout_margin="10dp"/>
+        </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+    </LinearLayout>
+</layout>

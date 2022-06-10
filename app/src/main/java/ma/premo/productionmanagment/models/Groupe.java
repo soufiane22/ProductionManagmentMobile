@@ -24,6 +24,9 @@ public class Groupe {
     @SerializedName("listOperateurs")
     private List<User> listOperateurs;
 
+    @SerializedName("leaderName")
+    private String leaderName;
+
     public Groupe(String designation, String shift, String chefEquipe, List<String> listLine, List<User> listOperateurs) {
         this.designation = designation;
         this.shift = shift;

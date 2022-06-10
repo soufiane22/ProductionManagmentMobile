@@ -18,22 +18,25 @@ import java.util.List;
 
 
 import ma.premo.productionmanagment.R;
+import ma.premo.productionmanagment.models.Presence;
 import ma.premo.productionmanagment.models.User;
 
 public class PresenceAdapter extends RecyclerView.Adapter<PresenceAdapter.ViewHolder> implements  View.OnClickListener {
 
     Context context;
     List<User> userList;
-    ArrayList listLine = new ArrayList() ;
+    List<Presence> listPresence = new ArrayList<>();
+    String mode ;
     private  LayoutInflater inflater ;
-    private Spinner stateSpinner;
     private static final  int TYPE_HEAD = 0;
     private static final  int TYPE_LIST = 1;
+    private  ArrayAdapter<CharSequence> adapterSate;
 
-    public PresenceAdapter(Context context, List<User> userList, ArrayList listLine) {
+    public PresenceAdapter(Context context, List<User> userList,List<Presence> listPresence , String mode) {
         this.context = context;
         this.userList = userList;
-        this.listLine = listLine;
+        this.listPresence = listPresence;
+        this.mode = mode;
     }
 
  public void setUserList(List<User> userList){
@@ -50,7 +53,6 @@ public class PresenceAdapter extends RecyclerView.Adapter<PresenceAdapter.ViewHo
           View view = LayoutInflater.from(context).inflate(R.layout.presence_item,viewGroup,false);
           return new ViewHolder(view,viewType);
 
-
     }
 
 
@@ -58,20 +60,20 @@ public class PresenceAdapter extends RecyclerView.Adapter<PresenceAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder{
         int view_type;
         //Variable for list
-        TextView matricule , nom , prenom , fonction ;
+        TextView matricule , nom , prenom , fonction , line ;
         EditText nbrHours;
-        Spinner stateSpinner , lineSpinner , shiftSpinner;
+        Spinner stateSpinner;
+
         public ViewHolder(@NonNull View itemView, int view_type) {
             super(itemView);
-
                 matricule = itemView.findViewById(R.id.Matricule);
                 nom = itemView.findViewById(R.id.Nom);
                 prenom = itemView.findViewById(R.id.Prenom);
                 fonction = itemView.findViewById(R.id.Fonction);
                 stateSpinner = itemView.findViewById(R.id.stateSpinner);
-                shiftSpinner = itemView.findViewById(R.id.shifSpinner);
-                lineSpinner = itemView.findViewById(R.id.lineSpinner);
+                line = itemView.findViewById(R.id.line);
                 nbrHours = itemView.findViewById(R.id.NbrHours);
+
                 stateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -102,6 +104,12 @@ public class PresenceAdapter extends RecyclerView.Adapter<PresenceAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
             //System.out.println("2---view_type list ======>"+viewHolder.view_type);
+
+        adapterSate = ArrayAdapter.createFromResource(context,R.array.state, android.R.layout.simple_spinner_item);
+        adapterSate.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        viewHolder.stateSpinner.setAdapter(adapterSate);
+
+        if(mode.equals("add")){
             if (userList != null && userList.size() > 0){
                 User user = new User();
                 user = user = userList.get(i);
@@ -109,33 +117,61 @@ public class PresenceAdapter extends RecyclerView.Adapter<PresenceAdapter.ViewHo
                 viewHolder.nom.setText(String.valueOf(user.getNom()));
                 viewHolder.prenom.setText(String.valueOf(user.getPrenom()));
                 viewHolder.fonction.setText(String.valueOf(user.getFonction()));
+                viewHolder.line.setText(String.valueOf(user.getLine()));
                 int position = viewHolder.getAdapterPosition();
 
-                ArrayAdapter<CharSequence> adapterSate = ArrayAdapter.createFromResource(context,R.array.state, android.R.layout.simple_spinner_item);
-                adapterSate.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                viewHolder.stateSpinner.setAdapter(adapterSate);
-
-                ArrayAdapter<CharSequence> adapterShift = ArrayAdapter.createFromResource(context,R.array.shift, android.R.layout.simple_spinner_item);
-                adapterSate.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                viewHolder.shiftSpinner.setAdapter(adapterShift);
-
-                 ArrayAdapter<String> adapterLine = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, listLine);
-                 adapterLine.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                 viewHolder.lineSpinner.setAdapter(adapterLine);
             }
             else{
                 Toast.makeText(context, "Server error", Toast.LENGTH_SHORT).show();
                 return;
             }
+        }else{
+            Presence presence = new Presence();
+            presence = listPresence.get(i);
+            viewHolder.matricule.setText(String.valueOf(presence.getMatriculePerson()));
+            viewHolder.nom.setText(String.valueOf(presence.getNomPerson()));
+            viewHolder.prenom.setText(String.valueOf(presence.getPrenomPerson()));
+            viewHolder.fonction.setText(String.valueOf(presence.getFunctionPerson()));
+            viewHolder.line.setText(String.valueOf(presence.getLine()));
+           // viewHolder.stateSpinner.setSelection(getStatePosion(viewHolder.stateSpinner,presence.getEtat()));
+            viewHolder.nbrHours.setText(String.valueOf(presence.getNbrHeurs()));
+            getStatePosion(viewHolder.stateSpinner,presence.getEtat());
+            if(mode.equals("view")){
+                viewHolder.nbrHours.setEnabled(false);
+                viewHolder.stateSpinner.setEnabled(false);
+            }
+
+        }
+
 
 
 
     }
 
+    private  void getStatePosion(Spinner spinner, String state) {
+        for(int i = 0; i <adapterSate.getCount(); i++)
+        {
+            if (adapterSate.getItem(i).equals(state) )
+            {
+                spinner.setSelection(i); //(false is optional)
+                break;
+            }
+        }
+    }
+
+
+
     @Override
     public int getItemCount() {
+     if(mode.equals("add")){
+         return userList.size();
+     }else{
+         return listPresence.size();
+     }
 
-        return userList.size();
+
+
+
     }
 
     @Override

@@ -9,12 +9,28 @@
         android:id="@+id/nav_home"
         android:name="ma.premo.productionmanagment.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_notification_fragment"
+            app:destination="@id/notification_fragment" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_slideshow"
+            app:destination="@id/presence_fragment" />
+        <action
+            android:id="@+id/action_nav_home_to_scarp_fragment"
+            app:destination="@id/scarp_fragment" />
+        <action
+            android:id="@+id/action_nav_home_to_group_fragment"
+            app:destination="@id/group_fragment" />
+        <action
+            android:id="@+id/action_nav_home_to_statistics_fragment"
+            app:destination="@id/statistics_fragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/notification_fragment"
         android:name="ma.premo.productionmanagment.ui.notification_hours.NotificationHFragment"
-        android:label="@string/menu_gallery"
+        android:label="@string/menu_notification_hours"
         tools:layout="@layout/fragment_notification_hours" >
         <action
             android:id="@+id/action_notification_fragment_to_add_notification"
@@ -22,20 +38,48 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_slideshow"
+        android:id="@+id/presence_fragment"
         android:name="ma.premo.productionmanagment.ui.presenceFolder.PresenceFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_presence" />
+        android:label="@string/menu_presence"
+        tools:layout="@layout/fragment_presense" >
+        <action
+            android:id="@+id/action_presence_fragment_to_add_presence"
+            app:destination="@id/add_presence" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/add_presence"
+        android:name="ma.premo.productionmanagment.ui.presenceFolder.AddPresenceFragment"
+        android:label="Add presence declaration"
+        tools:layout="@layout/fragment_add_presence" >
+        <action
+            android:id="@+id/action_add_presence_to_presence_fragment"
+            app:destination="@id/presence_fragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/add_notification"
-        android:name="ma.premo.productionmanagment.ui.notification_hours.add_notification"
+        android:name="ma.premo.productionmanagment.ui.notification_hours.AddNotificationHours"
         android:label="add_notification1"
         tools:layout="@layout/add_notification1" />
 
-    <!--
- <fragment  android:id="@+id/add_notification"
-     android:name="ma.premo.productionmanagment.ui.Notification_Hours.add_notification"
-     android:label="Add Notification"
-     tools:layout="@layout/add_notification" />
-      -->
+    <fragment
+        android:id="@+id/scarp_fragment"
+        android:name="ma.premo.productionmanagment.ui.scrap.ScrapFragment"
+        android:label="@string/menu_scrap"
+        tools:layout="@layout/fragment_scrap" />
+
+    <fragment
+        android:id="@+id/group_fragment"
+        android:name="ma.premo.productionmanagment.ui.group.GroupFragment"
+        android:label="@string/menu_group"
+        tools:layout="@layout/fragment_group" />
+
+    <fragment
+        android:id="@+id/statistics_fragment"
+        android:name="ma.premo.productionmanagment.ui.statistics.StatisticsFragment"
+        android:label="@string/menu_statistics"
+        tools:layout="@layout/fragment_statistics" />
+
+
 </navigation>

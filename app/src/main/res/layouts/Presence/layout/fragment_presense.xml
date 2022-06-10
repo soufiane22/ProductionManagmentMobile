@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="ma.premo.productionmanagment.ui.presenceFolder.PresenceViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.presenceFolder.PresenceFragment">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/AddButton"
+                android:layout_width="80dp"
+                android:layout_height="30dp"
+                android:layout_gravity="top|right"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="15dp"
+                android:background="#0074cc"
+                android:text="add"
+                android:textColor="#ffff"
+                android:textStyle="bold">
+
+            </Button>
+
+            <LinearLayout
+                android:layout_width="770dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/layout_border"
+                android:layout_gravity="center_horizontal">
+
+                <Spinner
+                    android:id="@+id/SpinnerLeader"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="80dp">
+
+                </Spinner>
+
+                <Button
+                    android:id="@+id/DateButton"
+                    style="?android:spinnerStyle"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="60dp"
+                    android:layout_weight="0"
+                    android:text="@string/_15_13_21"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+
+                <ImageButton
+                    android:id="@+id/SearchButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:background="@android:color/transparent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="150dp"
+                    android:src="@drawable/ic_search_24">
+
+                </ImageButton>
+                <ImageButton
+                    android:id="@+id/Refreshbutton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_refresh_30"
+                    android:background="@android:color/transparent">
+
+                </ImageButton>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/Nodata"
+                android:layout_width="400dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal"
+                android:text="No data available"
+                android:textColor="@color/orange"
+                android:textSize="40dp"
+                android:visibility="gone"
+                android:layout_marginTop="20dp">
+
+            </TextView>
+            <!--
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/PresencesRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="vertical"
+                android:padding="5dp"
+                android:layout_marginTop="50dp"/>
+                -->
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/PresenceGroupRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </android.support.v7.widget.RecyclerView>
+            </LinearLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>
+
