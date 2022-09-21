@@ -1,5 +1,7 @@
 package ma.premo.productionmanagment.ui.group;
 
+import ma.premo.productionmanagment.models.Line;
+
 public interface LineClickListenner {
-    void onClick(String s);
+    void onClick(Line s);
 }

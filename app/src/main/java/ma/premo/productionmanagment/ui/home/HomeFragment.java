@@ -45,6 +45,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private FragmentTransaction fragmentTransaction;
     private NavigationView navigationView;
     private  NavController navController;
+    private Long timeOfLastLogin;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,6 +54,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         navigationView =  ((MainActivity)getActivity()).navigationView;
+
         navController =  ((MainActivity)getActivity()).navController;
         fragmentManager = getFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -101,5 +103,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 getActivity().finish();
                 break;
         }
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        timeOfLastLogin =  ((MainActivity)getActivity()).timeOfLastLogin;
+
     }
 }

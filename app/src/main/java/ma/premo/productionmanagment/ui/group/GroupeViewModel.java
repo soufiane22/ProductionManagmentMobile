@@ -39,7 +39,8 @@ public class GroupeViewModel  extends AndroidViewModel {
     private RequestQueue queue;
     private ProgressDialog pDialog;
 
-    public MutableLiveData<List<String>> listLineMutableLiveData = new MutableLiveData<>();
+    public MutableLiveData<List<Line>> listLineMutableLiveData = new MutableLiveData<>();
+    public  MutableLiveData<Boolean> tokenExpired = new MutableLiveData<>();
 
     public GroupeViewModel(@NonNull Application application) {
         super(application);
@@ -50,7 +51,7 @@ public class GroupeViewModel  extends AndroidViewModel {
     }
 
     public void getAllLines(String token) {
-        List<String> listLines = new ArrayList<>();
+        List<Line> listLines = new ArrayList<>();
         String url = API.urlBackend + "line/getAll";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(com.android.volley.Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -61,7 +62,7 @@ public class GroupeViewModel  extends AndroidViewModel {
                             jsonArray = response.getJSONArray("data1");
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 Line line = JsonConvert.getGsonParser().fromJson(String.valueOf(jsonArray.getJSONObject(i)), Line.class);
-                                listLines.add(line.getDesignation());
+                                listLines.add(line);
                             }
 
                             listLineMutableLiveData.setValue(listLines);
@@ -73,7 +74,13 @@ public class GroupeViewModel  extends AndroidViewModel {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("error",error.toString());
+
+                if ( error instanceof AuthFailureError) {
+                    Toast.makeText(application, "token expired",Toast.LENGTH_LONG).show();
+                    tokenExpired.setValue(true);
+                }else{
+                    Toast.makeText(application.getApplicationContext() ,"Server error",Toast.LENGTH_SHORT).show();
+                }
 
             }
         }){
@@ -107,8 +114,13 @@ public class GroupeViewModel  extends AndroidViewModel {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         pDialog.dismiss();
-                        Toast.makeText(getApplication(), "Server error", Toast.LENGTH_SHORT).show();
                         Log.e("Error ",error.toString());
+                        if ( error instanceof AuthFailureError) {
+                            Toast.makeText(application, "token expired",Toast.LENGTH_LONG).show();
+                            tokenExpired.setValue(true);
+                        }else{
+                            Toast.makeText(application.getApplicationContext() ,"Server error",Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }){
             @Override

@@ -1,4 +1,4 @@
-package ma.premo.productionmanagment.models;
+package ma.premo.productionmanagment.ui.notification_hours;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import ma.premo.productionmanagment.R;
+import ma.premo.productionmanagment.models.Notification_Hours;
 
 public class NotificationHAdapter extends RecyclerView.Adapter<NotificationHAdapter.ViewHolder>   implements  View.OnClickListener{
 
@@ -30,18 +31,18 @@ public class NotificationHAdapter extends RecyclerView.Adapter<NotificationHAdap
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView date , shift,line,of,nbrOperators,Htotal,Hextra,Hdevolution,Hstopped,HnewProject;
+        TextView date ,line,of,Htotal,Status , output,scrap , reference;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             date = itemView.findViewById(R.id.Date);
-            shift = itemView.findViewById(R.id.Shift);
             of= itemView.findViewById(R.id.Of);
             line = itemView.findViewById(R.id.Line);
             Htotal = itemView.findViewById(R.id.Htotal);
-            Hextra = itemView.findViewById(R.id.Hextrat);
-            Hstopped = itemView.findViewById(R.id.Hstopped);
-
+            Status = itemView.findViewById(R.id.Status);
+            output = itemView.findViewById(R.id.Output);
+            scrap = itemView.findViewById(R.id.Scrap);
+            reference = itemView.findViewById(R.id.Reference);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -75,14 +76,19 @@ public class NotificationHAdapter extends RecyclerView.Adapter<NotificationHAdap
            // System.out.println(i+"--"+notif.getId());
             viewHolder.date.setText(notif.getDate());
             viewHolder.line.setText(String.valueOf(notif.getLigne().getDesignation()));
-            viewHolder.shift.setText(String.valueOf(notif.getShift()));
             viewHolder.of.setText(String.valueOf(notif.getOF()));
             viewHolder.Htotal.setText(String.valueOf(notif.getTotal_h()));
-            viewHolder.Hextra.setText(String.valueOf(notif.getH_sup()));
-            viewHolder.Hstopped.setText(String.valueOf(notif.getH_arrete()));
-
-
+            viewHolder.Status.setText(String.valueOf(notif.getStatus()));
+            viewHolder.output.setText(String.valueOf(notif.getTotalOutput()));
+            viewHolder.scrap.setText(String.valueOf(notif.getTotalScrap()));
+            viewHolder.reference.setText(String.valueOf(notif.getProduit().getReference()));
             int position = viewHolder.getAdapterPosition();
+
+            if(notif.getStatus().equals("Validate")){
+                viewHolder.Status.setTextColor(context.getResources().getColor(R.color.green));
+            }else{
+                viewHolder.Status.setTextColor(context.getResources().getColor(R.color.orange1));
+            }
 
         }
         else {

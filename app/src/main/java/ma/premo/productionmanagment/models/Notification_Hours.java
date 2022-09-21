@@ -81,6 +81,43 @@ public class Notification_Hours implements Serializable {
     @Expose
     private Date createdAt;
 
+    @SerializedName("standar_hours")
+    private double standar_hours;
+
+    @SerializedName("productivity")
+    private double productivity;
+
+    @SerializedName("scrapRatio")
+    private double scrapRatio;
+
+    public double getScrapRatio() {
+        return scrapRatio;
+    }
+
+    public void setScrapRatio(float scrapRatio) {
+        this.scrapRatio = scrapRatio;
+    }
+
+    public double getStandar_hours() {
+        return standar_hours;
+    }
+
+    public double getProductivity() {
+        return productivity;
+    }
+
+    public void setLigne(Line ligne) {
+        this.ligne = ligne;
+    }
+
+    public void setStandar_hours(double standar_hours) {
+        this.standar_hours = standar_hours;
+    }
+
+    public void setProductivity(double productivity) {
+        this.productivity = productivity;
+    }
+
     public int getTotalOutput() {
         return totalOutput;
     }
@@ -280,6 +317,9 @@ public class Notification_Hours implements Serializable {
                 ", h_normal=" + h_normal +
                 ", status='" + status + '\'' +
                 ", createdAt=" + createdAt +
+                ", standar_hours=" + standar_hours +
+                ", productivity=" + productivity +
+                ", ScrapRation=" + scrapRatio +
                 '}';
     }
 }

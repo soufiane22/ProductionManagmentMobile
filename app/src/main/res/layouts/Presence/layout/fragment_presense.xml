@@ -20,36 +20,61 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/HistoricButton"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="15dp"
+                android:background="#FF9800"
+                android:padding="10dp"
+                android:text="Historic"
+                android:textColor="#ffff"
+                android:textStyle="bold">
+            </Button>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                />
             <Button
                 android:id="@+id/AddButton"
-                android:layout_width="80dp"
-                android:layout_height="30dp"
-                android:layout_gravity="top|right"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="15dp"
                 android:background="#0074cc"
+                android:padding="10dp"
                 android:text="add"
                 android:textColor="#ffff"
                 android:textStyle="bold">
 
             </Button>
+        </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="770dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"
                 android:background="@drawable/layout_border"
-                android:layout_gravity="center_horizontal">
+                android:orientation="horizontal">
 
                 <Spinner
                     android:id="@+id/SpinnerLeader"
-                    android:layout_width="180dp"
+                    android:layout_width="220dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginRight="80dp">
+                    android:layout_marginRight="50dp">
 
                 </Spinner>
 
@@ -69,19 +94,20 @@
                     android:id="@+id/SearchButton"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:background="@android:color/transparent"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="150dp"
+                    android:background="@android:color/transparent"
                     android:src="@drawable/ic_search_24">
 
                 </ImageButton>
+
                 <ImageButton
                     android:id="@+id/Refreshbutton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_refresh_30"
-                    android:background="@android:color/transparent">
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_refresh_30">
 
                 </ImageButton>
 
@@ -92,11 +118,11 @@
                 android:layout_width="400dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
                 android:text="No data available"
                 android:textColor="@color/orange"
                 android:textSize="40dp"
-                android:visibility="gone"
-                android:layout_marginTop="20dp">
+                android:visibility="gone">
 
             </TextView>
             <!--
@@ -113,7 +139,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:orientation="vertical">
 
                 <android.support.v7.widget.RecyclerView

@@ -42,16 +42,13 @@ public class AddPresenceViewModel extends AndroidViewModel {
     public MutableLiveData<Groupe> groupeMutableLiveData = new MutableLiveData<>();
     public MutableLiveData<List<User>> allUsersMutableLiveData = new MutableLiveData<>();
     public MutableLiveData<List<User>> usersMutableLiveData = new MutableLiveData<>();
-
+    public  MutableLiveData<Boolean> tokenExpired = new MutableLiveData<>();
 
     public AddPresenceViewModel(Application application) {
 
         super(application);
-        // super(application);
         this.application = application;
         queue = Volley.newRequestQueue(application);
-        //getAllUsers();
-       // getLeaders();
 
     }
 
@@ -90,7 +87,15 @@ public class AddPresenceViewModel extends AndroidViewModel {
                 error.printStackTrace();
                 Log.e("NetworkError", "Response " + error.networkResponse);
                 //pDialog.dismiss();
-                 groupeMutableLiveData.setValue(null);
+
+
+                if ( error instanceof AuthFailureError) {
+                    Toast.makeText(application, "token expired",Toast.LENGTH_LONG).show();
+                    tokenExpired.setValue(true);
+                }else{
+                    groupeMutableLiveData.setValue(null);
+                    Toast.makeText(application.getApplicationContext() ,"Server error",Toast.LENGTH_SHORT).show();
+                }
 
 
             }
@@ -110,7 +115,7 @@ public class AddPresenceViewModel extends AndroidViewModel {
 
     public void getAllUsers(String token) {
         List<User> listUsers = new ArrayList<>();
-        String url = API.urlBackend + "user/getAll";
+        String url = API.urlBackend + "user/employees";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(com.android.volley.Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {

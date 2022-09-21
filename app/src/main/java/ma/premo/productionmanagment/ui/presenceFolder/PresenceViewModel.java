@@ -6,13 +6,16 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
@@ -27,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 import ma.premo.productionmanagment.MainActivity;
+import ma.premo.productionmanagment.SignInActivity;
 import ma.premo.productionmanagment.Utils.API;
 import ma.premo.productionmanagment.Utils.JsonConvert;
 import ma.premo.productionmanagment.models.DeclarationPresence;
@@ -42,7 +46,9 @@ public class PresenceViewModel extends AndroidViewModel  {
     private ProgressDialog pDialog;
 
     public MutableLiveData<List<PresenceGroup>> declarationGroupPresenceMutableLiveData = new MutableLiveData<>();
+    public MutableLiveData<List<Presence>> presencesMutableLiveData = new MutableLiveData<>();
     public MutableLiveData<List<User>> leadersMutableLiveData = new MutableLiveData<>();
+    public  MutableLiveData<Boolean> tokenExpired = new MutableLiveData<>();
 
     public PresenceViewModel(Application application) {
         super(application);
@@ -66,12 +72,12 @@ public class PresenceViewModel extends AndroidViewModel  {
                             if (jsonArray.length() == 0 || jsonArray == null)
                                 declarationGroupPresenceMutableLiveData.setValue(null);
                             else {
-                                  System.out.println("list presences group "+jsonArray.toString());
+                               //   System.out.println("list presences group "+jsonArray.toString());
                                 for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject objet = null;
                                     Gson g = new Gson();
                                     objet = jsonArray.getJSONObject(i);
-                                    System.out.println("list presences group "+objet.toString());
+                                    //System.out.println("list presences group "+objet.toString());
                                     PresenceGroup presenceGroup = new PresenceGroup();
                                     presenceGroup = g.fromJson(String.valueOf(objet), PresenceGroup.class);
                                     // presenceGroup = JsonConvert.getGsonParser().fromJson(String.valueOf(jsonArray.getJSONObject(i)), PresenceGroup.class);
@@ -92,7 +98,12 @@ public class PresenceViewModel extends AndroidViewModel  {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+
                 Log.e("NetworkErro", "Response " + error.networkResponse);
+                if ( error instanceof AuthFailureError) {
+                    Toast.makeText(application, "token expired",Toast.LENGTH_LONG).show();
+                    tokenExpired.setValue(true);
+                }
 
 
             }
@@ -110,6 +121,71 @@ public class PresenceViewModel extends AndroidViewModel  {
 
         queue.add(jsonObjectRequest);
 
+    }
+
+
+    public void getPresensesBetweenDates(String idLeader ,String startDate,String endDate, String token){
+        String url = API.urlBackend + "presencegroup/get/leader/"+idLeader+"/"+startDate+"/"+endDate;
+        List<PresenceGroup> listpresenceGroups = new ArrayList<>();
+        List<Presence> listpresences = new ArrayList<>();
+        JsonArrayRequest  jsonArraytRequest = new JsonArrayRequest(com.android.volley.Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        JSONArray jsonArray = new JSONArray();
+
+                        try {
+                            jsonArray = response;
+                            if (jsonArray == null)
+                                declarationGroupPresenceMutableLiveData.setValue(null);
+                            else {
+                                if(jsonArray.length() == 0)
+                                    Toast.makeText(application, "No declarations presences found !",Toast.LENGTH_LONG).show();
+                                //   System.out.println("list presences group "+jsonArray.toString());
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject objet = null;
+                                    Gson g = new Gson();
+                                    objet = jsonArray.getJSONObject(i);
+                                    PresenceGroup presenceGroup = new PresenceGroup();
+                                    presenceGroup = g.fromJson(String.valueOf(objet), PresenceGroup.class);
+                                    listpresences.addAll(presenceGroup.getListPresence());
+
+                                }
+                                presencesMutableLiveData.setValue(listpresences);
+
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Log.e("NetworkErro", "Response " + error.networkResponse);
+                if ( error instanceof AuthFailureError) {
+                    Toast.makeText(application, "token expired",Toast.LENGTH_LONG).show();
+                    tokenExpired.setValue(true);
+                }
+
+
+            }
+        }
+        ){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", token);
+                //params.put("Accept-Language", "fr");
+                return params;
+            };
+
+        };
+
+        queue.add(jsonArraytRequest);
 
     }
 
@@ -208,6 +284,7 @@ public class PresenceViewModel extends AndroidViewModel  {
                                 User user = JsonConvert.getGsonParser().fromJson(String.valueOf(jsonArray.getJSONObject(i)), User.class);
                                 listLeaders.add(user);
                             }
+
                             leadersMutableLiveData.setValue(listLeaders);
 
                         } catch (JSONException e) {

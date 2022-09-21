@@ -31,10 +31,14 @@
         android:id="@+id/notification_fragment"
         android:name="ma.premo.productionmanagment.ui.notification_hours.NotificationHFragment"
         android:label="@string/menu_notification_hours"
-        tools:layout="@layout/fragment_notification_hours" >
+        tools:layout="@layout/fragment_notification_hours"
+
+    >
         <action
             android:id="@+id/action_notification_fragment_to_add_notification"
-            app:destination="@id/add_notification" />
+            app:destination="@id/add_notification"
+
+        />
     </fragment>
 
     <fragment
@@ -54,14 +58,20 @@
         tools:layout="@layout/fragment_add_presence" >
         <action
             android:id="@+id/action_add_presence_to_presence_fragment"
-            app:destination="@id/presence_fragment" />
+            app:destination="@id/presence_fragment"
+            app:popUpTo="@+id/nav_home"/>
     </fragment>
 
     <fragment
         android:id="@+id/add_notification"
         android:name="ma.premo.productionmanagment.ui.notification_hours.AddNotificationHours"
-        android:label="add_notification1"
-        tools:layout="@layout/add_notification1" />
+        android:label="Add Notification"
+        tools:layout="@layout/add_notification1" >
+        <action
+            android:id="@+id/action_add_notification_to_notification_fragment2"
+            app:destination="@id/notification_fragment"
+            app:popUpTo="@+id/nav_home"/>
+    </fragment>
 
     <fragment
         android:id="@+id/scarp_fragment"
@@ -81,5 +91,15 @@
         android:label="@string/menu_statistics"
         tools:layout="@layout/fragment_statistics" />
 
+
+    <fragment
+        android:id="@+id/historic"
+        android:name="ma.premo.productionmanagment.ui.presenceFolder.historic.HistoricFragment"
+        android:label="@string/menu_historic"
+        tools:layout="@layout/fragment_historic" >
+        <action
+            android:id="@+id/action_historic_to_notification_fragment"
+            app:destination="@id/notification_fragment" />
+    </fragment>
 
 </navigation>

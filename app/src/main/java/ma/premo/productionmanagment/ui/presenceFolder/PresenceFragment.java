@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.arch.lifecycle.Observer;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -19,6 +20,7 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.navigation.NavController;
@@ -30,6 +32,8 @@ import java.util.List;
 
 import ma.premo.productionmanagment.MainActivity;
 import ma.premo.productionmanagment.R;
+import ma.premo.productionmanagment.SignInActivity;
+import ma.premo.productionmanagment.Utils.JsonConvert;
 import ma.premo.productionmanagment.databinding.FragmentPresenseBinding;
 import ma.premo.productionmanagment.models.DeclarationPresence;
 import ma.premo.productionmanagment.models.PresenceGroup;
@@ -62,9 +66,7 @@ public class PresenceFragment extends Fragment implements DeleteitemLestener {
         leader = new User();
         access_token =  ((MainActivity)getActivity()).access_token;
         leader =  ((MainActivity)getActivity()).user;
-
         navController =  ((MainActivity)getActivity()).navController;
-        // presenceViewModel.getPresenses(leader.getId() , access_token);
 
     }
 
@@ -77,7 +79,6 @@ public class PresenceFragment extends Fragment implements DeleteitemLestener {
             nameLeader = leader.getNom()+" "+leader.getPrenom();
             presenceViewModel.getPresenses(leader.getId(),access_token);
         }
-
         binding = FragmentPresenseBinding.inflate(inflater, container, false);
         binding.setViewModel(presenceViewModel);
         binding.setLifecycleOwner(this);
@@ -120,7 +121,7 @@ public class PresenceFragment extends Fragment implements DeleteitemLestener {
                 fragmentTransaction.commit();
 
                  */
-               // getActivity().onBackPressed();
+
                 navController.navigate(R.id.add_presence,bundle);
 
 
@@ -136,7 +137,6 @@ public class PresenceFragment extends Fragment implements DeleteitemLestener {
                 String idLeader = leaderSelected.getId();
                 String date = binding.DateButton.getText().toString();
                 presenceViewModel.searchPresence(idLeader,date,access_token);
-                //System.out.println("search "+idLeader+" "+date);
 
             }
         });
@@ -187,6 +187,27 @@ public class PresenceFragment extends Fragment implements DeleteitemLestener {
            }
        });
 
+       presenceViewModel.tokenExpired.observe(this, new Observer<Boolean>() {
+           @Override
+           public void onChanged(@Nullable Boolean aBoolean) {
+               if(aBoolean){
+                       //Toast.makeText(getActivity().getApplicationContext(), "token expired",Toast.LENGTH_LONG).show();
+                       Intent loginIntent = new Intent(getContext() , SignInActivity.class);
+                       startActivity(loginIntent);
+                       getActivity().finish();
+               }
+
+           }
+       });
+
+       /******* go to statistic fragment ********/
+       binding.HistoricButton.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               navController.navigate(R.id.historic);
+           }
+       });
+
 
         return view;
     }
@@ -200,7 +221,6 @@ public class PresenceFragment extends Fragment implements DeleteitemLestener {
         for (int i = 0; i < binding.SpinnerLeader.getCount(); i++) {
 
             if (leader.toString().equals(binding.SpinnerLeader.getItemAtPosition(i).toString())) {
-                //System.out.println("leader found");
                 binding.SpinnerLeader.setSelection(i);
                 break;
             }
@@ -214,7 +234,6 @@ public class PresenceFragment extends Fragment implements DeleteitemLestener {
         int month = cal.get(Calendar.MONTH);
         month = month+1;
         int day = cal.get(Calendar.DAY_OF_MONTH);
-         // System.out.println("date=====>"+makeDateString(day,month ,year));
         return makeDateString(day,month ,year);
     }
     private String makeDateString(int day, int month, int year) {
@@ -276,11 +295,26 @@ public class PresenceFragment extends Fragment implements DeleteitemLestener {
         alertDialog.show();
     }
 
+    private int getIndex(Spinner spinner, String myString){
+        for (int i=0;i<spinner.getCount();i++){
+            if (spinner.getItemAtPosition(i).toString().equals(myString)){
+                return i;
+            }
+        }
+
+
+
+        return 0;
+    }
+
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
          //outState.putInt();
     }
+
+
+
 
 
 }

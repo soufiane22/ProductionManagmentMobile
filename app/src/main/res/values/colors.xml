@@ -10,10 +10,10 @@
     <color name="red">#fb0303</color>
     <color name="orange">#fb4d23</color>
     <color name="orange1">#FF9F37</color>
-    <color name="green">#01C00A</color>
+    <color name="green">#0DBC15</color>
     <color name="grona">#ce283d</color>
     <color name="cyan">#7ed9fa</color>
     <color name="red1">#f75757</color>
-    <color name="gray">#CDCDCD</color>
-    <color name="test">#9C27B0</color>
+    <color name="gray">#BCBCBC</color>
+    <color name="test">#336AD8</color>
 </resources>

@@ -16,9 +16,6 @@ public class User implements Comparable<User> {
     @SerializedName("fonction")
     private String fonction;
 
-    @SerializedName("username")
-    private String username;
-
     @SerializedName("password")
     private String password;
     @SerializedName("email")
@@ -26,18 +23,17 @@ public class User implements Comparable<User> {
     @SerializedName("matricule")
     private int matricule;
     @SerializedName("line")
-    private String line;
+    private Line line = null;
 
 
 
     private Boolean selected =false ;
 
-    public User(String nom, String prenom, String tele, String fonction, int matricule,Boolean selected, String password, String email ) {
+    public User(String nom, String prenom, String tele, String fonction, int matricule,Boolean selected, String email ) {
         this.nom = nom;
         this.prenom = prenom;
         this.tele = tele;
         this.fonction = fonction;
-        this.password = password;
         this.email = email;
         this.matricule = matricule;
         this.selected = selected;
@@ -106,11 +102,11 @@ public class User implements Comparable<User> {
         this.matricule = matricule;
     }
 
-    public String getLine() {
+    public Line getLine() {
         return line;
     }
 
-    public void setLine(String line) {
+    public void setLine(Line line) {
         this.line = line;
     }
 
@@ -123,9 +119,7 @@ public class User implements Comparable<User> {
     }
 
 
-    public String getUsername() {
-        return username;
-    }
+    
 
 
     public String toString2() {

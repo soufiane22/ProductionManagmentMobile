@@ -47,13 +47,17 @@ public class Line implements Comparable<Line> {
         this.center = center;
     }
 
-    @Override
-    public String toString() {
+
+    public String toString1() {
         return "Line{" +
                 "id='" + id + '\'' +
                 ", designation='" + designation + '\'' +
                 ", center=" + center +
                 '}';
+    }
+    @Override
+    public String toString(){
+        return getDesignation();
     }
 
     @Override

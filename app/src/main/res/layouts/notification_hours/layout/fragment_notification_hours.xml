@@ -24,129 +24,181 @@
           -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <TableLayout
-                android:id="@+id/tableNotification"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="550dp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginTop="150dp"
-                android:background="#f1f1f1">
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#fb0303">
-
-                    <TextView
-                        android:id="@+id/Date"
-                        android:layout_column="1"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Dtae"
-                        android:textColor="#ffffff"
-                        android:textSize="15dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/Shift"
-                        android:layout_column="1"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Shift"
-                        android:textColor="#ffffff"
-                        android:textSize="15dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/Line"
-                        android:layout_column="1"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Line"
-                        android:textColor="#ffffff"
-                        android:textSize="15dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/Of"
-                        android:layout_column="1"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="OF"
-                        android:textColor="#ffffff"
-                        android:textSize="15dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/Htotal"
-                        android:layout_column="1"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Total hours"
-                        android:textColor="#ffffff"
-                        android:textSize="15dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/Hextrat"
-                        android:layout_column="1"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Overtime"
-                        android:textColor="#ffffff"
-                        android:textSize="15dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/Hstopped"
-                        android:layout_column="1"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Stopped hours"
-                        android:textColor="#ffffff"
-                        android:textSize="15dp"
-                        android:textStyle="bold" />
-
-                </TableRow>
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="520dp" />
-
-
-            </TableLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:orientation="horizontal">
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
-            <Button
-                android:id="@+id/AddButton"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginRight="10dp"
-                android:layout_weight="0"
-                android:text="Add"
-                android:textColor="#ffff"
-                android:textStyle="bold"
-                android:background="#0074cc"/>
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/refreshbutton1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_refresh_30">
+
+                </ImageButton>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/AddButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="0"
+                    android:background="#0074cc"
+                    android:text="Add"
+                    android:textColor="#ffff"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TableLayout
+                    android:id="@+id/tableNotification"
+                    android:layout_width="match_parent"
+                    android:layout_height="550dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="80dp"
+                    android:background="#f1f1f1">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#fb0303">
+
+                        <TextView
+                            android:id="@+id/Date"
+                            android:layout_width="80dp"
+                            android:gravity="center"
+                            android:text="Dtae"
+                            android:textColor="#ffffff"
+                            android:textSize="15dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/Line"
+                            android:layout_width="100dp"
+                            android:gravity="center"
+                            android:text="Line"
+                            android:textColor="#ffffff"
+                            android:textSize="15dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/Of"
+                            android:layout_width="90dp"
+                            android:gravity="center"
+                            android:text="OF"
+                            android:textColor="#ffffff"
+                            android:textSize="15dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/reference"
+                            android:layout_width="110dp"
+                            android:layout_marginRight="20dp"
+                            android:gravity="center"
+                            android:text="reference"
+                            android:textColor="#ffffff"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/Htotal"
+                            android:layout_width="80dp"
+                            android:gravity="center"
+                            android:text="Total hours"
+                            android:textColor="#ffffff"
+                            android:textSize="15dp"
+                            android:textStyle="bold" />
+
+
+                        <TextView
+                            android:id="@+id/TotalOutput"
+                            android:layout_width="90dp"
+                            android:layout_marginLeft="20dp"
+                            android:gravity="center"
+                            android:text="Total Output"
+                            android:textColor="#ffffff"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/TotalScrap"
+                            android:layout_width="80dp"
+                            android:layout_marginLeft="20dp"
+                            android:gravity="center"
+                            android:text="Total Scrap"
+                            android:textColor="#ffffff"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/Hextrat"
+                            android:layout_column="1"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="Status"
+                            android:textColor="#ffffff"
+                            android:textSize="15dp"
+                            android:textStyle="bold" />
+
+                    </TableRow>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="520dp" />
+
+
+                </TableLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_weight="1">
+                </View>
+                <Button
+                    android:id="@+id/groupButton"
+                    android:layout_width="wrap_content"
+                    android:padding="10dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="10dp"
+                    android:background="#EC870C"
+                    android:text="Other Group"
+                    android:textColor="#ffff"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+
 
         </LinearLayout>
-
 
 
 

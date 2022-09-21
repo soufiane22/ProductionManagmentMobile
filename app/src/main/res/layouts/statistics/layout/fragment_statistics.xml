@@ -1,14 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.statistics.StatisticsFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="statistic fragment" />
+        tools:context=".ui.statistics.StatisticsFragment">
 
-</FrameLayout>
+        <!-- TODO: Update blank fragment layout -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="7dp"
+                android:background="@drawable/layout_border"
+                android:orientation="horizontal"
+                android:padding="10dp">
+                <!--  -->
+                <!--  -->
+                <!--
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="20dp"
+                    android:text="Filter By : "
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+                <Spinner
+                    android:id="@+id/FilterSpinner"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="40dp"
+                    android:layout_gravity="center_vertical">
+
+                </Spinner>
+                  -->
+                <View
+                    android:layout_width="60dp"
+                    android:layout_height="30dp"></View>
+
+                <Spinner
+                    android:id="@+id/linespinner"
+                    android:layout_width="170dp"
+                    android:layout_height="39dp"
+                    android:layout_marginRight="30dp" />
+
+                <Button
+                    android:id="@+id/StartDate"
+                    style="?android:spinnerStyle"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="25dp"
+                    android:layout_weight="0"
+                    android:text="Start Date"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+
+                <Button
+                    android:id="@+id/EndDate"
+                    style="?android:spinnerStyle"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="70dp"
+                    android:layout_weight="0"
+                    android:text="End Date"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+
+                <EditText
+                    android:id="@+id/OfSelected"
+                    android:layout_width="180px"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="100dp"
+                    android:inputType="number"
+                    android:visibility="gone"></EditText>
+
+                <ImageButton
+                    android:id="@+id/SearchButton"
+                    android:layout_width="51dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="150dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_search_24">
+
+                </ImageButton>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <!--
+                <com.jjoe64.graphview.GraphView
+                    android:id="@+id/graph"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dip" />
+                     -->
+
+                <TableLayout
+                    android:layout_width="780dp"
+                    android:layout_height="400dp"
+                    android:layout_margin="8dp"
+                    android:stretchColumns="1,2,3,4,5"
+                    tools:context=".MainActivity"
+                    tools:layout_editor_absoluteX="9dp"
+                    tools:layout_editor_absoluteY="255dp"
+                    android:background="#E8EEF3"
+                    android:layout_gravity="center_horizontal">
+
+                    <TableRow
+                        android:layout_height="1px"
+                        android:background="#BDBDBD">
+
+                        <TextView
+                            android:layout_column="1"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:text="Leader"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_column="2"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:text="Sum Output"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_column="1"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:text="Productivity"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+                        <TextView
+                          android:layout_width="80dp"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:text="Scrap ratio"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+                    </TableRow>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/statisticRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                </TableLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:layout_marginTop="550dp">
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</layout>

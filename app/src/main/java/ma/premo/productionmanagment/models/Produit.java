@@ -9,9 +9,9 @@ public class Produit {
     @Expose
     private String id;
 
-    @SerializedName("idLigne")
+    @SerializedName("line")
     @Expose
-    private String idLigne;
+    private Line line;
 
     @SerializedName("designation")
     @Expose
@@ -21,8 +21,12 @@ public class Produit {
     @Expose
     private String reference;
 
-    public Produit(String idLigne, String designation, String reference) {
-        this.idLigne = idLigne;
+    @SerializedName("tc")
+    @Expose
+    private double tc;
+
+    public Produit(Line line, String designation, String reference) {
+        this.line = line;
         this.designation = designation;
         this.reference = reference;
     }
@@ -30,12 +34,21 @@ public class Produit {
     public Produit() {
     }
 
+    public double getTc() {
+        return tc;
+    }
+
+
+    public void setTc(double tc) {
+        this.tc = tc;
+    }
+
     public String getId() {
         return id;
     }
 
-    public String getIdLigne() {
-        return idLigne;
+    public Line getLine() {
+        return line;
     }
 
     public String getDesignation() {
@@ -46,8 +59,8 @@ public class Produit {
         return reference;
     }
 
-    public void setIdLigne(String idLigne) {
-        this.idLigne = idLigne;
+    public void setLine(Line line) {
+        this.line = line;
     }
 
     public void setDesignation(String designation) {
@@ -62,7 +75,7 @@ public class Produit {
     public String toString2() {
         return "Produit{" +
                 "id='" + id + '\'' +
-                ", idLigne='" + idLigne + '\'' +
+                ", idLigne='" + line.toString() + '\'' +
                 ", designation='" + designation + '\'' +
                 ", reference='" + reference + '\'' +
                 '}';
@@ -70,7 +83,7 @@ public class Produit {
 
     @Override
     public String toString() {
-        return this.getDesignation();
+        return this.getReference();
 
     }
 }

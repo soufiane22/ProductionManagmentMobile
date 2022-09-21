@@ -15,6 +15,7 @@
     <string name="menu_scrap">Scrap Declaration</string>
     <string name="menu_group">My Group</string>
     <string name="menu_statistics">Statistics</string>
+    <string name="menu_historic">Presence Historic</string>
 
     <string name="_15_13_21">15-13-21</string>
 
@@ -34,10 +35,16 @@
         <item>Present</item>
         <item>Retard</item>
         <item>Absent</item>
+        <item>Authorized</item>
         <item>Furlough</item><!-- congé-->
         <item>Sick</item><!-- malade-->
         <item>Transfer</item>
-        <item> other</item>
+        <item>Suspension</item>
+        <item>Maternity</item>
+    </string-array>
+    <string-array name="filter">
+        <item>Between two dates</item>
+        <item>OF</item>
     </string-array>
 
     <string-array name="OF">

@@ -5,18 +5,19 @@ import android.app.ProgressDialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.Spinner;
@@ -30,11 +31,9 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -48,17 +47,14 @@ import java.util.Map;
 
 import ma.premo.productionmanagment.MainActivity;
 import ma.premo.productionmanagment.R;
+import ma.premo.productionmanagment.SignInActivity;
 import ma.premo.productionmanagment.Utils.API;
 import ma.premo.productionmanagment.Utils.JsonConvert;
-import ma.premo.productionmanagment.databinding.FragmentAddPresenceBinding;
 import ma.premo.productionmanagment.databinding.FragmentGroupBinding;
 import ma.premo.productionmanagment.models.Groupe;
 import ma.premo.productionmanagment.models.Line;
-import ma.premo.productionmanagment.models.NotificationHAdapter;
 import ma.premo.productionmanagment.models.User;
-import ma.premo.productionmanagment.ui.presenceFolder.AddPresenceFragment;
 import ma.premo.productionmanagment.ui.presenceFolder.AddPresenceViewModel;
-import ma.premo.productionmanagment.ui.presenceFolder.PresenceAdapter;
 import ma.premo.productionmanagment.ui.presenceFolder.UserAdapter;
 
 public class GroupFragment extends Fragment implements UserAdapter.Userselected  , EditlineInterface{
@@ -72,8 +68,8 @@ public class GroupFragment extends Fragment implements UserAdapter.Userselected 
     private Groupe groupe;
     private List<User> listUsers;
     private List<User> listEngineer;
-    private List<String> listGroupLines;
-    private List<String> listAllLines;
+    private List<Line> listGroupLines;
+    private List<Line> listAllLines;
     private PersonAdapter personAdapter;
     private LineGroupeAdapter lineGroupeAdapter;
     private  LineGroupeAdapter allLineadapter;
@@ -96,6 +92,7 @@ public class GroupFragment extends Fragment implements UserAdapter.Userselected 
         navController =  ((MainActivity)getActivity()).navController;
         pDialog = new ProgressDialog(getContext());
         pDialog.setMessage("Loading...PLease wait");
+        pDialog.show();
         addPresenceViewModel = new ViewModelProvider(this,new ViewModelProvider.AndroidViewModelFactory(getActivity().getApplication())).get(AddPresenceViewModel.class);
         groupeViewModel = new ViewModelProvider(this,new ViewModelProvider.AndroidViewModelFactory(getActivity().getApplication())).get(GroupeViewModel.class);
         groupeViewModel.getAllLines(access_token);
@@ -103,7 +100,7 @@ public class GroupFragment extends Fragment implements UserAdapter.Userselected 
             addPresenceViewModel.getGroup(leader.getId(),access_token);
         }
 
-        addPresenceViewModel.getUsersByFunction(access_token , "Ingenieur");
+        addPresenceViewModel.getUsersByFunction(access_token , "Superviseur");
         addPresenceViewModel.getAllUsers(access_token);
         Queue = Volley.newRequestQueue(getContext());
 
@@ -119,7 +116,6 @@ public class GroupFragment extends Fragment implements UserAdapter.Userselected 
         binding.lineRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         editLineView =  inflater.inflate(R.layout.popup_person, container, false);
-
 
         addPresenceViewModel.groupeMutableLiveData.observe(this, new Observer<Groupe>() {
 
@@ -143,20 +139,24 @@ public class GroupFragment extends Fragment implements UserAdapter.Userselected 
                     Comparator<User> compareByFirstName = (User o1, User o2) -> o1.getPrenom().compareTo( o2.getPrenom() );
                     Collections.sort(listUsers , compareByFirstName);
                     listUsers.remove(leader);
+                /*
                     for(int i = 0; i < listUsers.size(); i++){
                         if(leader.getId().equals(listUsers.get(i).getId()))
                             listUsers.remove(i);
+                            break;
                     }
-                    System.out.println("list of person without leader: "+listUsers.toString());
+
+                 */
+
                     personAdapter = new PersonAdapter(getContext(),listUsers,GroupFragment.this);
                     binding.personsRecyclerView.setAdapter(personAdapter);
                     setShiftSpinners();
+                    pDialog.dismiss();
                     try {
                         getListEngineer();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-
 
                     pDialog.dismiss();
 
@@ -199,15 +199,37 @@ public class GroupFragment extends Fragment implements UserAdapter.Userselected 
 
         refresh();
 
+        groupeViewModel.tokenExpired.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean aBoolean) {
+                if(aBoolean){
+                    Intent loginIntent = new Intent(getContext() , SignInActivity.class);
+                    startActivity(loginIntent);
+                    getActivity().finish();
+                }
+            }
+        });
+
+        addPresenceViewModel.tokenExpired.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean aBoolean) {
+                if(aBoolean){
+                    Intent loginIntent = new Intent(getContext() , SignInActivity.class);
+                    startActivity(loginIntent);
+                    getActivity().finish();
+                }
+            }
+        });
+
 
         return view;
     }
 
     private void setAllLineRecyclerView() {
-        groupeViewModel.listLineMutableLiveData.observe(this, new Observer<List<String>>() {
+        groupeViewModel.listLineMutableLiveData.observe(this, new Observer<List<Line>>() {
             @Override
-            public void onChanged(@Nullable List<String> lines) {
-                listAllLines = new ArrayList<>(lines);
+            public void onChanged(@Nullable List<Line> lines) {
+                listAllLines = new ArrayList<Line>(lines);
                 Collections.sort(listAllLines);
 
             }
@@ -227,13 +249,15 @@ public class GroupFragment extends Fragment implements UserAdapter.Userselected 
         TextView firstname = editLineView.findViewById(R.id.FirstName);
         TextView function = editLineView.findViewById(R.id.Function);
         TextView registerNumber = editLineView.findViewById(R.id.RegisterNumber);
+        EditText phone = editLineView.findViewById(R.id.Phone);
         Spinner lineSpinner = editLineView.findViewById(R.id.SpinnerLine);
         lastname.setText(user.getNom());
         firstname.setText(user.getPrenom());
         function.setText(user.getFonction());
         registerNumber.setText(String.valueOf(user.getMatricule()));
+        phone.setText(user.getTele());
 
-        ArrayAdapter<String> adapterLine = new ArrayAdapter<String> (getContext(), android.R.layout.simple_spinner_dropdown_item, listGroupLines);
+        ArrayAdapter<Line> adapterLine = new ArrayAdapter<Line> (getContext(), android.R.layout.simple_spinner_dropdown_item, listGroupLines);
         lineSpinner.setAdapter(adapterLine);
 
         AlertDialog.Builder Builder = new AlertDialog.Builder(getContext());
@@ -243,11 +267,13 @@ public class GroupFragment extends Fragment implements UserAdapter.Userselected 
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         pDialog.show();
-                      String lineSelected =(String) lineSpinner.getSelectedItem();
-                      Toast.makeText(getContext(),lineSelected,Toast.LENGTH_SHORT).show();
+                      Line lineSelected = (Line) lineSpinner.getSelectedItem();
+                      Toast.makeText(getContext(),lineSelected.getDesignation(),Toast.LENGTH_SHORT).show();
                       user.setLine(lineSelected);
+                      user.setTele(String.valueOf(phone.getText()));
                         try {
                             groupeViewModel.updatePerson(user.getId(),user,access_token ,pDialog);
+                            System.out.println("user to update "+user.toString2());
                         } catch (ParseException e) {
                             e.printStackTrace();
                             Toast.makeText(getContext(),"Error !",Toast.LENGTH_SHORT).show();
@@ -290,7 +316,7 @@ public class GroupFragment extends Fragment implements UserAdapter.Userselected 
 
         lineClickListenner = new LineClickListenner() {
             @Override
-            public void onClick(String s) {
+            public void onClick(Line s) {
                 allLineRecyclerView.post(new Runnable() {
                     @Override
                     public void run() {
@@ -305,10 +331,6 @@ public class GroupFragment extends Fragment implements UserAdapter.Userselected 
         allLineRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         allLineadapter = new LineGroupeAdapter(getContext(),listAllLines,"All",lineClickListenner);
         allLineRecyclerView.setAdapter(allLineadapter);
-
-
-
-
         dialog.show();
 
         dialog.getWindow().setLayout(600,710);
@@ -323,10 +345,8 @@ public class GroupFragment extends Fragment implements UserAdapter.Userselected 
         addLine();
     }
 
-    String lineAdd;
+    Line lineAdd;
     private void addLine(){
-
-
         Button addLineButton = linesView.findViewById(R.id.AddLineButton);
         addLineButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -342,7 +362,6 @@ public class GroupFragment extends Fragment implements UserAdapter.Userselected 
     public void getListEngineer() throws InterruptedException {
         Thread.currentThread().setPriority(1);
          Thread.sleep(500);
-      //  System.out.println("1----Engineers retrieved ");
         addPresenceViewModel.usersMutableLiveData.observe(this, new Observer<List<User>>() {
             @Override
             public void onChanged(@Nullable List<User> users) {
@@ -363,8 +382,7 @@ public class GroupFragment extends Fragment implements UserAdapter.Userselected 
     }
 
     private void setEngineerSpinners(String engineerName){
-      //  System.out.println("2----Set engineer spinner");
-       // System.out.println("listEngineer===>"+listEngineer.toString());
+
         ArrayAdapter adapterEngineer = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_dropdown_item, listEngineer);
 
         binding.EngineerSpinner.setAdapter(adapterEngineer);
@@ -408,9 +426,6 @@ public class GroupFragment extends Fragment implements UserAdapter.Userselected 
                     //userAdapter.getfilter(s);
                     // search(s);
                     return true;
-
-
-
                 }
             });
         }
@@ -449,7 +464,7 @@ public class GroupFragment extends Fragment implements UserAdapter.Userselected 
         addusersbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //System.out.println("users selected"+listToAdd.toString());
+
                 listUsers.addAll(listToAdd);
                 personAdapter.setPersonList(listUsers);
                 dialog.cancel();
@@ -465,7 +480,7 @@ public class GroupFragment extends Fragment implements UserAdapter.Userselected 
         binding.RefreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              //  System.out.println("refresh table");
+
                 listUsers = new ArrayList<>(groupe.getListOperateurs());
                 listUsers.removeAll(listToAdd);
                 personAdapter.setPersonList(listUsers);
@@ -476,15 +491,14 @@ public class GroupFragment extends Fragment implements UserAdapter.Userselected 
     private void updategroupe() throws ParseException {
         pDialog.show();
         String url = API.urlBackend+"groupe/update/"+groupe.getId();
-        //System.out.println("list persons====>"+personAdapter.getPersonsList().toString());
+
         listUsers = personAdapter.getPersonsList();
-        listUsers.add(leader);
         groupe.setListOperateurs(listUsers);
         groupe.setShift(binding.ShiftSpinner.getSelectedItem().toString());
         User engineer = (User) binding.EngineerSpinner.getSelectedItem();
         groupe.setIngenieur(engineer);
         groupe.setListLine(lineGroupeAdapter.getLineGroupeList());
-       // System.out.println("groupe to update :"+groupe.toString());
+
         String groupStringJson = JsonConvert.getGsonParser().toJson(groupe);
         JSONParser parser = new JSONParser();
         org.json.simple.JSONObject json = (JSONObject) parser.parse(groupStringJson);

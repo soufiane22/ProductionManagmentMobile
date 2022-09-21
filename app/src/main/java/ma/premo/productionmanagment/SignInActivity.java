@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
@@ -18,13 +19,16 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.jar.JarException;
 
 import ma.premo.productionmanagment.Utils.API;
 import ma.premo.productionmanagment.databinding.ActivitySignInBinding;
@@ -76,10 +80,13 @@ private  Intent intent;
                 new Response.Listener<String>() {
              @Override
               public void onResponse(String response) {
+                 JSONObject userConnected = null;
                  System.out.println("response====>" + response.toString());
+
                  Toast.makeText(getApplicationContext(), "login with success", Toast.LENGTH_SHORT).show();
                  intent. putExtra("username", username);
                  intent. putExtra("tokens",response.toString());
+                 intent.putExtra("last_login", System.currentTimeMillis());
                  pDialog.dismiss();
                  startActivity(intent);
 
@@ -91,12 +98,12 @@ private  Intent intent;
                   pDialog.dismiss();
                   Log.e("error", error.toString());
 
-                  if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                  if ( error instanceof NoConnectionError) {
                       Toast.makeText(getApplicationContext(), "Network error",Toast.LENGTH_LONG).show();
                   } else if (error instanceof AuthFailureError) {
                       //TODO
                       Toast.makeText(getApplicationContext(), "username or password is incorrect", Toast.LENGTH_LONG).show();
-                  } else if (error instanceof ServerError) {
+                  } else if ( error instanceof TimeoutError || error instanceof ServerError) {
                       //TODO
                       Toast.makeText(getApplicationContext(), "Server error",Toast.LENGTH_LONG).show();
 
@@ -140,7 +147,7 @@ private  Intent intent;
 
         };
 
-
+        //jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(20 * 1000, 2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         Queue.add(jsonObjectRequest);
 

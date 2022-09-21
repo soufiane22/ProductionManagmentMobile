@@ -18,9 +18,10 @@
 
 
         <LinearLayout
+            android:id="@+id/linearlayout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
@@ -30,12 +31,42 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="24dp"
                 android:text="Add Hours Notification"
                 android:textColor="@color/black"
                 android:textSize="20sp">
 
             </TextView>
+
+            <LinearLayout
+                android:id="@+id/leaderNameLyout"
+                android:layout_width="730dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="15dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textViewLeader"
+                    android:layout_width="155dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:layout_weight="0"
+                    android:text="Leader"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/textViewLeaderName"
+                    android:layout_width="155dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:layout_weight="0"
+                    android:text="Leader"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="730dp"
@@ -73,7 +104,7 @@
 
                 <TextView
                     android:id="@+id/textView6"
-                    android:layout_width="150dp"
+                    android:layout_width="130dp"
                     android:layout_height="22dp"
                     android:layout_marginVertical="10dp"
                     android:text="Shift"
@@ -85,12 +116,11 @@
                     android:layout_width="150dp"
                     android:layout_height="22dp"
                     android:layout_marginVertical="10dp"
-                    android:text="@={groupeview.groupeMutableLiveData.shift}"
+                    android:text="shift"
                     android:textColor="@color/black"
                     android:textSize="16dp"
-                    android:textStyle="bold"
-                    />
-<!--
+                    android:textStyle="bold" />
+                <!--
                 <Spinner
                     android:id="@+id/Shiftspinner"
                     android:layout_width="151dp"
@@ -130,7 +160,7 @@
 
                 <TextView
                     android:id="@+id/textViewProduct"
-                    android:layout_width="150dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="Product"
                     android:textColor="@color/black"
@@ -138,7 +168,7 @@
 
                 <Spinner
                     android:id="@+id/Productspinner"
-                    android:layout_width="149dp"
+                    android:layout_width="210dp"
                     android:layout_height="39dp" />
 
             </LinearLayout>
@@ -168,8 +198,7 @@
                     android:id="@+id/OF"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:inputType="number">
-                </EditText>
+                    android:inputType="number"></EditText>
 
                 <View
                     android:id="@+id/divider5"
@@ -199,7 +228,7 @@
                 android:layout_marginStart="10dp"
                 android:orientation="horizontal">
 
-
+                <!--
                 <TextView
                     android:id="@+id/textView9"
                     android:layout_width="150dp"
@@ -211,6 +240,21 @@
                 <EditText
                     android:id="@+id/hTotal"
                     android:layout_width="150dp"
+                    android:layout_height="43dp"
+                    android:ems="10"
+                    android:inputType="number" />
+                    -->
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="155dp"
+                    android:layout_height="wrap_content"
+                    android:text="Extra hours"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+
+                <EditText
+                    android:id="@+id/hExtra"
+                    android:layout_width="145dp"
                     android:layout_height="43dp"
                     android:ems="10"
                     android:inputType="number" />
@@ -247,16 +291,16 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView10"
+                    android:id="@+id/textView11"
                     android:layout_width="155dp"
                     android:layout_height="wrap_content"
-                    android:text="Extra hours"
+                    android:text="Devolutional hours"
                     android:textColor="@color/black"
                     android:textSize="16dp" />
 
                 <EditText
-                    android:id="@+id/hExtra"
-                    android:layout_width="145dp"
+                    android:id="@+id/hDevolution"
+                    android:layout_width="144dp"
                     android:layout_height="43dp"
                     android:ems="10"
                     android:inputType="number" />
@@ -290,28 +334,6 @@
                 android:layout_marginStart="10dp"
                 android:orientation="horizontal">
 
-
-                <TextView
-                    android:id="@+id/textView11"
-                    android:layout_width="155dp"
-                    android:layout_height="wrap_content"
-                    android:text="Devolutional hours"
-                    android:textColor="@color/black"
-                    android:textSize="16dp" />
-
-                <EditText
-                    android:id="@+id/hDevolution"
-                    android:layout_width="144dp"
-                    android:layout_height="43dp"
-                    android:ems="10"
-                    android:inputType="number" />
-
-
-                <View
-                    android:id="@+id/divider4"
-                    android:layout_width="85dp"
-                    android:layout_height="42dp"
-                    android:layout_weight="0" />
 
                 <TextView
                     android:id="@+id/textView13"
@@ -406,14 +428,125 @@
                 android:layout_width="94dp"
                 android:layout_height="49dp"
                 android:layout_gravity="right"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:background="#0074cc"
                 android:text="Save"
                 android:textColor="#ffff"
                 android:textStyle="bold" />
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:textAlignment="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Statistics from "
+                    android:textColor="@color/black"
+                    android:textSize="16dp">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/startDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" Start date "
+                    android:textColor="@color/black"
+                    android:textSize="16dp"></TextView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="  to  "
+                    android:textColor="@color/black"
+                    android:textSize="16dp"></TextView>
+
+                <TextView
+                    android:id="@+id/endDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="end date"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"></TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <TableLayout
+                    android:layout_width="780dp"
+                    android:layout_height="300dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="8dp"
+                    android:background="#E8EEF3"
+                    android:stretchColumns="1,2,3,4,5"
+                    tools:context=".MainActivity"
+                    tools:layout_editor_absoluteX="9dp"
+                    tools:layout_editor_absoluteY="255dp">
+
+                    <TableRow
+                        android:layout_height="1px"
+                        android:background="#BDBDBD">
+
+                        <TextView
+                            android:layout_column="1"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:text="Leader"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_column="2"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:text="Sum Output"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_column="1"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:text="Productivity"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="80dp"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:text="Scrap ratio"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+                    </TableRow>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/statisticRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="16dp">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                </TableLayout>
+
+            </LinearLayout>
+
         </LinearLayout>
+
+
 
 
     </RelativeLayout>

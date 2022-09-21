@@ -61,8 +61,11 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
             viewHolder.nom.setText(String.valueOf(user.getNom()));
             viewHolder.prenom.setText(String.valueOf(user.getPrenom()));
             viewHolder.fonction.setText(String.valueOf(user.getFonction()));
-            viewHolder.phone.setText(String.valueOf(user.getTele()));
-            viewHolder.line.setText(String.valueOf(user.getLine()));
+            //viewHolder.phone.setText(String.valueOf(user.getTele()));
+            if(user.getLine() != null)
+            viewHolder.line.setText(user.getLine().getDesignation());
+            else
+                viewHolder.line.setText("null");
         }else{
             Toast.makeText(context, "Server error", Toast.LENGTH_SHORT).show();
         }
@@ -80,7 +83,7 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
             nom = itemView.findViewById(R.id.PLastName);
             prenom = itemView.findViewById(R.id.PFirstName);
             fonction = itemView.findViewById(R.id.PFunction);
-            phone= itemView.findViewById(R.id.PhoneP);
+            //phone= itemView.findViewById(R.id.PhoneP);
             line = itemView.findViewById(R.id.LineP);
             deleteButon=itemView.findViewById(R.id.DeleteButton);
             deleteButon.setOnClickListener(new View.OnClickListener() {

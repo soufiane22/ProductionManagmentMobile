@@ -59,9 +59,10 @@ public class MainActivity extends AppCompatActivity {
     public User user;
     private RequestQueue Queue;
     private   TextView  name;
-    private   TextView email;
+    private   TextView function;
     public NavigationView navigationView;
     public NavController navController;
+    public  Long timeOfLastLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,15 +71,29 @@ public class MainActivity extends AppCompatActivity {
 
         Queue = Volley.newRequestQueue(getApplicationContext());
         Bundle extras = getIntent().getExtras();
-        /*
-      if(extras == null){
-          Intent intent;
-          intent = new Intent(this, SignInActivity.class);
-          startActivity(intent);
+         timeOfLastLogin = (Long) extras.getLong("last_login");
+        System.out.println("timeOfLastLogin "+timeOfLastLogin);
+        System.out.println("System.currentTimeMillis() "+System.currentTimeMillis());
 
-      }
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-         */
+        setSupportActionBar(binding.appBarMain.toolbar);
+
+        DrawerLayout drawer = binding.drawerLayout;
+        navigationView = binding.navView;
+
+        mAppBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.nav_home, R.id.notification_fragment,R.id.presence_fragment,R.id.scarp_fragment,R.id.group_fragment,R.id.statistics_fragment )
+                .setDrawerLayout(drawer)
+                .build();
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+        NavigationUI.setupWithNavController(navigationView, navController);
+
+        View headerView = navigationView.getHeaderView(0);
+        name = (TextView) headerView.findViewById(R.id.name);
+        function = (TextView) headerView.findViewById(R.id.function);
         if(extras != null) {
             String username = extras.getString("username");
             String tokens = extras.getString("tokens");
@@ -88,108 +103,22 @@ public class MainActivity extends AppCompatActivity {
                 json = (JSONObject) parser.parse(tokens);
                 org.json.JSONObject json1 = (org.json.JSONObject) new org.json.JSONObject(json);
                 access_token = json1.getString("access_token");
+                String userConnected = json1.getString("userjsonstring");
+                //System.out.println("1----- userjsonstring "+userConnected);
+                user = JsonConvert.getGsonParser().fromJson(String.valueOf(userConnected), User.class);
+                String nameUser = user.getNom()+" "+user.getPrenom();
+                name.setText(nameUser);
+                function.setText(user.getFonction());
+              //  System.out.println("2----- user object "+user.toString2());
                 Log.println(Log.ASSERT,"access_token",access_token);
-                getLeader(username , access_token);
+
             } catch (ParseException | JSONException e) {
                 e.printStackTrace();
             }
         }
 
-
-
-
-
-
-
-
-
-/*
-        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
- */
-
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        setSupportActionBar(binding.appBarMain.toolbar);
-
-        DrawerLayout drawer = binding.drawerLayout;
-         navigationView = binding.navView;
-
-        View headerView = navigationView.getHeaderView(0);
-         name = (TextView) headerView.findViewById(R.id.name);
-         email = (TextView) headerView.findViewById(R.id.email);
-
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.notification_fragment,R.id.presence_fragment,R.id.scarp_fragment,R.id.group_fragment,R.id.statistics_fragment )
-                .setDrawerLayout(drawer)
-                .build();
-         navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
-
     }
 
-    private void getLeader(String username, String token) {
-        String url = API.urlBackend+"user/get/username/"+username;
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(com.android.volley.Request.Method.GET, url, null,
-                new Response.Listener<org.json.JSONObject>() {
-            @Override
-            public void onResponse(org.json.JSONObject response) {
-                org.json.JSONObject json = null;
-                try {
-                    json = response.getJSONObject("object");
-                    //Log.d("response ",response.toString());
-                     user = JsonConvert.getGsonParser().fromJson(String.valueOf(json), User.class);
-                     String nameUser = user.getNom()+" "+user.getPrenom();
-                     name.setText(nameUser);
-                     email.setText(user.getEmail());
-                    Log.d("1----user ",user.toString2());
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("error",error.toString());
-
-                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                    Toast.makeText(getApplicationContext(), "Network error",Toast.LENGTH_LONG).show();
-                } else if (error instanceof ServerError) {
-                    //TODO
-                    Toast.makeText(getApplicationContext(), "Server error",Toast.LENGTH_LONG).show();
-
-                } else if (error instanceof NetworkError) {
-                    Toast.makeText(getApplicationContext(), "Network error",Toast.LENGTH_LONG).show();
-                    //TODO
-                } else if (error instanceof ParseError) {
-                    //TODO
-                    Toast.makeText(getApplicationContext(), "Parse error",Toast.LENGTH_LONG).show();
-                }
-            }
-        }){
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", token);
-                //params.put("Accept-Language", "fr");
-                return params;
-            };
-        };
-
-        Queue.add(jsonObjectRequest);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -206,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
                 return true;
-
         }
         return super.onOptionsItemSelected(item);
     }
@@ -219,7 +147,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /*
-
     @Override
     public void onBackPressed() {
         if(getFragmentManager().getBackStackEntryCount() == 0) {
@@ -232,4 +159,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
      */
+
+ 
 }

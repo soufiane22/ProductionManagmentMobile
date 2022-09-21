@@ -29,7 +29,7 @@ public class PresenceGroup {
     @SerializedName("totalOperators")
     private int totalOperators;
     @SerializedName("sumHours")
-    private int sumHours;
+    private Double sumHours;
     @SerializedName("listPresence")
     private List<Presence> listPresence = new ArrayList<>();
     @SerializedName("status")
@@ -38,7 +38,7 @@ public class PresenceGroup {
     public PresenceGroup() {
     }
 
-    public PresenceGroup(String group, String shift, String date, String leaderId, String leaderName, String engineer, int totalOperators, int sumHours, List<Presence> listPresence) {
+    public PresenceGroup(String group, String shift, String date, String leaderId, String leaderName, String engineer, int totalOperators, Double sumHours, List<Presence> listPresence) {
         this.group = group;
         this.shift = shift;
         this.date = date;
@@ -99,7 +99,7 @@ public class PresenceGroup {
         return totalOperators;
     }
 
-    public int getSumHours() {
+    public Double getSumHours() {
         return sumHours;
     }
 
@@ -135,7 +135,7 @@ public class PresenceGroup {
         this.totalOperators = totalOperators;
     }
 
-    public void setSumHours(int sumHours) {
+    public void setSumHours(Double sumHours) {
         this.sumHours = sumHours;
     }
 

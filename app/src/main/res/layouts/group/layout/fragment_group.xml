@@ -64,7 +64,7 @@
                     android:layout_weight="0" />
 
                 <TextView
-                    android:layout_width="150dp"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="Shift"
@@ -73,7 +73,7 @@
 
                 <Spinner
                     android:id="@+id/ShiftSpinner"
-                    android:layout_width="200dp"
+                    android:layout_width="230dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"></Spinner>
 
@@ -112,7 +112,7 @@
 
                 <TextView
                     android:id="@+id/textview1"
-                    android:layout_width="150dp"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="Engineer"
@@ -121,7 +121,7 @@
 
                 <Spinner
                     android:id="@+id/EngineerSpinner"
-                    android:layout_width="200dp"
+                    android:layout_width="230dp"
                     android:layout_height="wrap_content">
 
                 </Spinner>
@@ -181,7 +181,7 @@
 
                         <TextView
                             android:id="@+id/LastName"
-                            android:layout_width="60dp"
+                            android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_column="1"
                             android:layout_gravity="center"
@@ -194,7 +194,7 @@
 
                         <TextView
                             android:id="@+id/FirstName"
-                            android:layout_width="55dp"
+                            android:layout_width="70dp"
                             android:layout_height="wrap_content"
                             android:layout_column="2"
                             android:layout_gravity="center"
@@ -217,20 +217,6 @@
                             android:textColor="#ffffff"
                             android:textSize="18dp"
                             android:textStyle="bold"></TextView>
-
-                        <TextView
-                            android:id="@+id/Phone"
-                            android:layout_width="50dp"
-                            android:layout_height="wrap_content"
-                            android:layout_column="3"
-                            android:layout_gravity="center"
-                            android:text="Phone"
-                            android:textColor="#ffffff"
-                            android:textSize="18dp"
-                            android:textStyle="bold"
-                            android:layout_marginStart="5dp">
-
-                        </TextView>
 
                         <TextView
                             android:id="@+id/Line"

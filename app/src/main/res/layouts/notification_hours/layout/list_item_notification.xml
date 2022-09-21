@@ -9,31 +9,17 @@
 
   <TextView
       android:id="@+id/Date"
-      android:layout_width="130dp"
+      android:layout_width="90dp"
       android:layout_height="match_parent"
-      android:layout_column="1"
-      android:layout_weight="1"
       android:gravity="center"
-      android:text="Date"
+      android:text="2022-08-15"
       android:textSize="15dp"
       android:textStyle="bold"
       />
 
   <TextView
-      android:id="@+id/Shift"
-
-      android:layout_width="130dp"
-      android:layout_height="match_parent"
-      android:layout_column="1"
-      android:layout_weight="1"
-      android:gravity="center"
-      android:text="Shift"
-      android:textSize="15dp"
-      android:textStyle="bold" />
-
-  <TextView
       android:id="@+id/Line"
-      android:layout_width="120dp"
+      android:layout_width="180dp"
       android:layout_height="match_parent"
       android:layout_column="1"
       android:layout_weight="1"
@@ -43,18 +29,28 @@
       android:textStyle="bold" />
   <TextView
       android:id="@+id/Of"
-      android:layout_width="168dp"
+      android:layout_width="155dp"
       android:layout_height="match_parent"
       android:layout_column="1"
       android:layout_weight="1"
       android:gravity="center"
-      android:text="OF"
+      android:text="12345678"
+      android:textSize="15dp"
+      android:textStyle="bold" />
+  <TextView
+      android:id="@+id/Reference"
+      android:layout_width="200dp"
+      android:layout_height="match_parent"
+      android:layout_column="1"
+      android:layout_weight="1"
+      android:gravity="center"
+      android:text="reference"
       android:textSize="15dp"
       android:textStyle="bold" />
 
   <TextView
       android:id="@+id/Htotal"
-      android:layout_width="168dp"
+      android:layout_width="150dp"
       android:layout_height="match_parent"
       android:layout_column="1"
       android:layout_weight="1"
@@ -63,25 +59,37 @@
       android:textSize="15dp"
       android:textStyle="bold" />
 
+
+
   <TextView
-      android:id="@+id/Hextrat"
+      android:id="@+id/Output"
       android:layout_width="168dp"
       android:layout_height="match_parent"
       android:layout_column="1"
       android:layout_weight="1"
       android:gravity="center"
-      android:text="Extra hours"
+      android:text="Output"
+      android:textSize="15dp"
+      android:textStyle="bold" />
+  <TextView
+      android:id="@+id/Scrap"
+      android:layout_width="168dp"
+      android:layout_height="match_parent"
+      android:layout_column="1"
+      android:layout_weight="1"
+      android:gravity="center"
+      android:text="Scrap"
       android:textSize="15dp"
       android:textStyle="bold" />
 
   <TextView
-      android:id="@+id/Hstopped"
+      android:id="@+id/Status"
       android:layout_width="168dp"
       android:layout_height="match_parent"
       android:layout_column="1"
       android:layout_weight="1"
       android:gravity="center"
-      android:text="Stopped hours"
+      android:text="Status"
       android:textSize="15dp"
       android:textStyle="bold" />
 

@@ -30,7 +30,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp">
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/AddPresenceView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
@@ -38,10 +38,20 @@
                     android:text="Add Declaration Presence"
                     android:textColor="@color/black"
                     android:textSize="20sp"></TextView>
+                <TextView
+                    android:id="@+id/UpdatePresenceView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Update Declaration Presence"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:visibility="gone">
+
+                </TextView>
 
             </LinearLayout>
-
-
 
                     <LinearLayout
 
@@ -52,7 +62,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp">
                         <TextView
-                            android:layout_width="155dp"
+                            android:layout_width="160dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:textColor="@color/black"
@@ -61,16 +71,24 @@
                         </TextView>
                         <Spinner
                             android:id="@+id/LeaderSpinner"
-                            android:layout_width="185dp"
+                            android:layout_width="200dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp">
-
                         </Spinner>
-
+                        <TextView
+                            android:id="@+id/LeaderView"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:text="Leader"
+                            android:visibility="gone">
+                        </TextView>
 
                         <View
                             android:id="@+id/divider"
-                            android:layout_width="85dp"
+                            android:layout_width="70dp"
                             android:layout_height="42dp"
                             android:layout_weight="0" />
                         <TextView
@@ -106,36 +124,30 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="20dp"
                         android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-
-                        >
-
-
+                        android:layout_marginEnd="10dp">
 
                         <TextView
                             android:layout_width="160dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
+                            android:text="Supervisor"
                             android:textColor="@color/black"
-                            android:textSize="18dp"
-                            android:text="Engineer">
-                        </TextView>
+                            android:textSize="18dp"></TextView>
+
                         <TextView
                             android:id="@+id/Engineer"
-                            android:layout_width="180dp"
+                            android:layout_width="200dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
+                            android:text=" "
                             android:textColor="@color/orange"
-                            android:text="@={viewModel.groupeMutableLiveData.ingenieur.nom}"
-                            android:textStyle="bold"
-                            android:textSize="18dp">
-                        </TextView>
+                            android:textSize="18dp"
+                            android:textStyle="bold"></TextView>
                         <View
                             android:id="@+id/divider1"
-                            android:layout_width="85dp"
+                            android:layout_width="70dp"
                             android:layout_height="42dp"
                             android:layout_weight="0" />
-
                         <TextView
                             android:layout_width="160dp"
                             android:layout_height="wrap_content"
@@ -150,11 +162,11 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:textColor="@color/orange"
-                            android:text="@={viewModel.groupeMutableLiveData.designation}"
+                            android:text=" "
                             android:textStyle="bold"
                             android:textSize="18dp">
+                            <!-- @={viewModel.groupeMutableLiveData.designation}-->
                         </TextView>
-
 
                     </LinearLayout>
 
@@ -165,7 +177,7 @@
                 android:scrollbars="horizontal"
                 android:layout_width="match_parent"
                 android:fillViewport="true"
-                android:layout_marginTop="10dip">
+                android:layout_marginTop="5dip">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -174,7 +186,7 @@
 
             <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="700dp"
+                android:layout_height="890dp"
                 android:stretchColumns="0,1,2,3,4,5,6,7"
                 android:shrinkColumns="0"
                 android:background="@color/red"
@@ -257,6 +269,17 @@
                         android:textColor="#ffffff"
                         android:textSize="18dp"
                         android:textStyle="bold"></TextView>
+
+                    <TextView
+                        android:id="@+id/Shift"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="5"
+                        android:layout_gravity="center"
+                        android:text="Shift"
+                        android:textColor="#ffffff"
+                        android:textSize="18dp"
+                        android:textStyle="bold"></TextView>
                     <TextView
                         android:layout_column="6"
                         android:layout_width="30dp"
@@ -285,19 +308,19 @@
                 </LinearLayout>
             </HorizontalScrollView>
 
-
+        <!--
         <LinearLayout
             android:id="@+id/LinearAddUsers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <ImageButton
                 android:id="@+id/RefreshButton"
                 style="@style/styleButton"
-                android:layout_width="70dp"
-                android:layout_height="40dp"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
                 android:layout_marginLeft="10dp"
                 android:background="@color/orange"
                 android:src="@drawable/ic_baseline_refresh_24"
@@ -318,12 +341,13 @@
 
 
         </LinearLayout>
+        -->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="50dp">
+            android:layout_marginTop="10dp">
 
             <Button
                 android:id="@+id/button"
@@ -334,7 +358,7 @@
                 android:background="#0074cc"
                 android:textColor="#ffff"
                 android:textStyle="bold"
-                android:layout_margin="10dp"/>
+              android:layout_marginRight="10dp"/>
         </LinearLayout>
 
 

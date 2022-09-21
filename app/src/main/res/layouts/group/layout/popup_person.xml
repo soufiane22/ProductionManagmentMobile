@@ -13,14 +13,13 @@
         android:orientation="vertical"
         android:padding="10dp"
 
-       >
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="18dp"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="200dp"
@@ -42,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="18dp"
-            android:orientation="horizontal">>
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="200dp"
@@ -102,6 +101,30 @@
                 android:text="Register Number"
                 android:textColor="@color/black"
                 android:textSize="20dp"></TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="18dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="Phone Number"
+                android:textColor="@color/black"
+                android:textSize="20dp"></TextView>
+
+            <EditText
+                android:id="@+id/Phone"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:hint="phone number"
+                android:inputType="number"
+                android:textColor="@color/black"
+                android:textSize="20dp"></EditText>
+
         </LinearLayout>
 
         <LinearLayout

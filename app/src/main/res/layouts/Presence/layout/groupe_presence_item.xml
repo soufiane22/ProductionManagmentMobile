@@ -43,7 +43,7 @@
 
                 <TextView
                     android:id="@+id/IGroupe"
-                    android:layout_width="160dp"
+                    android:layout_width="220dp"
                     android:layout_height="60dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
@@ -55,7 +55,7 @@
                     android:id="@+id/IStatus"
                     android:layout_width="100dp"
                     android:layout_height="60dp"
-                    android:layout_marginStart="155dp"
+                    android:layout_marginStart="110dp"
                     android:layout_marginTop="10dp"
                     android:text="@{String.valueOf(viewModel.declarationPresenceMutableLiveData.status)}"
                     android:textColor="@color/orange"
@@ -64,14 +64,16 @@
 
                 <TextView
                     android:id="@+id/IDate"
-                    android:layout_width="170dp"
+                    android:layout_width="175dp"
                     android:layout_height="60dp"
-                    android:layout_marginStart="180dp"
+                    android:layout_marginStart="110dp"
                     android:layout_marginTop="10dp"
                     android:text="@{String.valueOf(viewModel.declarationPresenceMutableLiveData.date)}"
                     android:textColor="@color/black"
                     android:textSize="30dp"
-                    android:textStyle="bold"></TextView>
+                    android:textStyle="bold">
+
+                </TextView>
 
             </LinearLayout>
 

@@ -19,15 +19,24 @@ public class Groupe {
     @SerializedName("ingenieur")
     private User ingenieur;
 
+    @SerializedName("technicalExpert")
+    private User technicalExpert;
+
+    @SerializedName("zone")
+    private String zone;
+
+    @SerializedName("passwordGroup")
+    private String passwordGroup;
+
     @SerializedName("listLine")
-    private List<String> listLine;
+    private List<Line> listLine;
     @SerializedName("listOperateurs")
     private List<User> listOperateurs;
 
     @SerializedName("leaderName")
     private String leaderName;
 
-    public Groupe(String designation, String shift, String chefEquipe, List<String> listLine, List<User> listOperateurs) {
+    public Groupe(String designation, String shift, String chefEquipe, List<Line> listLine, List<User> listOperateurs) {
         this.designation = designation;
         this.shift = shift;
         this.chefEquipe = chefEquipe;
@@ -36,6 +45,36 @@ public class Groupe {
     }
 
     public Groupe() {
+    }
+
+    public String getPasswordGroup() {
+        return passwordGroup;
+    }
+
+
+
+    public User getTechnicalExpert() {
+        return technicalExpert;
+    }
+
+    public String getZone() {
+        return zone;
+    }
+
+    public String getLeaderName() {
+        return leaderName;
+    }
+
+    public void setTechnicalExpert(User technicalExpert) {
+        this.technicalExpert = technicalExpert;
+    }
+
+    public void setZone(String zone) {
+        this.zone = zone;
+    }
+
+    public void setLeaderName(String leaderName) {
+        this.leaderName = leaderName;
     }
 
     public String getId() {
@@ -54,7 +93,7 @@ public class Groupe {
         return chefEquipe;
     }
 
-    public List<String> getListLine() {
+    public List<Line> getListLine() {
         return listLine;
     }
 
@@ -74,7 +113,7 @@ public class Groupe {
         this.chefEquipe = chefEquipe;
     }
 
-    public void setListLine(List<String> listLine) {
+    public void setListLine(List<Line> listLine) {
         this.listLine = listLine;
     }
 

@@ -22,25 +22,25 @@ import ma.premo.productionmanagment.models.User;
 public class LineGroupeAdapter extends RecyclerView.Adapter<LineGroupeAdapter.ViewHolder>{
 
     private Context context;
-    private List<String> lineGroupeList;
+    private List<Line> lineGroupeList;
     private String mode = "";
     private int selectedPosition = -1;
     private LineClickListenner lineClickListenner;
 
-    public LineGroupeAdapter(Context context, List<String> lineList ,String mode, LineClickListenner lineClickListenner) {
+    public LineGroupeAdapter(Context context, List<Line> lineList ,String mode, LineClickListenner lineClickListenner) {
         this.context = context;
         this.lineGroupeList = lineList;
         this.mode = mode;
         this.lineClickListenner = lineClickListenner;
     }
 
-    public void setLineGroupeList(List<String> lineList){
+    public void setLineGroupeList(List<Line> lineList){
         this.lineGroupeList = lineList;
         System.out.println("new list"+lineGroupeList.toString());
         notifyDataSetChanged();
     }
 
-    public List<String> getLineGroupeList() {
+    public List<Line> getLineGroupeList() {
         return lineGroupeList;
     }
 
@@ -55,9 +55,9 @@ public class LineGroupeAdapter extends RecyclerView.Adapter<LineGroupeAdapter.Vi
     public void onBindViewHolder(@NonNull LineGroupeAdapter.ViewHolder viewHolder, int i) {
         if (lineGroupeList != null && lineGroupeList.size() > 0){
           //  Line line = new Line();
-            String line;
+            Line line;
             line  = lineGroupeList.get(i);
-            viewHolder.line.setText(line);
+            viewHolder.line.setText(line.getDesignation());
 
 
             viewHolder.radioButton.setChecked(i == selectedPosition);

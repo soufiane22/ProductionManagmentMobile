@@ -61,7 +61,6 @@ private NavController navController;
         return new ViewHolder(view);
     }
 
-    PresenceGroup  declaration = new PresenceGroup();
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         PresenceGroup declaration = new PresenceGroup();
@@ -122,7 +121,6 @@ public class ViewHolder extends RecyclerView.ViewHolder {
             public void onClick(View view) {
                 int position = getAdapterPosition();
                 PresenceGroup p = listPresenceGroupe.get(position);
-                if(p.getStatus().equals("Invalidate")){
                     Bundle bundle = new Bundle();
                     String presenceJsonString = JsonConvert.getGsonParser().toJson(p);
                     bundle.putString("presenceJsonString",presenceJsonString);
@@ -130,9 +128,13 @@ public class ViewHolder extends RecyclerView.ViewHolder {
                     //AppCompatActivity activity
                     navController = Navigation.findNavController(itemView);
                     navController.navigate(R.id.add_presence,bundle);
-                }else{
+
+                /*
+                else{
                     Toast.makeText(context,"You can't update this declaration", Toast.LENGTH_LONG).show();
                 }
+
+                 */
      ;
 
             }

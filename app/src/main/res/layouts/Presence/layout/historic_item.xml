@@ -1,33 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:stretchColumns="0,1,2,3,4,5,6,7"
     android:background="@color/red">
 
-        <TableRow
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="70dp"
-            android:layout_weight="1"
-            android:layout_marginBottom="2dp"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
            >
+
 
                 <TextView
                     style="@style/table_row_item"
+                    android:id="@+id/DateView"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="12-08-2022"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"/>
+                <TextView
+                    style="@style/table_row_item"
                     android:id="@+id/Matricule"
-                    android:layout_width="37dp"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:text="1223"
-                    android:textSize="13sp"
+                    android:textSize="14sp"
                     android:textColor="@color/black"/>
 
                 <TextView
                     android:id="@+id/Nom"
                     style="@style/table_row_item"
-                    android:layout_width="108dp"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
+                    android:layout_column="1"
                     android:text="ALOUI EL IDRISSI"
                     android:textSize="13sp"
                     android:textColor="@color/black"
@@ -36,65 +44,64 @@
                 <TextView
                     style="@style/table_row_item"
                     android:id="@+id/Prenom"
-                    android:layout_width="80dp"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:text="FATIMA ZOHRA"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:textColor="@color/black"
                  />
 
                 <TextView
                     style="@style/table_row_item"
                     android:id="@+id/Fonction"
-                    android:layout_width="93dp"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:text="MAINTENANCE"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:textColor="@color/black"
                     />
 
                 <TextView
                     style="@style/table_row_item"
                     android:id="@+id/line"
-                    android:layout_width="110dp"
+                    android:layout_width="150dp"
                     android:layout_height="40dp"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:text="SDTR 1103 L1"
                     android:textColor="@color/black"
                      />
-                <Spinner
-                    android:id="@+id/stateSpinner"
-                    android:layout_width="75dp"
-                    android:layout_height="40dp"
-                    android:layout_column="5"
-                    android:text="State"
+
+                <TextView
                     style="@style/table_row_item"
+                    android:id="@+id/state"
+                    android:layout_width="80dp"
+                    android:layout_height="40dp"
+                    android:text="State"
                     android:textColor="@color/black"
                     android:textSize="13sp"
                     />
-                <Spinner
-                    android:id="@+id/shiftSpinner"
-                    android:layout_width="75dp"
-                    android:layout_height="40dp"
-                    android:layout_column="5"
-                    android:text="shift"
+
+                <TextView
                     style="@style/table_row_item"
-                    android:textColor="@color/white"
+                    android:id="@+id/shiftPresence"
+                    android:layout_width="90dp"
+                    android:layout_height="40dp"
+                    android:textSize="14sp"
+                    android:text="Morning"
+                    android:textColor="@color/black"
                     />
 
-                <EditText
+
+                <TextView
                     style="@style/table_row_item"
-                    android:id="@+id/NbrHours"
-                    android:layout_width="28dp"
+                    android:id="@+id/Hours"
+                    android:layout_width="60dp"
                     android:layout_height="wrap_content"
-                    android:ems="6"
-                    android:hint="0"
-                    android:inputType="numberDecimal"
                     android:textColor="@color/black"
               />
 
 
-        </TableRow>
+        </LinearLayout>
 
 
-</TableLayout>
+</RelativeLayout>

@@ -26,13 +26,16 @@ public class Presence implements Comparable<Presence> {
     private String functionPerson;
 
     @SerializedName("etat")
-    private String etat;
+    private String etat = "Present";
+
+    @SerializedName("shift")
+    private String shift = "Morning";
 
     @SerializedName("nbrHeurs")
-    private int nbrHeurs = 0;
+    private Double nbrHeurs = 0.0;
 
     @SerializedName("line")
-    private String line;
+    private Line line;
 
     @SerializedName("date")
     private String date;
@@ -40,10 +43,23 @@ public class Presence implements Comparable<Presence> {
     @SerializedName("createdAt")
     private Date createdAt;
 
+    @SerializedName("technicalExpert")
+    private User technicalExpert;
+
+    @SerializedName("supervisor")
+    private User supervisor;
+
+    @SerializedName("leader")
+    private User leader;
+
+    @SerializedName("zone")
+    private String zone;
+
     public Presence() {
     }
 
-    public Presence(String idPerson, String nomPerson, String prenomPerson, int matriculePerson, String functionPerson, String etat, int nbrHeurs, String line) {
+    public Presence(String idPerson, String nomPerson, String prenomPerson, int matriculePerson, String functionPerson, String etat,
+                    Double nbrHeurs, Line line) {
         this.idPerson = idPerson;
         this.nomPerson = nomPerson;
         this.prenomPerson = prenomPerson;
@@ -52,6 +68,30 @@ public class Presence implements Comparable<Presence> {
         this.etat = etat;
         this.nbrHeurs = nbrHeurs;
         this.line = line;
+    }
+
+    public User getTechnicalExpert() {
+        return technicalExpert;
+    }
+
+    public User getSupervisor() {
+        return supervisor;
+    }
+
+    public String getZone() {
+        return zone;
+    }
+
+
+
+
+
+    public String getShift() {
+        return shift;
+    }
+
+    public void setShift(String shift) {
+        this.shift = shift;
     }
 
     public String getDate() {
@@ -98,11 +138,11 @@ public class Presence implements Comparable<Presence> {
         return etat;
     }
 
-    public int getNbrHeurs() {
+    public Double getNbrHeurs() {
         return nbrHeurs;
     }
 
-    public String getLine() {
+    public Line getLine() {
         return line;
     }
 
@@ -130,12 +170,33 @@ public class Presence implements Comparable<Presence> {
         this.etat = etat;
     }
 
-    public void setNbrHeurs(int nbrHeurs) {
+    public void setNbrHeurs(Double nbrHeurs) {
         this.nbrHeurs = nbrHeurs;
     }
 
-    public void setLine(String line) {
+    public void setLine(Line line) {
         this.line = line;
+    }
+
+
+    public void setTechnicalExpert(User technicalExpert) {
+        this.technicalExpert = technicalExpert;
+    }
+
+    public void setSupervisor(User supervisor) {
+        this.supervisor = supervisor;
+    }
+
+    public void setZone(String zone) {
+        this.zone = zone;
+    }
+
+    public User getLeader() {
+        return leader;
+    }
+
+    public void setLeader(User leader) {
+        this.leader = leader;
     }
 
     @Override
@@ -148,8 +209,14 @@ public class Presence implements Comparable<Presence> {
                 ", matriculePerson=" + matriculePerson +
                 ", functionPerson='" + functionPerson + '\'' +
                 ", etat='" + etat + '\'' +
+                ", shift='" + shift + '\'' +
                 ", nbrHeurs=" + nbrHeurs +
                 ", line='" + line + '\'' +
+                ", date='" + date + '\'' +
+                ", createdAt=" + createdAt +
+                ", technicalExpert='" + technicalExpert + '\'' +
+                ", supervisor='" + supervisor + '\'' +
+                ", zone='" + zone + '\'' +
                 '}';
     }
 
