@@ -12,19 +12,18 @@ Dashboard                                                    |  List Hours Notif
 
 List Presences Declaration                                   |  Add Presence Declaration       | Historic off Declaration Presence
 :-------------------------:                                  |:-------------------------:   |:-------------------------:
-<img src="https://user-images.githubusercontent.com/71232427/192253283-c10debad-3fce-4667-b9b4-6b7e58a12527.png" width="300" height="500" > | <img src="https://user-images.githubusercontent.com/71232427/192253867-72aa2a6b-1acb-440c-b752-371fab1062f0.png" width="300" height="500" > | <img src="https://user-images.githubusercontent.com/71232427/192254205-ba1fb5b8-1135-401e-a6c7-067066569292.png" width="300" height="500" >
+<img src="https://user-images.githubusercontent.com/71232427/192253283-c10debad-3fce-4667-b9b4-6b7e58a12527.png" width="300" height="400" > | <img src="https://user-images.githubusercontent.com/71232427/192253867-72aa2a6b-1acb-440c-b752-371fab1062f0.png" width="300" height="400" > | <img src="https://user-images.githubusercontent.com/71232427/192254205-ba1fb5b8-1135-401e-a6c7-067066569292.png" width="300" height="400" >
 
 
 Edit Group                                         |  Edit Employer               | Search and select Employees
 :-------------------------:                        |:-------------------------:   |:-------------------------:
-<img src="https://user-images.githubusercontent.com/71232427/192254649-db38d30d-193c-49d4-844a-f8051dcc3f04.png" width="300" height="500" > | <img src="https://user-images.githubusercontent.com/71232427/192254680-c9484c14-c7af-499c-9f0f-f1e87a606dcd.png" width="300" height="500" > | <img src="https://user-images.githubusercontent.com/71232427/192254699-9972fe6d-8175-40ae-b11c-025caed3c516.png" width="300" height="500" >
+<img src="https://user-images.githubusercontent.com/71232427/192254649-db38d30d-193c-49d4-844a-f8051dcc3f04.png" width="300" height="400" > | <img src="https://user-images.githubusercontent.com/71232427/192254680-c9484c14-c7af-499c-9f0f-f1e87a606dcd.png" width="300" height="400" > | <img src="https://user-images.githubusercontent.com/71232427/192254699-9972fe6d-8175-40ae-b11c-025caed3c516.png" width="300" height="400" >
 
 Search and select Production Lines                                       |  Statistics Space
 :-------------------------:                                              |:-------------------------: 
-<img src="https://user-images.githubusercontent.com/71232427/192256625-c7a56ca7-7746-41d6-8f3b-c90e4741e2ec.png" width="300" height="500" > | <img src="https://user-images.githubusercontent.com/71232427/192256638-7c9a9eed-a90f-4b2c-95c9-e086c8c235f2.png" width="300" height="500" >
+<img src="https://user-images.githubusercontent.com/71232427/192256625-c7a56ca7-7746-41d6-8f3b-c90e4741e2ec.png" width="300" height="400" > | <img src="https://user-images.githubusercontent.com/71232427/192256638-7c9a9eed-a90f-4b2c-95c9-e086c8c235f2.png" width="300" height="400" >
 
 
-![Screenshot_2022-09-26-11-42-58](https://user-images.githubusercontent.com/71232427/192257747-7afc3b7a-101c-4fc1-b11a-ba86c4e4a64d.png)
 
 
 
