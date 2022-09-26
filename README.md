@@ -8,7 +8,7 @@ An Android Production Management Application coded in Java Language using Androi
 
 Dashboard                                                    |  List Hours Notification                  | Add Notification Hour
 :-------------------------:                                  |:-------------------------:                |:-------------------------:
-<img src="https://user-images.githubusercontent.com/71232427/192231492-2d6911f0-d64e-4e40-ad0b-1526db906970.png" width="300" height="400" > | <img src="https://user-images.githubusercontent.com/71232427/192249929-05a995b0-e20e-4b3a-bfd7-54e3a3d0a801.png" width="300" height="500" > | <img src="https://user-images.githubusercontent.com/71232427/192252666-9ff1b699-e090-4c54-b3d6-49f3aa9ef7f2.png" width="300" height="500" > 
+<img src="https://user-images.githubusercontent.com/71232427/192257747-7afc3b7a-101c-4fc1-b11a-ba86c4e4a64d.png" width="300" height="400" > | <img src="https://user-images.githubusercontent.com/71232427/192249929-05a995b0-e20e-4b3a-bfd7-54e3a3d0a801.png" width="300" height="400" > | <img src="https://user-images.githubusercontent.com/71232427/192252666-9ff1b699-e090-4c54-b3d6-49f3aa9ef7f2.png" width="300" height="400" > 
 
 List Presences Declaration                                   |  Add Presence Declaration       | Historic off Declaration Presence
 :-------------------------:                                  |:-------------------------:   |:-------------------------:
@@ -23,7 +23,8 @@ Search and select Production Lines                                       |  Stat
 :-------------------------:                                              |:-------------------------: 
 <img src="https://user-images.githubusercontent.com/71232427/192256625-c7a56ca7-7746-41d6-8f3b-c90e4741e2ec.png" width="300" height="500" > | <img src="https://user-images.githubusercontent.com/71232427/192256638-7c9a9eed-a90f-4b2c-95c9-e086c8c235f2.png" width="300" height="500" >
 
-<!-- ![Screenshot_2022-09-26-10-11-08](https://user-images.githubusercontent.com/71232427/192256625-c7a56ca7-7746-41d6-8f3b-c90e4741e2ec.png)
-![Screenshot_2022-09-26-10-11-48](https://user-images.githubusercontent.com/71232427/192256638-7c9a9eed-a90f-4b2c-95c9-e086c8c235f2.png) -->
+
+![Screenshot_2022-09-26-11-42-58](https://user-images.githubusercontent.com/71232427/192257747-7afc3b7a-101c-4fc1-b11a-ba86c4e4a64d.png)
+
 
 
