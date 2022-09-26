@@ -8,7 +8,7 @@ An Android Production Management Application coded in Java Language using Androi
 
 Dashboard                                                    |  List Hours Notification                  | Add Notification Hour
 :-------------------------:                                  |:-------------------------:                |:-------------------------:
-<img src="https://user-images.githubusercontent.com/71232427/192231492-2d6911f0-d64e-4e40-ad0b-1526db906970.png" width="300" height="500" > | <img src="https://user-images.githubusercontent.com/71232427/192249929-05a995b0-e20e-4b3a-bfd7-54e3a3d0a801.png" width="300" height="500" > | <img src="https://user-images.githubusercontent.com/71232427/192252666-9ff1b699-e090-4c54-b3d6-49f3aa9ef7f2.png" width="300" height="500" > 
+<img src="https://user-images.githubusercontent.com/71232427/192231492-2d6911f0-d64e-4e40-ad0b-1526db906970.png" width="300" height="400" > | <img src="https://user-images.githubusercontent.com/71232427/192249929-05a995b0-e20e-4b3a-bfd7-54e3a3d0a801.png" width="300" height="500" > | <img src="https://user-images.githubusercontent.com/71232427/192252666-9ff1b699-e090-4c54-b3d6-49f3aa9ef7f2.png" width="300" height="500" > 
 
 List Presences Declaration                                   |  Add Presence Declaration       | Historic off Declaration Presence
 :-------------------------:                                  |:-------------------------:   |:-------------------------:
